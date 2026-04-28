@@ -1,38 +1,21 @@
-/**
- * Sanity Schema for Products
- * 
- * This schema defines the structure for products in the Sanity CMS.
- * To use this schema:
- * 1. Install Sanity in your project: npx sanity init
- * 2. Copy this file to your Sanity studio schemas folder
- * 3. Import and add to schemaTypes in your sanity.config.ts
- */
+import { defineField, defineType } from 'sanity'
 
-export const productSchema = {
+const product = defineType({
   name: 'product',
   title: 'Product',
   type: 'document',
   fields: [
-    {
+    defineField({
       name: 'name',
-      title: 'Name',
+      title: 'Product Name',
       type: 'object',
       fields: [
-        {
-          name: 'en',
-          title: 'English',
-          type: 'string',
-          validation: (Rule: { required: () => unknown }) => Rule.required(),
-        },
-        {
-          name: 'zh',
-          title: 'Chinese',
-          type: 'string',
-          validation: (Rule: { required: () => unknown }) => Rule.required(),
-        },
+        { name: 'en', type: 'string', title: 'English' },
+        { name: 'zh', type: 'string', title: '中文' },
       ],
-    },
-    {
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -40,96 +23,54 @@ export const productSchema = {
         source: 'name.en',
         maxLength: 96,
       },
-      validation: (Rule: { required: () => unknown }) => Rule.required(),
-    },
-    {
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'category',
       title: 'Category',
       type: 'reference',
       to: [{ type: 'category' }],
-      validation: (Rule: { required: () => unknown }) => Rule.required(),
-    },
-    {
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'description',
       title: 'Description',
       type: 'object',
       fields: [
-        {
-          name: 'en',
-          title: 'English',
-          type: 'text',
-          rows: 3,
-          validation: (Rule: { required: () => unknown }) => Rule.required(),
-        },
-        {
-          name: 'zh',
-          title: 'Chinese',
-          type: 'text',
-          rows: 3,
-          validation: (Rule: { required: () => unknown }) => Rule.required(),
-        },
+        { name: 'en', type: 'text', title: 'English' },
+        { name: 'zh', type: 'text', title: '中文' },
       ],
-    },
-    {
+    }),
+    defineField({
       name: 'image',
-      title: 'Image',
+      title: 'Product Image',
       type: 'image',
       options: {
         hotspot: true,
       },
-      validation: (Rule: { required: () => unknown }) => Rule.required(),
-    },
-    {
+    }),
+    defineField({
       name: 'tags',
       title: 'Tags',
       type: 'array',
-      of: [
-        {
-          type: 'string',
-          options: {
-            list: [
-              { title: 'Best Seller', value: 'best-seller' },
-              { title: 'Premium', value: 'premium' },
-            ],
-          },
-        },
-      ],
-    },
-    {
+      of: [{ type: 'string' }],
+      options: {
+        list: [
+          { title: 'Best Seller', value: 'best-seller' },
+          { title: 'Premium', value: 'premium' },
+        ],
+      },
+    }),
+    defineField({
       name: 'whatsappMessage',
-      title: 'Custom WhatsApp Message',
+      title: 'WhatsApp Pre-fill Message',
       type: 'object',
       fields: [
-        {
-          name: 'en',
-          title: 'English',
-          type: 'string',
-        },
-        {
-          name: 'zh',
-          title: 'Chinese',
-          type: 'string',
-        },
+        { name: 'en', type: 'text', title: 'English' },
+        { name: 'zh', type: 'text', title: '中文' },
       ],
-    },
-    {
-      name: 'order',
-      title: 'Display Order',
-      type: 'number',
-      description: 'Lower numbers appear first',
-    },
-  ],
-  orderings: [
-    {
-      title: 'Display Order',
-      name: 'orderAsc',
-      by: [{ field: 'order', direction: 'asc' }],
-    },
-    {
-      title: 'Name (English)',
-      name: 'nameAsc',
-      by: [{ field: 'name.en', direction: 'asc' }],
-    },
+      description: 'Optional custom message when user clicks WhatsApp CTA',
+    }),
   ],
   preview: {
     select: {
@@ -138,4 +79,6 @@ export const productSchema = {
       media: 'image',
     },
   },
-}
+})
+
+export default product

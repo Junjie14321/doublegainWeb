@@ -1,0 +1,220 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "en",
+            "type": "string",
+            "title": "English"
+          },
+          {
+            "name": "zh",
+            "type": "string",
+            "title": "中文"
+          }
+        ],
+        "name": "name",
+        "type": "object",
+        "title": "Product Name"
+      },
+      {
+        "options": {
+          "source": "name.en",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "category"
+          }
+        ],
+        "name": "category",
+        "type": "reference"
+      },
+      {
+        "fields": [
+          {
+            "name": "en",
+            "type": "text",
+            "title": "English"
+          },
+          {
+            "name": "zh",
+            "type": "text",
+            "title": "中文"
+          }
+        ],
+        "name": "description",
+        "type": "object"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image",
+        "title": "Product Image"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Best Seller",
+              "value": "best-seller"
+            },
+            {
+              "title": "Premium",
+              "value": "premium"
+            }
+          ]
+        },
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "tags",
+        "type": "array"
+      },
+      {
+        "description": "Optional custom message when user clicks WhatsApp CTA",
+        "fields": [
+          {
+            "name": "en",
+            "type": "text",
+            "title": "English"
+          },
+          {
+            "name": "zh",
+            "type": "text",
+            "title": "中文"
+          }
+        ],
+        "name": "whatsappMessage",
+        "type": "object",
+        "title": "WhatsApp Pre-fill Message"
+      }
+    ],
+    "name": "product",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "en",
+            "type": "string",
+            "title": "English"
+          },
+          {
+            "name": "zh",
+            "type": "string",
+            "title": "中文"
+          }
+        ],
+        "name": "name",
+        "type": "object",
+        "title": "Category Name"
+      },
+      {
+        "options": {
+          "source": "name.en",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "description": "5-8 words, benefit-driven",
+        "fields": [
+          {
+            "name": "en",
+            "type": "string",
+            "title": "English"
+          },
+          {
+            "name": "zh",
+            "type": "string",
+            "title": "中文"
+          }
+        ],
+        "name": "tagline",
+        "type": "object"
+      },
+      {
+        "description": "Lower numbers appear first",
+        "name": "order",
+        "type": "number",
+        "title": "Display Order"
+      }
+    ],
+    "name": "category",
+    "type": "document"
+  }
+]
