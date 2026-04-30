@@ -193,12 +193,22 @@ git checkout -b feature/your-feature-name
 git checkout -b feature/add-contact-form
 git checkout -b feature/update-product-page
 git checkout -b fix/navbar-bug
+git checkout -b frontend/product-grid-layout
+git checkout -b backend/contact-api-validation
+git checkout -b integration/sanity-products-sync
 ```
 
 **Branch Naming Convention:**
 - `feature/description` - for new features
 - `fix/description` - for bug fixes
 - `update/description` - for updates/improvements
+- `frontend/description` - for UI and client-side changes
+- `backend/description` - for API, database, and server-side changes
+- `integration/description` - for connecting services (e.g. Sanity, payment, auth)
+
+**Tip:** You can combine both style and area if your team prefers:
+- `feature/frontend/improve-product-cards`
+- `fix/backend/contact-route-timeout`
 
 ---
 
