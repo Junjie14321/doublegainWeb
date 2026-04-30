@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { getDictionary } from '@/lib/i18n/get-dictionary'
 import { ProductGrid } from '@/components/product-grid'
 import { CategoryFilter } from '@/components/category-filter'
-import { products, getProductsByCategory, type ProductCategory } from '@/lib/data/products'
+import { getProducts } from '@/lib/sanity/products'
+import type { Product, ProductCategory } from '@/lib/data/products'
 import type { Locale } from '@/lib/i18n/config'
 
 export const revalidate = 3600
@@ -28,6 +29,7 @@ export default async function ProductsPage({ params, searchParams }: PageProps) 
   const { locale } = await params
   const { category } = await searchParams
   const dict = getDictionary(locale)
+  const products = (await getProducts()) as Product[]
 
   const validCategories: ProductCategory[] = ['sauces', 'noodles', 'ingredients']
   const selectedCategory = validCategories.includes(category as ProductCategory)
@@ -35,7 +37,7 @@ export default async function ProductsPage({ params, searchParams }: PageProps) 
     : undefined
 
   const filteredProducts = selectedCategory
-    ? getProductsByCategory(selectedCategory)
+    ? products.filter((product) => product.category === selectedCategory)
     : products
 
   const categoryNames: Record<ProductCategory | 'all', string> = {
