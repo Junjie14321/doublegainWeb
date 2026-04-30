@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Amiri, Source_Code_Pro } from 'next/font/google'
-import { notFound } from 'next/navigation'
+import { Analytics } from '@vercel/analytics/next'
 import { locales, type Locale } from '@/lib/i18n/config'
 import { getDictionary } from '@/lib/i18n/get-dictionary'
 import { Navbar } from '@/components/navbar'
@@ -29,14 +29,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }): Promise<Metadata> {
   const { locale } = await params
-  if (!locales.includes(locale as Locale)) {
-    notFound()
-  }
-  const currentLocale = locale as Locale
-  const dict = getDictionary(currentLocale)
+  const dict = getDictionary(locale)
 
   return {
     title: {
@@ -47,7 +43,7 @@ export async function generateMetadata({
     openGraph: {
       title: dict.metadata.title,
       description: dict.metadata.description,
-      locale: currentLocale === 'zh' ? 'zh_CN' : 'en_US',
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
       type: 'website',
       siteName: 'Master 2',
     },
@@ -70,24 +66,20 @@ export default async function LocaleLayout({
   params,
 }: {
   children: React.ReactNode
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }) {
   const { locale } = await params
-  if (!locales.includes(locale as Locale)) {
-    notFound()
-  }
-  const currentLocale = locale as Locale
-  const dict = getDictionary(currentLocale)
+  const dict = getDictionary(locale)
 
   return (
-    <div
-      lang={currentLocale}
-      className={`${amiri.variable} ${sourceCodePro.variable} bg-background min-h-screen flex flex-col font-sans antialiased`}
-    >
-      <Navbar locale={currentLocale} dict={dict} />
-      <main className="flex-1">{children}</main>
-      <Footer locale={currentLocale} dict={dict} />
-      <StickyCTA locale={currentLocale} dict={dict} />
-    </div>
+    <html lang={locale} className={`${amiri.variable} ${sourceCodePro.variable} bg-background`}>
+      <body className="font-sans antialiased min-h-screen flex flex-col">
+        <Navbar locale={locale} dict={dict} />
+        <main className="flex-1">{children}</main>
+        <Footer locale={locale} dict={dict} />
+        <StickyCTA locale={locale} dict={dict} />
+        {process.env.NODE_ENV === 'production' && <Analytics />}
+      </body>
+    </html>
   )
 }

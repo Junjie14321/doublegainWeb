@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -30,6 +31,14 @@ export function Navbar({ locale, dict }: NavbarProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href={`/${locale}`} className="flex items-center gap-2">
+            <Image
+              src="/logo.png"
+              alt="Master 2 Logo"
+              width={40}
+              height={40}
+              className="h-10 w-10"
+              priority
+            />
             <span className="font-serif text-2xl font-bold text-primary">Master 2</span>
           </Link>
 
