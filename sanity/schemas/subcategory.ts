@@ -1,13 +1,13 @@
 import { defineField, defineType } from 'sanity'
 
-const category = defineType({
-  name: 'category',
-  title: 'Category',
+const subcategory = defineType({
+  name: 'subcategory',
+  title: 'Subcategory',
   type: 'document',
   fields: [
     defineField({
       name: 'name',
-      title: 'Category Name',
+      title: 'Subcategory Name',
       type: 'object',
       fields: [
         { name: 'en', type: 'string', title: 'English' },
@@ -26,27 +26,21 @@ const category = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'tagline',
-      title: 'Tagline',
-      type: 'object',
-      fields: [
-        { name: 'en', type: 'string', title: 'English' },
-        { name: 'zh', type: 'string', title: '中文' },
-      ],
-      description: '5-8 words, benefit-driven',
-    }),
-    defineField({
-      name: 'order',
-      title: 'Display Order',
-      type: 'number',
-      description: 'Lower numbers appear first',
+      name: 'parentCategory',
+      title: 'Parent Category',
+      type: 'reference',
+      to: [{ type: 'category' }],
+      description: 'Reference to the main category this subcategory belongs to',
+      validation: (Rule) => Rule.required(),
     }),
   ],
+  // Setup preview for the Sanity Studio dashboard
   preview: {
     select: {
       title: 'name.en',
+      subtitle: 'parentCategory.name.en', // Displays the parent category name for better organization
     },
   },
 })
 
-export default category
+export default subcategory
