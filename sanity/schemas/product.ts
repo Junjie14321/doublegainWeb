@@ -25,12 +25,20 @@ const product = defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+    
     defineField({
-      name: 'category',
-      title: 'Category',
-      type: 'reference',
-      to: [{ type: 'category' }],
+      name: 'categories',
+      title: 'Categories',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'category' }] }],
       validation: (Rule) => Rule.required(),
+    }),
+    
+    defineField({
+      name: 'subcategories',
+      title: 'Subcategories',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'subcategory' }] }],
     }),
     defineField({
       name: 'description',
@@ -41,6 +49,13 @@ const product = defineType({
         { name: 'zh', type: 'text', title: '中文' },
       ],
     }),
+    
+    defineField({
+      name: 'packagingSize',
+      title: 'Packaging Size',
+      type: 'string',
+      description: 'E.g., 150ml, 500g',
+    }),
     defineField({
       name: 'image',
       title: 'Product Image',
@@ -49,6 +64,7 @@ const product = defineType({
         hotspot: true,
       },
     }),
+    
     defineField({
       name: 'tags',
       title: 'Tags',
@@ -61,6 +77,15 @@ const product = defineType({
         ],
       },
     }),
+    
+    defineField({
+      name: 'allowSample',
+      title: 'Allow Sample Request',
+      type: 'boolean',
+      description: 'Enable the "Ask for sample" button for this product',
+      initialValue: false,
+    }),
+    
     defineField({
       name: 'whatsappMessage',
       title: 'WhatsApp Pre-fill Message',
@@ -75,11 +100,10 @@ const product = defineType({
   preview: {
     select: {
       title: 'name.en',
-      subtitle: 'category.name.en',
+      subtitle: 'packagingSize',
       media: 'image',
     },
   },
 })
 
 export default product
-// test commit
