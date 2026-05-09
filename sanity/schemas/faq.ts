@@ -3,13 +3,42 @@ import { defineField, defineType } from 'sanity'
 /**
  * Sanity Schema for FAQ
  * This schema defines the structure for FAQ items in the Sanity CMS.
- * Supports multi-language (English and Chinese).
+ * Supports multi-language (English and Chinese) and Category.
  */
 export default defineType({
   name: 'faq',
   title: 'FAQ',
   type: 'document',
   fields: [
+    
+    defineField({
+      name: 'category',
+      title: 'Question Category',
+      description: 'Select which section this FAQ belongs to',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Product Inquiry', value: 'product' },
+          { title: 'Ordering & Shipping', value: 'shipping' },
+          { title: 'Sample Request', value: 'sample' },
+          { title: 'Company Info', value: 'company' },
+          { title: 'Other', value: 'other' },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    
+    defineField({
+      name: 'categoryLabel',
+      title: 'Category Label (Multilingual)',
+      description: 'Optional: Overwrite category display name',
+      type: 'object',
+      fields: [
+        { name: 'en', title: 'English', type: 'string' },
+        { name: 'zh', title: 'Chinese', type: 'string' },
+      ],
+    }),
+
     defineField({
       name: 'question',
       title: 'Question',
@@ -67,6 +96,7 @@ export default defineType({
   preview: {
     select: {
       title: 'question.en',
+      subtitle: 'category', 
     },
   },
 })
