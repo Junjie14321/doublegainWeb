@@ -10,8 +10,8 @@ const category = defineType({
       title: 'Category Name',
       type: 'object',
       fields: [
-        { name: 'en', type: 'string', title: 'English' },
-        { name: 'zh', type: 'string', title: '中文' },
+        { name: 'en', type: 'string', title: 'English (e.g., SAUCES)' },
+        { name: 'zh', type: 'string', title: 'Chinese' },
       ],
       validation: (Rule) => Rule.required(),
     }),
@@ -19,33 +19,55 @@ const category = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: {
-        source: 'name.en',
-        maxLength: 96,
-      },
-      validation: (Rule) => Rule.required(),
+      options: { source: 'name.en', maxLength: 96 },
     }),
     defineField({
-      name: 'tagline',
-      title: 'Tagline',
+      name: 'subHeading', 
+      title: 'Sub-heading',
+      description: 'The uppercase text above the description (e.g., CONSISTENT DEPTH, AUTHENTIC TASTE)',
       type: 'object',
       fields: [
         { name: 'en', type: 'string', title: 'English' },
-        { name: 'zh', type: 'string', title: '中文' },
+        { name: 'zh', type: 'string', title: 'Chinese' },
       ],
-      description: '5-8 words, benefit-driven',
+    }),
+    defineField({
+      name: 'description', 
+      title: 'Description',
+      description: 'Main category description shown on the Home page card',
+      type: 'object',
+      fields: [
+        { name: 'en', type: 'text', title: 'English' },
+        { name: 'zh', type: 'text', title: 'Chinese' },
+      ],
+    }),
+    defineField({
+      name: 'viewProductsLabel', 
+      title: 'Button Label',
+      description: 'Label for the CTA button (e.g., VIEW PRODUCTS >)',
+      initialValue: { en: 'VIEW PRODUCTS', zh: '查看产品' },
+      type: 'object',
+      fields: [
+        { name: 'en', type: 'string', title: 'English' },
+        { name: 'zh', type: 'string', title: 'Chinese' },
+      ],
+    }),
+    defineField({
+      name: 'image', 
+      title: 'Category Image',
+      description: 'Product group image shown in the category card',
+      type: 'image',
+      options: { hotspot: true },
     }),
     defineField({
       name: 'order',
       title: 'Display Order',
+      description: 'Determines the sequence of categories',
       type: 'number',
-      description: 'Lower numbers appear first',
     }),
   ],
   preview: {
-    select: {
-      title: 'name.en',
-    },
+    select: { title: 'name.en', media: 'image' },
   },
 })
 
