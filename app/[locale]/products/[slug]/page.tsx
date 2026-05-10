@@ -9,6 +9,7 @@ import { ProductGrid } from '@/components/product-grid'
 import { ProductSchema } from '@/components/structured-data'
 import { getDictionary } from '@/lib/i18n/get-dictionary'
 import { getProductBySlug, getProductsByCategory, products } from '@/lib/data/products'
+import type { ProductCategory } from '@/lib/data/products'
 import { generateWhatsAppLink } from '@/lib/whatsapp'
 import type { Locale } from '@/lib/i18n/config'
 
@@ -33,8 +34,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Product Not Found' }
   }
 
-  const name = product.name[locale]
-  const description = product.description[locale]
+  const name = product.name?.[locale] ?? product.name?.en ?? ''
+  const description = product.description?.[locale] ?? product.description?.en ?? ''
 
   return {
     title: name,
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${name} | Master 2`,
       description,
-      images: [product.image],
+      ...(product.image ? { images: [product.image] } : {}),
     },
   }
 }
@@ -56,8 +57,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
   }
 
   const dict = getDictionary(locale)
-  const name = product.name[locale]
-  const description = product.description[locale]
+  const name = product.name?.[locale] ?? product.name?.en ?? ''
+  const description = product.description?.[locale] ?? product.description?.en ?? ''
 
   const whatsappLink = generateWhatsAppLink({
     intent: 'product-inquiry',
@@ -66,9 +67,11 @@ export default async function ProductDetailPage({ params }: PageProps) {
   })
 
   // Get related products from the same category
-  const relatedProducts = getProductsByCategory(product.category)
-    .filter((p) => p.id !== product.id)
-    .slice(0, 3)
+  const relatedProducts = product.category
+    ? getProductsByCategory(product.category as ProductCategory)
+        .filter((p) => p.id !== product.id)
+        .slice(0, 3)
+    : []
 
   return (
     <>
@@ -88,14 +91,20 @@ export default async function ProductDetailPage({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
             {/* Image */}
             <div className="relative aspect-square bg-muted rounded-xl overflow-hidden">
-              <Image
-                src={product.image}
-                alt={name}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                priority
-              />
+              {product.image ? (
+                <Image
+                  src={product.image}
+                  alt={name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
+                  No image
+                </div>
+              )}
               {/* Tags */}
               {product.tags && product.tags.length > 0 && (
                 <div className="absolute top-4 left-4 flex flex-wrap gap-2">
@@ -119,9 +128,11 @@ export default async function ProductDetailPage({ params }: PageProps) {
             {/* Details */}
             <div className="space-y-6">
               <div>
-                <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2">
-                  {dict.categories[product.category].name}
-                </p>
+                {product.category && dict.categories[product.category as keyof typeof dict.categories] && (
+                  <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2">
+                    {(dict.categories[product.category as keyof typeof dict.categories] as { name: string }).name}
+                  </p>
+                )}
                 <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
                   {name}
                 </h1>

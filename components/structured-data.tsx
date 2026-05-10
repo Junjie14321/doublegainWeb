@@ -61,9 +61,9 @@ export function ProductSchema({ product, locale }: ProductSchemaProps) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: product.name[locale],
-    description: product.description[locale],
-    image: `https://master2.com${product.image}`,
+    name: product.name?.[locale] ?? product.name?.en ?? '',
+    description: product.description?.[locale] ?? product.description?.en ?? '',
+    image: product.image ? `https://master2.com${product.image}` : undefined,
     brand: {
       '@type': 'Brand',
       name: 'Master 2',

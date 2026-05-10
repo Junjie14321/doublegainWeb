@@ -2,25 +2,43 @@ export type ProductCategory = 'sauces' | 'noodles' | 'ingredients'
 
 export type ProductTag = 'best-seller' | 'premium'
 
+export interface ProductCategoryRef {
+  slug: string
+  name: { en: string; zh: string }
+}
+
 export interface Product {
   id: string
   slug: string
-  category: ProductCategory
-  name: {
-    en: string
-    zh: string
-  }
-  description: {
-    en: string
-    zh: string
-  }
-  image: string
-  packagingSize?: string
-  tags?: ProductTag[]
-  whatsappMessage?: {
-    en: string
-    zh: string
-  }
+  sku?: string
+
+  name: { en: string; zh: string }
+  variantName?: { en: string; zh: string }
+
+  // Category — string kept for mock data + filter compat; array for Sanity
+  category?: string
+  categories?: ProductCategoryRef[]
+  subcategories?: ProductCategoryRef[]
+
+  // Details
+  description?: { en: string; zh: string }   // legacy (mock data)
+  packaging?: { en: string; zh: string }      // new schema
+  packagingSize?: string                      // mapped from packaging.en for cart
+  ingredients?: { en: string; zh: string }
+  suggestedUses?: { en: string; zh: string }
+
+  image?: string
+
+  // Badges
+  specialty?: boolean
+  bestSeller?: boolean
+  isNew?: boolean
+  tags?: ProductTag[]                         // legacy (mock data)
+
+  // Commerce
+  allowQuote?: boolean
+  allowSample?: boolean
+  whatsappMessage?: { en: string; zh: string }
 }
 
 export const products: Product[] = [
