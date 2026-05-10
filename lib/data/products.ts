@@ -15,6 +15,7 @@ export interface Product {
     zh: string
   }
   image: string
+  packagingSize?: string
   tags?: ProductTag[]
   whatsappMessage?: {
     en: string

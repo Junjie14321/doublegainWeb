@@ -5,7 +5,8 @@ import { locales, type Locale } from '@/lib/i18n/config'
 import { getDictionary } from '@/lib/i18n/get-dictionary'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
-import { StickyCTA } from '@/components/sticky-cta'
+import { CartDrawer } from '@/components/cart-drawer'
+import { CartProvider } from '@/context/cart-context'
 import '../globals.css'
 
 const amiri = Amiri({
@@ -80,14 +81,16 @@ export default async function LocaleLayout({
   const dict = getDictionary(currentLocale)
 
   return (
-    <div
-      lang={currentLocale}
-      className={`${amiri.variable} ${sourceCodePro.variable} bg-background min-h-screen flex flex-col font-sans antialiased`}
-    >
-      <Navbar locale={currentLocale} dict={dict} />
-      <main className="flex-1">{children}</main>
-      <Footer locale={currentLocale} dict={dict} />
-      <StickyCTA locale={currentLocale} dict={dict} />
-    </div>
+    <CartProvider>
+      <div
+        lang={currentLocale}
+        className={`${amiri.variable} ${sourceCodePro.variable} bg-background min-h-screen flex flex-col font-sans antialiased`}
+      >
+        <Navbar locale={currentLocale} dict={dict} />
+        <main className="flex-1">{children}</main>
+        <Footer locale={currentLocale} dict={dict} />
+        <CartDrawer locale={currentLocale} dict={dict} />
+      </div>
+    </CartProvider>
   )
 }

@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = '60123456789' // Replace with actual number
+const WHATSAPP_NUMBER = '60123456789'
 
 export type BusinessType = 'restaurant' | 'hotel' | 'distributor' | 'caterer'
 
@@ -60,4 +60,41 @@ export function generateWhatsAppLink(params: WhatsAppMessageParams): string {
 
   const encodedMessage = encodeURIComponent(message)
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`
+}
+
+export interface CartLineItem {
+  name: { en: string; zh: string }
+  packagingSize?: string
+  quantity: number
+}
+
+export function generateCartWhatsAppLink(params: {
+  items: CartLineItem[]
+  intent: 'quote' | 'sample'
+  locale: 'en' | 'zh'
+}): string {
+  const { items, intent, locale } = params
+
+  const productList = items
+    .map((item, i) => {
+      const name = item.name[locale]
+      const packaging = item.packagingSize ? ` (${item.packagingSize})` : ''
+      const qty = item.quantity > 1 ? ` x${item.quantity}` : ''
+      return `${i + 1}. ${name}${packaging}${qty}`
+    })
+    .join('\n')
+
+  let message = ''
+
+  if (locale === 'en') {
+    message = intent === 'quote'
+      ? `Hello, I would like to request a quote for the following products:\n\n${productList}\n\nCould you please provide pricing and availability? Thank you.`
+      : `Hello, I would like to request samples for the following products:\n\n${productList}\n\nThank you.`
+  } else {
+    message = intent === 'quote'
+      ? `您好，我想询问以下产品的报价：\n\n${productList}\n\n请提供价格和库存情况，谢谢。`
+      : `您好，我想申请以下产品的样品：\n\n${productList}\n\n谢谢。`
+  }
+
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
 }
