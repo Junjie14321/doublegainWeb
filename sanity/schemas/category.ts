@@ -42,7 +42,13 @@ const category = defineType({
       ],
     }),
     defineField({
-      name: 'image', 
+      name: 'order',
+      title: 'Display Order',
+      type: 'number',
+      description: 'Lower numbers appear first (e.g., 1, 2, 3)',
+    }),
+    defineField({
+      name: 'image',
       title: 'Category Image',
       description: 'Product group image shown in the category card',
       type: 'image',
