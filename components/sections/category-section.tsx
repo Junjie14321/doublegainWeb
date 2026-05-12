@@ -1,77 +1,90 @@
-import Link from 'next/link'
+'use client'
+
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import type { Locale } from '@/lib/i18n/config'
-import type { Dictionary } from '@/lib/i18n/dictionaries/en'
+import Link from 'next/link'
+import { useLanguage } from '@/context/language-context'
 
-interface CategorySectionProps {
-  locale: Locale
-  dict: Dictionary
-}
+export function CategorySection() {
+  const { locale, t } = useLanguage()
 
-export function CategorySection({ locale, dict }: CategorySectionProps) {
   const categories = [
     {
-      id: 'sauces',
-      name: dict.categories.sauces.name,
-      tagline: dict.categories.sauces.tagline,
-      image: '/images/categories/sauces.jpg',
+      key: 'sauces',
+      href: `/${locale}/products?category=sauces`,
+      name: t.categories.sauces.name,
+      tagline: t.categories.sauces.tagline,
+      heroImage: '/images/hero-sauces-background.jpg',
+      number: '01',
     },
     {
-      id: 'noodles',
-      name: dict.categories.noodles.name,
-      tagline: dict.categories.noodles.tagline,
-      image: '/images/categories/noodles.jpg',
+      key: 'noodles',
+      href: `/${locale}/products?category=noodles`,
+      name: t.categories.noodles.name,
+      tagline: t.categories.noodles.tagline,
+      heroImage: '/images/hero-noodles-background.jpg',
+      number: '02',
     },
     {
-      id: 'ingredients',
-      name: dict.categories.ingredients.name,
-      tagline: dict.categories.ingredients.tagline,
-      image: '/images/categories/ingredients.jpg',
+      key: 'premade',
+      href: `/${locale}/products?category=pre-made`,
+      name: t.categories.premade.name,
+      tagline: t.categories.premade.tagline,
+      heroImage: '/images/hero-premade-background.jpg',
+      number: '03',
     },
   ]
 
   return (
-    <section className="py-20 bg-muted/50">
-      <div className="container mx-auto px-4">
-        <h2 className="font-serif text-3xl md:text-4xl font-bold text-center text-foreground mb-16">
-          {dict.categories.title}
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {categories.map((category) => (
-            <Link
-              key={category.id}
-              href={`/${locale}/products?category=${category.id}`}
-              className="group relative overflow-hidden rounded-xl aspect-[4/5] bg-card"
-            >
-              {/* Image */}
+    <section style={{ backgroundColor: '#FFF7DE', paddingTop: '22px', paddingBottom: '34px' }}>
+      <div className="container-pad">
+        <div className="text-left mb-6">
+          <h2 className="text-xl md:text-2xl font-heading text-primary">
+            {t.categories.title}
+          </h2>
+        </div>
+
+        <div className="space-y-4">
+          {categories.map((cat) => (
+            <Link key={cat.key} href={cat.href} className="relative w-full h-48 md:h-56 rounded-2xl overflow-hidden group block cursor-pointer">
               <Image
-                src={category.image}
-                alt={category.name}
+                src={cat.heroImage}
+                alt={cat.name}
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 100vw"
+                priority={cat.number === '01'}
               />
-              
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-              
-              {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <h3 className="font-serif text-2xl font-bold mb-2">{category.name}</h3>
-                <p className="text-white/80 text-sm mb-4">{category.tagline}</p>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-white/30 text-white hover:bg-white/10 gap-2 group-hover:gap-3 transition-all"
-                >
-                  {dict.categories.viewAll}
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
+              <div className="absolute inset-0 bg-gradient-to-l from-black/40 via-black/20 to-transparent" />
+              <div className="absolute inset-0 flex items-center justify-end p-6 md:p-12">
+                <div className="max-w-xs text-right">
+                  <p className="text-secondary font-subheading text-sm md:text-base uppercase tracking-widest mb-0.5">
+                    {cat.number}
+                  </p>
+                  <h3 className="text-white font-heading text-2xl md:text-4xl uppercase tracking-widest font-bold mb-1">
+                    {cat.name}
+                  </h3>
+                  <p className="text-white/90 text-sm md:text-base italic leading-relaxed mb-4">
+                    {cat.tagline}
+                  </p>
+                  <span className="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-dark text-dark font-subheading text-sm px-6 py-2.5 rounded-full transition-all duration-300 font-medium tracking-wide hover:shadow-lg group-hover:scale-105">
+                    Explore
+                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link
+            href={`/${locale}/products`}
+            className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-subheading text-sm px-8 py-3 rounded-lg transition-all duration-300 uppercase tracking-wide shadow-md hover:shadow-lg hover:scale-105"
+          >
+            {t.categories.viewAll}
+          </Link>
         </div>
       </div>
     </section>

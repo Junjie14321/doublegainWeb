@@ -1,88 +1,176 @@
 'use client'
 
+import { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { LanguageSwitcher } from '@/components/language-switcher'
-import type { Locale } from '@/lib/i18n/config'
-import type { Dictionary } from '@/lib/i18n/dictionaries/en'
+import { useRouter, usePathname } from 'next/navigation'
+import { useLanguage } from '@/context/language-context'
+import { useSavedList } from '@/context/saved-list-context'
+import { SavedListPanel } from '@/components/products/saved-list-panel'
 
-interface NavbarProps {
-  locale: Locale
-  dict: Dictionary
-}
+export function Navbar() {
+  const { locale, t } = useLanguage()
+  const { savedItems } = useSavedList()
+  const [savedOpen, setSavedOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const searchRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
+  const pathname = usePathname()
 
-export function Navbar({ locale, dict }: NavbarProps) {
-  const [isOpen, setIsOpen] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
-  const navLinks = [
-    { href: `/${locale}`, label: dict.nav.home },
-    { href: `/${locale}/products`, label: dict.nav.products },
-    { href: `/${locale}/products?category=sauces`, label: dict.nav.sauces },
-    { href: `/${locale}/products?category=noodles`, label: dict.nav.noodles },
-    { href: `/${locale}/products?category=ingredients`, label: dict.nav.ingredients },
-  ]
+  useEffect(() => {
+    if (searchOpen && searchRef.current) searchRef.current.focus()
+  }, [searchOpen])
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/${locale}/products?q=${encodeURIComponent(searchQuery.trim())}`)
+      setSearchOpen(false)
+      setSearchQuery('')
+    }
+  }
+
+  const switchLocale = (newLocale: 'en' | 'zh') => {
+    const newPath = pathname.replace(/^\/(en|zh)/, `/${newLocale}`)
+    router.push(newPath)
+  }
 
   return (
-    <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border">
-      <nav className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center gap-2">
-            <span className="font-serif text-2xl font-bold text-primary">Master 2</span>
-          </Link>
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 bg-white transition-shadow duration-200 ${
+          scrolled ? 'shadow-md' : 'border-b border-border-color'
+        }`}
+      >
+        <div className="container-pad">
+          <div className="flex items-center justify-between h-16">
+            <Link href={`/${locale}`} className="flex items-center gap-2 flex-shrink-0">
+              <Image
+                src="/images/logo-new.png"
+                alt="Master 2 Foods"
+                width={120}
+                height={40}
+                style={{ width: 'auto', height: '40px' }}
+                className="h-10 w-auto object-contain"
+                priority
+              />
+            </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
-              >
-                {link.label}
+            <nav className="hidden md:flex items-center gap-8">
+              <Link href={`/${locale}`} className="text-sm font-ui text-text-primary hover:text-primary transition-colors">
+                {t.nav.home}
               </Link>
-            ))}
-          </div>
+              <Link href={`/${locale}/products`} className="text-sm font-ui text-text-primary hover:text-primary transition-colors flex items-center gap-1">
+                {t.nav.products}
+              </Link>
+              <Link href={`/${locale}/about`} className="text-sm font-ui text-text-primary hover:text-primary transition-colors">
+                {t.nav.brand}
+              </Link>
+              <Link href={`/${locale}/contact`} className="text-sm font-ui text-text-primary hover:text-primary transition-colors">
+                {t.nav.contact}
+              </Link>
+            </nav>
 
-          {/* Desktop Actions */}
-          <div className="hidden lg:flex items-center gap-4">
-            <LanguageSwitcher locale={locale} />
-          </div>
+            <div className="flex items-center gap-1">
+              <div className="hidden md:flex items-center border border-border-color rounded-full overflow-hidden text-xs font-subheading">
+                <button
+                  onClick={() => switchLocale('en')}
+                  className={`px-3 py-1.5 transition-colors ${locale === 'en' ? 'bg-primary text-white' : 'text-text-secondary hover:bg-surface'}`}
+                  aria-label="Switch to English"
+                >
+                  EN
+                </button>
+                <button
+                  onClick={() => switchLocale('zh')}
+                  className={`px-3 py-1.5 transition-colors ${locale === 'zh' ? 'bg-primary text-white' : 'text-text-secondary hover:bg-surface'}`}
+                  aria-label="切换到中文"
+                >
+                  中文
+                </button>
+              </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex lg:hidden items-center gap-2">
-            <LanguageSwitcher locale={locale} />
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? 'Close menu' : 'Open menu'}
-            >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+              <button onClick={() => setSearchOpen(true)} className="p-2 text-text-secondary hover:text-primary transition-colors" aria-label="Search">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+
+              <button onClick={() => setSavedOpen(!savedOpen)} className="relative p-2 text-text-secondary hover:text-primary transition-colors" aria-label={t.nav.savedList}>
+                <svg className="w-5 h-5" fill={savedItems.length > 0 ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                {savedItems.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary text-white text-[10px] font-bold min-w-[16px] h-4 px-1 rounded-full flex items-center justify-center leading-[0]">
+                    {savedItems.length}
+                  </span>
+                )}
+              </button>
+
+              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2 text-text-secondary hover:text-primary transition-colors" aria-label="Menu">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {mobileMenuOpen
+                    ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                    : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
+                  }
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden py-4 border-t border-border">
-            <div className="flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary hover:bg-muted rounded-md transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border-color bg-white">
+            <div className="container-pad py-4 flex flex-col gap-4">
+              <Link href={`/${locale}`} className="text-sm font-ui text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.home}</Link>
+              <Link href={`/${locale}/products`} className="text-sm font-ui text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.products}</Link>
+              <Link href={`/${locale}/about`} className="text-sm font-ui text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.brand}</Link>
+              <Link href={`/${locale}/contact`} className="text-sm font-ui text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.contact}</Link>
+              <div className="flex items-center gap-2 pt-2 border-t border-border-color">
+                <span className="text-xs text-text-muted">Language:</span>
+                <button onClick={() => { switchLocale('en'); setMobileMenuOpen(false) }} className={`text-xs px-3 py-1 rounded-full border ${locale === 'en' ? 'bg-primary text-white border-primary' : 'border-border-color text-text-secondary'}`}>EN</button>
+                <button onClick={() => { switchLocale('zh'); setMobileMenuOpen(false) }} className={`text-xs px-3 py-1 rounded-full border ${locale === 'zh' ? 'bg-primary text-white border-primary' : 'border-border-color text-text-secondary'}`}>中文</button>
+              </div>
             </div>
           </div>
         )}
-      </nav>
-    </header>
+
+        {searchOpen && (
+          <div className="absolute top-full left-0 right-0 bg-white border-b border-border-color shadow-lg p-4">
+            <form onSubmit={handleSearch} className="container-pad">
+              <div className="flex items-center gap-3 bg-surface rounded-full px-4 py-2.5 border border-border-color">
+                <svg className="w-4 h-4 text-text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input
+                  ref={searchRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={t.nav.searchPlaceholder}
+                  className="flex-1 bg-transparent text-sm text-text-primary outline-none"
+                />
+                <button type="button" onClick={() => setSearchOpen(false)} className="text-text-muted hover:text-text-primary transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+      </header>
+
+      {savedOpen && <SavedListPanel onClose={() => setSavedOpen(false)} />}
+      {savedOpen && <div className="fixed inset-0 z-40 bg-black/20" onClick={() => setSavedOpen(false)} />}
+    </>
   )
 }

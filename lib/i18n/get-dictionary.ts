@@ -1,12 +1,6 @@
-import type { Locale } from './config'
-import { en, type Dictionary } from './dictionaries/en'
-import { zh } from './dictionaries/zh'
-
-const dictionaries: Record<Locale, Dictionary> = {
-  en,
-  zh,
-}
+import { translations, type Dictionary } from '@/lib/i18n/translations'
+import type { Locale } from '@/lib/i18n/config'
 
 export function getDictionary(locale: Locale): Dictionary {
-  return dictionaries[locale] ?? dictionaries.en
+  return (translations[locale] ?? translations.en) as Dictionary
 }

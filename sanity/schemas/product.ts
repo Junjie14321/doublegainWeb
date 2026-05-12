@@ -15,7 +15,6 @@ const product = defineType({
       ],
       validation: (Rule) => Rule.required(),
     }),
-    
     defineField({
       name: 'sku',
       title: 'SKU Number',
@@ -23,7 +22,7 @@ const product = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'variantName', 
+      name: 'variantName',
       title: 'Variant/Grade Name',
       description: 'E.g., Standard, Semi Premium (Shown in Interested List)',
       type: 'object',
@@ -43,7 +42,7 @@ const product = defineType({
       validation: (Rule) => Rule.required(),
     }),
 
-    // Badge
+    // Badges
     defineField({
       name: 'specialty',
       title: 'Specialty',
@@ -65,7 +64,22 @@ const product = defineType({
       type: 'boolean',
       initialValue: false,
     }),
+    defineField({
+      name: 'grade',
+      title: 'Grade',
+      description: 'Quality tier shown as a badge on product cards',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Standard', value: 'standard' },
+          { title: 'Semi Premium', value: 'semi-premium' },
+          { title: 'Premium', value: 'premium' },
+        ],
+        layout: 'radio',
+      },
+    }),
 
+    // Categories
     defineField({
       name: 'categories',
       title: 'Categories',
@@ -79,10 +93,12 @@ const product = defineType({
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'subcategory' }] }],
     }),
+
+    // Product details
     defineField({
       name: 'packaging',
       title: 'Packaging',
-      description: 'Format: 1 Litre x 12 bottles/case',
+      description: 'e.g. "1 Litre · 12 bottles/case"',
       type: 'object',
       fields: [
         { name: 'en', type: 'string', title: 'English' },
@@ -117,6 +133,8 @@ const product = defineType({
         hotspot: true,
       },
     }),
+
+    // Commerce
     defineField({
       name: 'allowQuote',
       title: 'Allow Request for Quote',

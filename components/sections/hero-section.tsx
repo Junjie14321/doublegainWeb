@@ -1,82 +1,68 @@
+'use client'
+
 import Link from 'next/link'
-import { ArrowRight, MessageCircle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { generateWhatsAppLink } from '@/lib/whatsapp'
-import type { Locale } from '@/lib/i18n/config'
-import type { Dictionary } from '@/lib/i18n/dictionaries/en'
+import Image from 'next/image'
+import { useLanguage } from '@/context/language-context'
+import { priceListLink } from '@/lib/whatsapp'
 
-interface HeroSectionProps {
-  locale: Locale
-  dict: Dictionary
-}
-
-export function HeroSection({ locale, dict }: HeroSectionProps) {
-  const whatsappLink = generateWhatsAppLink({
-    intent: 'price-list',
-    locale,
-  })
+export function HeroSection() {
+  const { locale, t } = useLanguage()
 
   return (
-    <section className="relative bg-[#451919] text-white overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,204,90,0.3),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(174,34,10,0.3),transparent_50%)]" />
+    <section className="relative overflow-hidden min-h-[360px] md:min-h-[420px] flex items-center pt-16">
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero-ingredients-background.jpg"
+          alt="Premium food ingredients and sauces"
+          fill
+          priority
+          quality={90}
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-dark/50 md:bg-transparent" />
       </div>
 
-      <div className="container mx-auto px-4 py-20 md:py-28 lg:py-32 relative">
-        <div className="max-w-3xl mx-auto text-center space-y-8">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 text-sm">
-            <span className="w-2 h-2 bg-secondary rounded-full animate-pulse" />
-            <span className="text-white/90">
-              {locale === 'en' ? 'Since 1996' : '始于1996年'}
+      <div className="relative z-10 py-8 md:py-12 w-full">
+        <div className="max-w-md mx-auto md:ml-[25%] md:mx-0 px-6 md:px-4 text-center md:text-left">
+          <div className="inline-flex items-center gap-2 bg-secondary/20 border border-secondary/30 rounded-full px-4 py-1.5 mb-3 md:mb-4">
+            <span className="w-2 h-2 rounded-full bg-secondary inline-block" />
+            <span className="text-secondary text-xs font-subheading uppercase tracking-widest">
+              {t.hero.badge}
             </span>
           </div>
 
-          {/* Headline */}
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight text-balance">
-            Master 2
+          <h1 className="text-2xl md:text-4xl lg:text-5xl text-white font-heading leading-tight mb-3 md:mb-4">
+            Master 2 <span className="text-secondary">Foods</span>
           </h1>
 
-          {/* Tagline */}
-          <p className="text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl mx-auto text-pretty">
-            {dict.hero.tagline}
+          <p className="text-white/80 text-sm md:text-base leading-relaxed mb-6 md:mb-8">
+            {t.hero.tagline}
           </p>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-              <Button
-                size="lg"
-                className="bg-secondary text-secondary-foreground hover:bg-secondary/90 gap-2 min-w-[200px]"
-              >
-                <MessageCircle className="h-5 w-5" />
-                {dict.hero.cta}
-              </Button>
+          <div className="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-3 md:gap-4">
+            <a
+              href={priceListLink(locale)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-secondary hover:bg-secondary-dark text-dark font-subheading text-sm px-6 py-2.5 md:py-3 rounded-lg transition-colors uppercase tracking-wide"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.132.558 4.13 1.533 5.863L.057 23.57l5.861-1.508A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.91 0-3.695-.5-5.24-1.37l-.375-.22-3.478.895.93-3.373-.243-.389A9.943 9.943 0 012 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              {t.hero.cta}
             </a>
-            <Link href={`/${locale}/products`}>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 gap-2 min-w-[200px]"
-              >
-                {dict.hero.secondaryCta}
-                <ArrowRight className="h-5 w-5" />
-              </Button>
+            <Link
+              href={`/${locale}/products`}
+              className="inline-flex items-center justify-center gap-2 border border-white/30 text-white hover:border-secondary hover:text-secondary font-subheading text-sm px-6 py-2.5 md:py-3 rounded-lg transition-colors uppercase tracking-wide"
+            >
+              {t.hero.ctaSecondary}
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </Link>
           </div>
         </div>
-      </div>
-
-      {/* Bottom Wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 100" className="w-full h-auto" preserveAspectRatio="none">
-          <path
-            fill="var(--background)"
-            d="M0,100 L0,60 Q360,0 720,60 Q1080,120 1440,60 L1440,100 Z"
-          />
-        </svg>
       </div>
     </section>
   )

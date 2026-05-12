@@ -1,5 +1,5 @@
 {
-  "createdAt": "2026-04-28T03:09:10.162Z",
+  "createdAt": "2026-05-10T16:49:30.174Z",
   "studioVersion": "5.22.0",
   "version": 3,
   "workspaces": [
@@ -13,7 +13,7 @@
       },
       "name": "default",
       "projectId": "b0byprax",
-      "schema": "6407d3c5.create-schema.json",
+      "schema": "869adc4f.create-schema.json",
       "title": "Master 2 Product Catalog",
       "tools": "ef87c8fe.create-tools.json"
     }

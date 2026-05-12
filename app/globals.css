@@ -1,80 +1,102 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
 
-@custom-variant dark (&:is(.dark *));
+@font-face {
+  font-family: 'HeadingFont';
+  src: url('/fonts/heading-font.ttf') format('truetype');
+  font-weight: 400 700;
+  font-display: swap;
+}
 
-/* Master 2 Brand Colors */
+@font-face {
+  font-family: 'SubHeadingFont';
+  src: url('/fonts/sub-heading-font.ttf') format('truetype');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BodyFont';
+  src: url('/fonts/body-font.ttf') format('truetype');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
 :root {
-  /* Brand Colors - hex conversions to oklch */
-  --brand-primary: oklch(0.42 0.18 25); /* #AE220A - Deep Red */
-  --brand-secondary: oklch(0.85 0.14 85); /* #FFCC5A - Golden Yellow */
-  --brand-background: oklch(0.95 0.04 85); /* #FFEDC4 - Warm Cream */
-  --brand-dark: oklch(0.28 0.08 25); /* #451919 - Dark Maroon */
-  --brand-white: oklch(1 0 0); /* #FFFFFF */
-  
-  /* Semantic tokens using brand colors */
-  --background: var(--brand-background);
-  --foreground: var(--brand-dark);
-  --card: var(--brand-white);
-  --card-foreground: var(--brand-dark);
-  --popover: var(--brand-white);
-  --popover-foreground: var(--brand-dark);
-  --primary: var(--brand-primary);
-  --primary-foreground: var(--brand-white);
-  --secondary: var(--brand-secondary);
-  --secondary-foreground: var(--brand-dark);
-  --muted: oklch(0.92 0.02 85);
-  --muted-foreground: oklch(0.45 0.04 25);
-  --accent: var(--brand-secondary);
-  --accent-foreground: var(--brand-dark);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.88 0.04 85);
-  --input: oklch(0.92 0.02 85);
-  --ring: var(--brand-primary);
-  --radius: 0.5rem;
+  --font-heading: 'HeadingFont', serif;
+  --font-subheading: 'SubHeadingFont', sans-serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 
 @theme inline {
-  --font-sans: var(--font-body), system-ui, sans-serif;
+  --font-heading: var(--font-heading);
+  --font-subheading: var(--font-subheading);
+  --font-body: var(--font-body);
+  --font-sans: var(--font-body);
   --font-serif: var(--font-heading), Georgia, serif;
-  --font-mono: 'Geist Mono', monospace;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --font-ui: var(--font-body);
+
+  --color-primary: #AE220A;
+  --color-primary-dark: #8B1A08;
+  --color-primary-light: #C93510;
+  --color-secondary: #FFCC5A;
+  --color-secondary-dark: #E6B540;
+  --color-dark: #451919;
+  --color-dark-muted: #6B3030;
+  --color-background: #FFF7DE;
+  --color-surface: #F8F5F3;
+  --color-surface-dark: #F0EAE6;
+  --color-border-color: #E5DDD8;
+  --color-text-primary: #1A0A0A;
+  --color-text-secondary: #5C3D3D;
+  --color-text-muted: #9B7B7B;
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: #1A0A0A;
+  background-color: #FFF7DE;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading), serif;
+}
+
+@layer utilities {
+  .container-pad {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  .grade-standard {
+    background-color: #451919;
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
   }
-  h1, h2, h3, h4 {
-    @apply font-serif font-bold tracking-tight text-balance;
+
+  .grade-semi-premium {
+    background-color: #5C3D3D;
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
   }
-  p {
-    @apply leading-relaxed;
+
+  .grade-premium {
+    background-color: #FFCC5A;
+    color: #451919;
+    font-size: 0.75rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
   }
 }

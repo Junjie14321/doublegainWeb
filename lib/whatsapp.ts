@@ -1,100 +1,48 @@
-const WHATSAPP_NUMBER = '60123456789'
+import { SITE, WHATSAPP_BASE } from '@/lib/constants/site'
 
-export type BusinessType = 'restaurant' | 'hotel' | 'distributor' | 'caterer'
+function buildWhatsAppLink(message: string): string {
+  return `${WHATSAPP_BASE}${SITE.whatsappNumber}?text=${encodeURIComponent(message)}`
+}
 
-export interface WhatsAppMessageParams {
+export function priceListLink(locale: 'en' | 'zh'): string {
+  const msg =
+    locale === 'zh'
+      ? '您好，我想索取Master 2 Foods的产品价目表。'
+      : "Hi, I'd like to request your price list for Master 2 Foods products."
+  return buildWhatsAppLink(msg)
+}
+
+export function productInquiryLink(productName: string, locale: 'en' | 'zh'): string {
+  const msg =
+    locale === 'zh'
+      ? `您好，我对您的${productName}感兴趣，想了解更多关于定价和供货情况。`
+      : `Hi, I'm interested in your ${productName}. I'd like to know more about pricing and availability.`
+  return buildWhatsAppLink(msg)
+}
+
+export function sampleRequestLink(productName: string, locale: 'en' | 'zh'): string {
+  const msg =
+    locale === 'zh'
+      ? `您好，我想申请您的${productName}样品，请告知后续步骤。`
+      : `Hi, I'd like to request a sample of your ${productName}. Please let me know the next steps.`
+  return buildWhatsAppLink(msg)
+}
+
+export function savedListLink(productNames: string[], locale: 'en' | 'zh'): string {
+  const list = productNames.map((p) => `• ${p}`).join('\n')
+  const msg =
+    locale === 'zh'
+      ? `您好，我对Master 2 Foods以下产品感兴趣：\n\n${list}\n\n请问能否提供定价与供货信息？`
+      : `Hi, I'm interested in the following products from Master 2 Foods:\n\n${list}\n\nCould you please send me pricing and availability?`
+  return buildWhatsAppLink(msg)
+}
+
+// Legacy compat — used by structured-data and product detail page
+export function generateWhatsAppLink(params: {
   intent: 'price-list' | 'product-inquiry'
   productName?: string
-  category?: string
-  businessType?: BusinessType
-  locale: 'en' | 'zh'
-}
-
-const businessTypeMessages = {
-  en: {
-    restaurant: 'I run a restaurant',
-    hotel: 'I work for a hotel',
-    distributor: 'I am a distributor',
-    caterer: 'I run a catering company',
-  },
-  zh: {
-    restaurant: '我经营一家餐厅',
-    hotel: '我在酒店工作',
-    distributor: '我是经销商',
-    caterer: '我经营一家餐饮公司',
-  },
-}
-
-export function generateWhatsAppLink(params: WhatsAppMessageParams): string {
-  const { intent, productName, businessType, locale } = params
-
-  let message = ''
-
-  if (locale === 'en') {
-    if (intent === 'price-list') {
-      message = 'Hello, I would like to request your price list.'
-      if (businessType) {
-        message += ` ${businessTypeMessages.en[businessType]}.`
-      }
-    } else if (intent === 'product-inquiry' && productName) {
-      message = `Hello, I am interested in your ${productName}.`
-      if (businessType) {
-        message += ` ${businessTypeMessages.en[businessType]}`
-      }
-      message += ' Could you provide more information and pricing?'
-    }
-  } else {
-    if (intent === 'price-list') {
-      message = '您好，我想索取您的报价单。'
-      if (businessType) {
-        message += `${businessTypeMessages.zh[businessType]}。`
-      }
-    } else if (intent === 'product-inquiry' && productName) {
-      message = `您好，我对您的${productName}感兴趣。`
-      if (businessType) {
-        message += businessTypeMessages.zh[businessType]
-      }
-      message += '请问可以提供更多信息和价格吗？'
-    }
-  }
-
-  const encodedMessage = encodeURIComponent(message)
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`
-}
-
-export interface CartLineItem {
-  name: { en: string; zh: string }
-  packagingSize?: string
-  quantity: number
-}
-
-export function generateCartWhatsAppLink(params: {
-  items: CartLineItem[]
-  intent: 'quote' | 'sample'
   locale: 'en' | 'zh'
 }): string {
-  const { items, intent, locale } = params
-
-  const productList = items
-    .map((item, i) => {
-      const name = item.name[locale]
-      const packaging = item.packagingSize ? ` (${item.packagingSize})` : ''
-      const qty = item.quantity > 1 ? ` x${item.quantity}` : ''
-      return `${i + 1}. ${name}${packaging}${qty}`
-    })
-    .join('\n')
-
-  let message = ''
-
-  if (locale === 'en') {
-    message = intent === 'quote'
-      ? `Hello, I would like to request a quote for the following products:\n\n${productList}\n\nCould you please provide pricing and availability? Thank you.`
-      : `Hello, I would like to request samples for the following products:\n\n${productList}\n\nThank you.`
-  } else {
-    message = intent === 'quote'
-      ? `您好，我想询问以下产品的报价：\n\n${productList}\n\n请提供价格和库存情况，谢谢。`
-      : `您好，我想申请以下产品的样品：\n\n${productList}\n\n谢谢。`
-  }
-
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+  if (params.intent === 'price-list') return priceListLink(params.locale)
+  return productInquiryLink(params.productName ?? '', params.locale)
 }

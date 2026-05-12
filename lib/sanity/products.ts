@@ -7,7 +7,9 @@ const PRODUCT_PROJECTION = `{
   sku,
   name,
   variantName,
+  grade,
   "category": categories[0]->slug.current,
+  "subCategory": subcategories[0]->slug.current,
   "categories": categories[]->{
     "slug": slug.current,
     name
@@ -16,14 +18,19 @@ const PRODUCT_PROJECTION = `{
     "slug": slug.current,
     name
   },
+  "tags": [
+    select(bestSeller == true => "best-seller"),
+    select(specialty == true => "specialty"),
+    select(new == true => "new")
+  ][@ != null],
+  specialty,
+  bestSeller,
+  "isNew": new,
   packaging,
   "packagingSize": packaging.en,
   ingredients,
   suggestedUses,
   "image": image.asset->url,
-  specialty,
-  bestSeller,
-  "isNew": new,
   allowQuote,
   allowSample
 }`
