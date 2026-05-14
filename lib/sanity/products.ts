@@ -8,8 +8,6 @@ const PRODUCT_PROJECTION = `{
   name,
   variantName,
   grade,
-  "category": categories[0]->slug.current,
-  "subCategory": subcategories[0]->slug.current,
   "categories": categories[]->{
     "slug": slug.current,
     name

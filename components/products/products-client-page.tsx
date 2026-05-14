@@ -63,8 +63,14 @@ export function ProductsClientPage() {
 
   const filteredProducts = useMemo(() => {
     return products.filter((p) => {
-      const matchCat = selectedCategory === 'all' || p.category === selectedCategory
-      const matchSub = selectedSubCategory === 'all' || p.subCategory === selectedSubCategory
+      const matchCat = selectedCategory === 'all' ||
+        (p.categories && p.categories.length > 0
+          ? p.categories.some((c) => c.slug === selectedCategory)
+          : p.category === selectedCategory)
+      const matchSub = selectedSubCategory === 'all' ||
+        (p.subcategories && p.subcategories.length > 0
+          ? p.subcategories.some((c) => c.slug === selectedSubCategory)
+          : p.subCategory === selectedSubCategory)
       const q = searchQuery.toLowerCase()
       const matchSearch = !q ||
         p.name.en.toLowerCase().includes(q) ||
@@ -84,10 +90,18 @@ export function ProductsClientPage() {
   const productCounts = useMemo(() => {
     const counts: Record<string, number> = { all: products.length }
     ;(['sauces', 'noodles', 'pre-made', 'others'] as MainCategory[]).forEach((cat) => {
-      counts[cat] = products.filter((p) => p.category === cat).length
+      counts[cat] = products.filter((p) =>
+        p.categories && p.categories.length > 0
+          ? p.categories.some((c) => c.slug === cat)
+          : p.category === cat
+      ).length
     })
     subCategoriesForSidebar.forEach((sub) => {
-      counts[sub] = products.filter((p) => p.subCategory === sub).length
+      counts[sub] = products.filter((p) =>
+        p.subcategories && p.subcategories.length > 0
+          ? p.subcategories.some((c) => c.slug === sub)
+          : p.subCategory === sub
+      ).length
     })
     return counts
   }, [subCategoriesForSidebar])
