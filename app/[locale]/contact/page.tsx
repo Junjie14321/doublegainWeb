@@ -34,7 +34,7 @@ export default function ContactPage() {
           <h1 className="text-3xl md:text-4xl font-heading text-text-primary mb-2">
             {t.contact.title}
           </h1>
-          <p className="text-text-muted font-ui text-sm max-w-md">{t.contact.subtitle}</p>
+          <p className="text-text-muted font-body text-sm max-w-md">{t.contact.subtitle}</p>
         </div>
       </div>
 
@@ -47,7 +47,7 @@ export default function ContactPage() {
                 <div className="flex flex-col gap-4">
                   {/* Name */}
                   <div>
-                    <label htmlFor="name" className="text-xs font-ui font-semibold uppercase tracking-wide text-text-muted block mb-1.5">
+                    <label htmlFor="name" className="text-xs font-heading not-italic font-semibold uppercase tracking-wide text-text-muted block mb-1.5">
                       {t.contact.name}
                     </label>
                     <input
@@ -55,20 +55,20 @@ export default function ContactPage() {
                       type="text"
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="w-full px-3 py-2.5 text-sm font-ui bg-surface border border-border-color rounded-lg focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors"
+                      className="w-full px-3 py-2.5 text-sm font-body bg-surface border border-border-color rounded-lg focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors"
                     />
                   </div>
 
                   {/* Business Type */}
                   <div>
-                    <label htmlFor="businessType" className="text-xs font-ui font-semibold uppercase tracking-wide text-text-muted block mb-1.5">
+                    <label htmlFor="businessType" className="text-xs font-heading not-italic font-semibold uppercase tracking-wide text-text-muted block mb-1.5">
                       {t.contact.businessType}
                     </label>
                     <select
                       id="businessType"
                       value={form.businessType}
                       onChange={(e) => setForm({ ...form, businessType: e.target.value })}
-                      className="w-full px-3 py-2.5 text-sm font-ui bg-surface border border-border-color rounded-lg focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors appearance-none"
+                      className="w-full px-3 py-2.5 text-sm font-body bg-surface border border-border-color rounded-lg focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors appearance-none"
                     >
                       <option value="">—</option>
                       {t.contact.businessTypes.map((bt: string) => (
@@ -79,7 +79,7 @@ export default function ContactPage() {
 
                   {/* Message */}
                   <div>
-                    <label htmlFor="message" className="text-xs font-ui font-semibold uppercase tracking-wide text-text-muted block mb-1.5">
+                    <label htmlFor="message" className="text-xs font-heading not-italic font-semibold uppercase tracking-wide text-text-muted block mb-1.5">
                       {t.contact.message}
                     </label>
                     <textarea
@@ -88,7 +88,7 @@ export default function ContactPage() {
                       value={form.message}
                       onChange={(e) => setForm({ ...form, message: e.target.value })}
                       placeholder={t.contact.messagePlaceholder}
-                      className="w-full px-3 py-2.5 text-sm font-ui bg-surface border border-border-color rounded-lg focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors resize-none placeholder:text-text-muted"
+                      className="w-full px-3 py-2.5 text-sm font-body bg-surface border border-border-color rounded-lg focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors resize-none placeholder:text-text-muted"
                     />
                   </div>
 
@@ -125,24 +125,24 @@ export default function ContactPage() {
           {/* Contact info */}
           <div className="flex flex-col gap-6">
             <div>
-              <p className="text-xs font-ui font-semibold uppercase tracking-widest text-text-muted mb-1">{t.contact.hours}</p>
-              <p className="text-text-primary font-ui text-sm leading-relaxed whitespace-pre-line">{t.contact.hoursValue}</p>
+              <p className="text-xs font-heading not-italic font-semibold uppercase tracking-widest text-text-muted mb-1">{t.contact.hours}</p>
+              <p className="text-text-primary font-body text-sm leading-relaxed whitespace-pre-line">{t.contact.hoursValue}</p>
             </div>
             <div>
-              <p className="text-xs font-ui font-semibold uppercase tracking-widest text-text-muted mb-1">{t.contact.address}</p>
-              <p className="text-text-primary font-ui text-sm leading-relaxed">{SITE.address}</p>
+              <p className="text-xs font-heading not-italic font-semibold uppercase tracking-widest text-text-muted mb-1">{t.contact.address}</p>
+              <p className="text-text-primary font-body text-sm leading-relaxed">{SITE.address}</p>
             </div>
             <div>
-              <p className="text-xs font-ui font-semibold uppercase tracking-widest text-text-muted mb-1">{t.contact.email}</p>
-              <a href={`mailto:${SITE.email}`} className="text-primary font-ui text-sm hover:underline">{SITE.email}</a>
+              <p className="text-xs font-heading not-italic font-semibold uppercase tracking-widest text-text-muted mb-1">{t.contact.email}</p>
+              <a href={`mailto:${SITE.email}`} className="text-primary font-body text-sm hover:underline">{SITE.email}</a>
             </div>
             <div className="border-t border-border-color pt-6">
-              <p className="text-xs font-ui font-semibold uppercase tracking-widest text-text-muted mb-3">{t.contact.whatsappDirect}</p>
+              <p className="text-xs font-heading not-italic font-semibold uppercase tracking-widest text-text-muted mb-3">{t.contact.whatsappDirect}</p>
               <a
                 href={priceListLink(locale)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#25D366] text-white font-ui font-semibold text-sm px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 bg-[#25D366] text-white font-heading not-italic font-semibold text-sm px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>

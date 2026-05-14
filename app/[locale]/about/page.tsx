@@ -16,27 +16,26 @@ export default function AboutPage() {
   return (
     <main className="bg-white pt-16">
       {/* Hero */}
-      <section className="bg-white border-b border-border-color">
+      <section className="border-b border-border-color" style={{ backgroundColor: '#FFF7DE' }}>
         <div className="container-pad py-16 md:py-20 flex flex-col md:flex-row gap-10 items-center">
           <div className="flex-1 max-w-xl">
-            <p className="text-xs font-ui font-semibold uppercase tracking-widest text-primary mb-3">
+            <p className="text-xs font-subheading not-italic font-semibold uppercase tracking-widest text-primary mb-3">
               {t.trust.since}
             </p>
             <h1 className="text-4xl md:text-5xl font-heading text-text-primary mb-5 leading-tight">
               {t.about.title}
             </h1>
-            <p className="text-text-secondary text-base leading-relaxed">
+            <p className="font-body text-text-secondary text-base leading-relaxed">
               {t.about.subtitle}
             </p>
           </div>
           <div className="shrink-0">
             <Image
-              src="/images/logo.png"
+              src="/images/logo-new.png"
               alt="Master 2 Foods logo"
               width={300}
               height={300}
-              className="object-contain"
-              style={{ width: 'auto', height: '300px' }}
+              className="object-contain w-32 h-32 md:w-56 md:h-56 lg:w-72 lg:h-72"
             />
           </div>
         </div>
@@ -46,7 +45,7 @@ export default function AboutPage() {
       <section className="container-pad py-14">
         <div className="max-w-3xl">
           <h2 className="text-2xl font-heading text-text-primary mb-6">{t.about.mission}</h2>
-          <p className="text-text-secondary text-base leading-relaxed">
+          <p className="font-body text-text-secondary text-base leading-relaxed">
             {t.about.story}
           </p>
         </div>
@@ -74,14 +73,14 @@ export default function AboutPage() {
       <section className="container-pad py-14 border-b border-border-color">
         <div className="max-w-3xl">
           <h2 className="text-2xl font-heading text-text-primary mb-4">{t.about.values}</h2>
-          <p className="text-text-secondary text-base leading-relaxed">
+          <p className="font-body text-text-secondary text-base leading-relaxed">
             {t.about.missionText}
           </p>
         </div>
       </section>
 
       {/* Values */}
-      <section className="container-pad py-14">
+      <section className="container-pad py-14" style={{ backgroundColor: '#FFF7DE' }}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {values.map((v, i) => (
             <div key={i} className="bg-white rounded-xl border border-border-color p-6">
@@ -89,7 +88,7 @@ export default function AboutPage() {
                 <span className="text-primary font-heading text-lg font-bold">{i + 1}</span>
               </div>
               <h3 className="font-ui font-semibold text-text-primary mb-2">{v.title}</h3>
-              <p className="text-text-muted text-sm leading-relaxed">{v.desc}</p>
+              <p className="font-body text-text-muted text-sm leading-relaxed">{v.desc}</p>
             </div>
           ))}
         </div>
@@ -101,7 +100,7 @@ export default function AboutPage() {
           <h2 className="text-2xl md:text-3xl font-heading text-text-primary mb-4">
             {t.cta.title}
           </h2>
-          <p className="text-text-muted text-sm max-w-md mx-auto mb-6">
+          <p className="font-body text-text-muted text-sm max-w-md mx-auto mb-6">
             {t.cta.subtitle}
           </p>
           <a

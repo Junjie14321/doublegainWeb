@@ -111,7 +111,7 @@ export function ProductCard({ product, onViewDetails }: ProductCardProps) {
         </h3>
 
         {product.grade && (
-          <span className={`self-start text-[11px] font-semibold px-2 py-0.5 rounded-full mb-4 ${gradeBadge[product.grade] ?? gradeBadge.standard}`}>
+          <span className={`self-start text-[11px] font-body px-2 py-0.5 rounded-full mb-4 ${gradeBadge[product.grade] ?? gradeBadge.standard}`}>
             {t.products.grades[product.grade as keyof typeof t.products.grades] ?? product.grade}
           </span>
         )}
@@ -121,7 +121,7 @@ export function ProductCard({ product, onViewDetails }: ProductCardProps) {
             href={productInquiryLink(name, locale)}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full text-center text-xs font-ui font-semibold bg-primary text-white py-2 px-2 rounded-lg hover:bg-primary-dark transition-colors"
+            className="w-full text-center text-xs font-subheading not-italic font-semibold bg-primary text-white py-2 px-2 rounded-lg hover:bg-primary-dark transition-colors"
           >
             {t.products.addToOrder}
           </a>
@@ -130,7 +130,7 @@ export function ProductCard({ product, onViewDetails }: ProductCardProps) {
               href={sampleRequestLink(name, locale)}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full text-center text-xs font-ui font-semibold bg-surface text-text-primary border border-border-color py-2 px-2 rounded-lg hover:border-primary/30 hover:bg-white transition-colors"
+              className="w-full text-center text-xs font-subheading not-italic font-semibold bg-surface text-text-primary border border-border-color py-2 px-2 rounded-lg hover:border-primary/30 hover:bg-white transition-colors"
             >
               {t.products.askForSample}
             </a>

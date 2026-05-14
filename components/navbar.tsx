@@ -66,16 +66,16 @@ export function Navbar() {
             </Link>
 
             <nav className="hidden md:flex items-center gap-8">
-              <Link href={`/${locale}`} className="text-sm font-ui text-text-primary hover:text-primary transition-colors">
+              <Link href={`/${locale}`} className="text-sm font-subheading not-italic text-text-primary hover:text-primary transition-colors">
                 {t.nav.home}
               </Link>
-              <Link href={`/${locale}/products`} className="text-sm font-ui text-text-primary hover:text-primary transition-colors flex items-center gap-1">
+              <Link href={`/${locale}/products`} className="text-sm font-subheading not-italic text-text-primary hover:text-primary transition-colors flex items-center gap-1">
                 {t.nav.products}
               </Link>
-              <Link href={`/${locale}/about`} className="text-sm font-ui text-text-primary hover:text-primary transition-colors">
+              <Link href={`/${locale}/about`} className="text-sm font-subheading not-italic text-text-primary hover:text-primary transition-colors">
                 {t.nav.brand}
               </Link>
-              <Link href={`/${locale}/contact`} className="text-sm font-ui text-text-primary hover:text-primary transition-colors">
+              <Link href={`/${locale}/contact`} className="text-sm font-subheading not-italic text-text-primary hover:text-primary transition-colors">
                 {t.nav.contact}
               </Link>
             </nav>
@@ -130,10 +130,10 @@ export function Navbar() {
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-border-color bg-white">
             <div className="container-pad py-4 flex flex-col gap-4">
-              <Link href={`/${locale}`} className="text-sm font-ui text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.home}</Link>
-              <Link href={`/${locale}/products`} className="text-sm font-ui text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.products}</Link>
-              <Link href={`/${locale}/about`} className="text-sm font-ui text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.brand}</Link>
-              <Link href={`/${locale}/contact`} className="text-sm font-ui text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.contact}</Link>
+              <Link href={`/${locale}`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.home}</Link>
+              <Link href={`/${locale}/products`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.products}</Link>
+              <Link href={`/${locale}/about`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.brand}</Link>
+              <Link href={`/${locale}/contact`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.contact}</Link>
               <div className="flex items-center gap-2 pt-2 border-t border-border-color">
                 <span className="text-xs text-text-muted">Language:</span>
                 <button onClick={() => { switchLocale('en'); setMobileMenuOpen(false) }} className={`text-xs px-3 py-1 rounded-full border ${locale === 'en' ? 'bg-primary text-white border-primary' : 'border-border-color text-text-secondary'}`}>EN</button>

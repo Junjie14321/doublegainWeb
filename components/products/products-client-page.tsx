@@ -107,7 +107,7 @@ export function ProductsClientPage() {
   }, [subCategoriesForSidebar])
 
   const tagButtonClass = (type: typeof filterType) =>
-    `px-4 py-1.5 text-xs font-subheading not-italic font-medium rounded-lg border transition-colors ${
+    `px-4 py-1.5 text-xs font-body font-medium rounded-lg border transition-colors ${
       filterType === type
         ? 'bg-secondary border-secondary text-dark'
         : 'bg-white border-border-color text-text-primary hover:bg-surface'
@@ -128,7 +128,7 @@ export function ProductsClientPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t.products.search}
-                className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-border-color rounded-xl focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors placeholder:text-text-muted"
+                className="w-full pl-10 pr-4 py-2.5 text-sm font-body bg-white border border-border-color rounded-xl focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors placeholder:text-text-muted"
                 aria-label="Search products"
               />
               {searchQuery && (
@@ -145,7 +145,7 @@ export function ProductsClientPage() {
 
             {/* Tag filters */}
             <div className="mb-4 py-2">
-              <p className="text-xs font-ui text-center text-text-secondary mb-2">Tags</p>
+              <p className="text-xs font-subheading not-italic text-center text-text-secondary mb-2">Tags</p>
               <div className="flex flex-wrap gap-2 justify-center">
                 <button onClick={() => setFilterType(filterType === 'specialty' ? 'all' : 'specialty')} className={tagButtonClass('specialty')}>
                   {t.products.specialty}
@@ -162,7 +162,7 @@ export function ProductsClientPage() {
             {/* Mobile filter toggle */}
             <button
               onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-              className="lg:hidden flex items-center gap-2 text-xs font-ui font-semibold text-text-secondary mb-3 border border-border-color px-3 py-2 rounded-lg hover:border-primary/30 transition-colors"
+              className="lg:hidden flex items-center gap-2 text-xs font-subheading not-italic font-semibold text-text-secondary mb-3 border border-border-color px-3 py-2 rounded-lg hover:border-primary/30 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 4h18M7 8h10M10 12h4" />

@@ -42,8 +42,8 @@ export function ProductDetailModal({ product, onClose }: ProductDetailModalProps
 
   const DetailRow = ({ label, value }: { label: string; value: string }) => (
     <div className="flex gap-3 py-3 border-b border-border-color last:border-0">
-      <span className="text-xs font-ui font-semibold text-text-muted uppercase tracking-wide w-28 shrink-0">{label}</span>
-      <span className="text-sm text-text-secondary leading-relaxed">{value}</span>
+      <span className="text-xs font-subheading not-italic font-semibold text-text-muted uppercase tracking-wide w-28 shrink-0">{label}</span>
+      <span className="text-sm font-body text-text-secondary leading-relaxed">{value}</span>
     </div>
   )
 
@@ -84,7 +84,7 @@ export function ProductDetailModal({ product, onClose }: ProductDetailModalProps
             </div>
             {product.grade && (
               <div className="absolute bottom-4 left-4">
-                <span className={`text-[10px] font-ui font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full ${
+                <span className={`text-[10px] font-body uppercase tracking-wide px-2.5 py-1 rounded-full ${
                   product.grade === 'premium' ? 'bg-yellow-50 text-yellow-700 border border-yellow-200' :
                   product.grade === 'semi-premium' ? 'bg-amber-50 text-amber-700' :
                   'bg-neutral-100 text-neutral-600'
@@ -116,7 +116,7 @@ export function ProductDetailModal({ product, onClose }: ProductDetailModalProps
                   {name}
                 </h2>
                 {product.sku && (
-                  <p className="text-xs text-text-muted mt-0.5">{t.productDetail.sku}: {product.sku}</p>
+                  <p className="text-xs font-body text-text-muted mt-0.5">{t.productDetail.sku}: {product.sku}</p>
                 )}
               </div>
               <button
@@ -151,7 +151,7 @@ export function ProductDetailModal({ product, onClose }: ProductDetailModalProps
                 href={productInquiryLink(name, locale)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 text-center text-sm font-ui font-semibold bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary-dark transition-colors"
+                className="flex-1 text-center text-sm font-subheading not-italic font-semibold bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary-dark transition-colors"
               >
                 {t.productDetail.addToOrder}
               </a>
@@ -159,7 +159,7 @@ export function ProductDetailModal({ product, onClose }: ProductDetailModalProps
                 href={sampleRequestLink(name, locale)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 text-center text-sm font-ui font-semibold bg-surface text-text-primary border border-border-color py-3 px-4 rounded-lg hover:border-primary/30 hover:bg-white transition-colors"
+                className="flex-1 text-center text-sm font-subheading not-italic font-semibold bg-surface text-text-primary border border-border-color py-3 px-4 rounded-lg hover:border-primary/30 hover:bg-white transition-colors"
               >
                 {t.productDetail.askForSample}
               </a>
