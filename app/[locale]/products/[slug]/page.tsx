@@ -3,7 +3,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getDictionary } from '@/lib/i18n/get-dictionary'
-import { getProductBySlug, getProductsByCategory, products } from '@/lib/data/products'
+import {
+  getProductBySlug,
+  getProductsByCategory,
+  getProductSlugs,
+} from '@/lib/sanity/products'
 import { productInquiryLink, sampleRequestLink } from '@/lib/whatsapp'
 import type { Locale } from '@/lib/i18n/config'
 
@@ -14,15 +18,16 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  return products.flatMap((product) => [
-    { locale: 'en', slug: product.slug },
-    { locale: 'zh', slug: product.slug },
+  const slugs = await getProductSlugs()
+  return slugs.flatMap((slug) => [
+    { locale: 'en', slug },
+    { locale: 'zh', slug },
   ])
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params
-  const product = getProductBySlug(slug)
+  const product = await getProductBySlug(slug)
 
   if (!product) {
     return { title: 'Product Not Found' }
@@ -44,7 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProductDetailPage({ params }: PageProps) {
   const { locale, slug } = await params
-  const product = getProductBySlug(slug)
+  const product = await getProductBySlug(slug)
 
   if (!product) {
     notFound()
@@ -55,8 +60,11 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const packagingDisplay = product.unitSize ?? product.packagingSize ?? product.packaging?.[locale]
   const caseDisplay = product.caseQuantity
 
-  const relatedProducts = product.category
-    ? getProductsByCategory(product.category).filter((p) => p.id !== product.id).slice(0, 4)
+  const primaryCategorySlug = product.categories?.[0]?.slug ?? product.category
+  const relatedProducts = primaryCategorySlug
+    ? (await getProductsByCategory(primaryCategorySlug))
+        .filter((p) => p.id !== product.id)
+        .slice(0, 4)
     : []
 
   return (

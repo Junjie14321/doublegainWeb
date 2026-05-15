@@ -1,13 +1,15 @@
 import { MetadataRoute } from 'next'
-import { products } from '@/lib/data/products'
+import { getProductSlugs } from '@/lib/sanity/products'
 import { locales } from '@/lib/i18n/config'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const revalidate = 3600
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://master2.com'
+  const slugs = await getProductSlugs()
 
   const routes: MetadataRoute.Sitemap = []
 
-  // Homepage for each locale
   for (const locale of locales) {
     routes.push({
       url: `${baseUrl}/${locale}`,
@@ -16,7 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     })
 
-    // Products page
     routes.push({
       url: `${baseUrl}/${locale}/products`,
       lastModified: new Date(),
@@ -24,7 +25,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     })
 
-    // Category pages
     for (const category of ['sauces', 'noodles', 'ingredients']) {
       routes.push({
         url: `${baseUrl}/${locale}/products?category=${category}`,
@@ -34,10 +34,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       })
     }
 
-    // Product detail pages
-    for (const product of products) {
+    for (const slug of slugs) {
       routes.push({
-        url: `${baseUrl}/${locale}/products/${product.slug}`,
+        url: `${baseUrl}/${locale}/products/${slug}`,
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.7,

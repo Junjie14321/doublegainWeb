@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { getDictionary } from '@/lib/i18n/get-dictionary'
 import { ProductsClientPage } from '@/components/products/products-client-page'
+import { getProducts, getCategoriesWithSubs } from '@/lib/sanity/products'
 import type { Locale } from '@/lib/i18n/config'
 
 export const revalidate = 3600
@@ -22,10 +23,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const [products, categories] = await Promise.all([
+    getProducts(),
+    getCategoriesWithSubs(),
+  ])
+
   return (
     <Suspense>
-      <ProductsClientPage />
+      <ProductsClientPage products={products} categories={categories} />
     </Suspense>
   )
 }

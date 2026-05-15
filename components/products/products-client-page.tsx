@@ -2,43 +2,41 @@
 
 import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
-import { products } from '@/lib/data/products'
-import type { MainCategory, SubCategory, Product } from '@/lib/data/products'
+import type { Product } from '@/lib/sanity/types'
+import type { CategoryNode } from '@/lib/sanity/products'
 import { useLanguage } from '@/context/language-context'
 import { FilterSidebar } from '@/components/products/filter-sidebar'
 import { ProductCard } from '@/components/products/product-card'
 import { ProductDetailModal } from '@/components/products/product-detail-modal'
 
-const ALL_SUBCATEGORIES_BY_CATEGORY: Record<string, SubCategory[]> = {
-  sauces: ['soya-sauce', 'sesame-oil', 'vinegar', 'paste', 'authentic-sauce'],
-  noodles: ['e-fu-noodle', 'tai-lok-mee'],
-  'pre-made': ['yam-ring', 'prawn-roll', 'pork-lard'],
-  others: ['canned-food', 'herbs-spices', 'sugar', 'drink'],
+interface ProductsClientPageProps {
+  products: Product[]
+  categories: CategoryNode[]
 }
 
-export function ProductsClientPage() {
-  const { t } = useLanguage()
+export function ProductsClientPage({ products, categories }: ProductsClientPageProps) {
+  const { t, locale } = useLanguage()
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
 
-  const [selectedCategory, setSelectedCategory] = useState<MainCategory | 'all'>('all')
-  const [selectedSubCategory, setSelectedSubCategory] = useState<SubCategory | 'all'>('all')
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false)
   const [filterType, setFilterType] = useState<'all' | 'specialty' | 'bestsellers' | 'newitems'>('all')
 
   useEffect(() => {
-    const cat = searchParams.get('category') as MainCategory | null
-    const sub = searchParams.get('sub') as SubCategory | null
+    const cat = searchParams.get('category')
+    const sub = searchParams.get('sub')
     const q = searchParams.get('q')
     if (cat) setSelectedCategory(cat)
     if (sub) setSelectedSubCategory(sub)
     if (q) setSearchQuery(q)
   }, [searchParams])
 
-  const updateURL = (cat: MainCategory | 'all', sub: SubCategory | 'all') => {
+  const updateURL = (cat: string, sub: string) => {
     const params = new URLSearchParams()
     if (cat !== 'all') params.set('category', cat)
     if (sub !== 'all') params.set('sub', sub)
@@ -46,37 +44,31 @@ export function ProductsClientPage() {
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
   }
 
-  const handleCategoryChange = (cat: MainCategory | 'all') => {
+  const handleCategoryChange = (cat: string) => {
     setSelectedCategory(cat)
     setSelectedSubCategory('all')
     updateURL(cat, 'all')
   }
 
-  const handleSubCategoryChange = (sub: SubCategory | 'all') => {
+  const handleSubCategoryChange = (sub: string) => {
     setSelectedSubCategory(sub)
     updateURL(selectedCategory, sub)
   }
 
-  const subCategoriesForSidebar: SubCategory[] = selectedCategory === 'all'
-    ? []
-    : ALL_SUBCATEGORIES_BY_CATEGORY[selectedCategory] ?? []
+  const activeCategory = categories.find((c) => c.slug === selectedCategory)
+  const subCategoriesForSidebar = activeCategory?.subcategories ?? []
 
   const filteredProducts = useMemo(() => {
     return products.filter((p) => {
       const matchCat = selectedCategory === 'all' ||
-        (p.categories && p.categories.length > 0
-          ? p.categories.some((c) => c.slug === selectedCategory)
-          : p.category === selectedCategory)
+        (p.categories?.some((c) => c.slug === selectedCategory) ?? false)
       const matchSub = selectedSubCategory === 'all' ||
-        (p.subcategories && p.subcategories.length > 0
-          ? p.subcategories.some((c) => c.slug === selectedSubCategory)
-          : p.subCategory === selectedSubCategory)
+        (p.subcategories?.some((c) => c.slug === selectedSubCategory) ?? false)
       const q = searchQuery.toLowerCase()
       const matchSearch = !q ||
         p.name.en.toLowerCase().includes(q) ||
         p.name.zh.toLowerCase().includes(q) ||
         (p.shortDescription?.en ?? '').toLowerCase().includes(q) ||
-        (p.subCategory ?? '').toLowerCase().includes(q) ||
         (p.sku ?? '').toLowerCase().includes(q)
       const matchFilter =
         filterType === 'all' ||
@@ -85,26 +77,22 @@ export function ProductsClientPage() {
         (filterType === 'newitems' && p.tags?.includes('new'))
       return matchCat && matchSub && matchSearch && matchFilter
     })
-  }, [selectedCategory, selectedSubCategory, searchQuery, filterType])
+  }, [products, selectedCategory, selectedSubCategory, searchQuery, filterType])
 
   const productCounts = useMemo(() => {
     const counts: Record<string, number> = { all: products.length }
-    ;(['sauces', 'noodles', 'pre-made', 'others'] as MainCategory[]).forEach((cat) => {
-      counts[cat] = products.filter((p) =>
-        p.categories && p.categories.length > 0
-          ? p.categories.some((c) => c.slug === cat)
-          : p.category === cat
+    for (const cat of categories) {
+      counts[cat.slug] = products.filter((p) =>
+        p.categories?.some((c) => c.slug === cat.slug)
       ).length
-    })
-    subCategoriesForSidebar.forEach((sub) => {
-      counts[sub] = products.filter((p) =>
-        p.subcategories && p.subcategories.length > 0
-          ? p.subcategories.some((c) => c.slug === sub)
-          : p.subCategory === sub
-      ).length
-    })
+      for (const sub of cat.subcategories) {
+        counts[sub.slug] = products.filter((p) =>
+          p.subcategories?.some((c) => c.slug === sub.slug)
+        ).length
+      }
+    }
     return counts
-  }, [subCategoriesForSidebar])
+  }, [products, categories])
 
   const tagButtonClass = (type: typeof filterType) =>
     `px-4 py-1.5 text-xs font-body font-medium rounded-lg border transition-colors ${
@@ -112,6 +100,10 @@ export function ProductsClientPage() {
         ? 'bg-secondary border-secondary text-dark'
         : 'bg-white border-border-color text-text-primary hover:bg-surface'
     }`
+
+  const activeCategoryLabel = selectedCategory === 'all'
+    ? t.products.allCategories
+    : (activeCategory?.name[locale] ?? selectedCategory)
 
   return (
     <>
@@ -177,6 +169,7 @@ export function ProductsClientPage() {
               {/* Sidebar */}
               <div className={`${mobileFilterOpen ? 'block' : 'hidden'} lg:block border-b lg:border-b-0 lg:border-r border-border-color pb-4 lg:pb-0 lg:pr-6 w-full lg:w-56 lg:sticky lg:top-20 lg:self-start`}>
                 <FilterSidebar
+                  categories={categories}
                   selectedCategory={selectedCategory}
                   selectedSubCategory={selectedSubCategory}
                   onCategoryChange={handleCategoryChange}
@@ -190,9 +183,7 @@ export function ProductsClientPage() {
               <div className="flex-1 min-w-0 w-full">
                 <p className="text-xs text-text-muted mb-4">
                   {t.products.showing} <span className="font-semibold text-text-primary">{filteredProducts.length}</span> {t.products.productsIn}{' '}
-                  <span className="font-semibold text-text-primary">
-                    {selectedCategory === 'all' ? t.products.allCategories : t.products[selectedCategory as keyof typeof t.products] as string}
-                  </span>
+                  <span className="font-semibold text-text-primary">{activeCategoryLabel}</span>
                 </p>
 
                 {filteredProducts.length === 0 ? (

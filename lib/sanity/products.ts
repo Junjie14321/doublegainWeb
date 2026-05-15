@@ -1,5 +1,14 @@
 import { client } from '@/lib/sanity.client'
-import type { Product } from '@/lib/data/products'
+import type { Product, LocalizedString } from '@/lib/sanity/types'
+
+export type { Product } from '@/lib/sanity/types'
+
+export interface CategoryNode {
+  slug: string
+  name: LocalizedString
+  order: number | null
+  subcategories: { slug: string; name: LocalizedString }[]
+}
 
 const PRODUCT_PROJECTION = `{
   "id": _id,
@@ -49,4 +58,20 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
     `*[_type == "product" && $categorySlug in categories[]->slug.current] | order(_createdAt asc) ${PRODUCT_PROJECTION}`,
     { categorySlug }
   )
+}
+
+export async function getProductSlugs(): Promise<string[]> {
+  return await client.fetch(`*[_type == "product" && defined(slug.current)].slug.current`)
+}
+
+export async function getCategoriesWithSubs(): Promise<CategoryNode[]> {
+  return await client.fetch(`*[_type == "category"] | order(coalesce(order, 999) asc, name.en asc) {
+    "slug": slug.current,
+    name,
+    order,
+    "subcategories": *[_type == "subcategory" && references(^._id)] | order(name.en asc) {
+      "slug": slug.current,
+      name
+    }
+  }`)
 }

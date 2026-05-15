@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import type { Product } from '@/lib/data/products'
+import type { Product } from '@/lib/sanity/types'
 import { useLanguage } from '@/context/language-context'
 import { useSavedList } from '@/context/saved-list-context'
 import { productInquiryLink, sampleRequestLink } from '@/lib/whatsapp'

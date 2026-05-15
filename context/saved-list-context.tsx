@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
-import type { SavedProduct } from '@/lib/data/products'
+import type { SavedProduct } from '@/lib/sanity/types'
 
 interface SavedListContextValue {
   savedItems: SavedProduct[]

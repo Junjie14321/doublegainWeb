@@ -1,4 +1,4 @@
-import type { Product } from '@/lib/data/products'
+import type { Product } from '@/lib/sanity/types'
 import type { Locale } from '@/lib/i18n/config'
 import type { Dictionary } from '@/lib/i18n/dictionaries/en'
 
