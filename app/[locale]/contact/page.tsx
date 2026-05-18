@@ -16,11 +16,13 @@ export default function ContactPage() {
 
   const handleWhatsAppSend = () => {
     const parts = [
-      form.name ? `Name: ${form.name}` : null,
-      form.businessType ? `Business Type: ${form.businessType}` : null,
+      form.name ? `Hi, my name is ${form.name}.` : 'Hi,',
+      form.businessType ? `I'm reaching out from a ${form.businessType} business.` : null,
+      `I'm interested in your products and would like to enquire about:`,
       form.message || null,
+      `Please feel free to contact me via WhatsApp or call. Thank you!`,
     ].filter(Boolean)
-    const msg = parts.length > 0 ? parts.join('\n') : "Hi, I'd like to enquire about your products."
+    const msg = parts.join('\n\n')
     const link = buildWhatsAppLink(msg)
     window.open(link, '_blank')
     setSubmitted(true)
@@ -70,7 +72,7 @@ export default function ContactPage() {
                       onChange={(e) => setForm({ ...form, businessType: e.target.value })}
                       className="w-full px-3 py-2.5 text-sm font-body bg-surface border border-border-color rounded-lg focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors appearance-none"
                     >
-                      <option value="">—</option>
+                      <option value="">Select...</option>
                       {t.contact.businessTypes.map((bt: string) => (
                         <option key={bt} value={bt}>{bt}</option>
                       ))}

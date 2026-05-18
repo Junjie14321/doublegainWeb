@@ -98,7 +98,7 @@ export function Navbar() {
                 </button>
               </div>
 
-              <button onClick={() => setSearchOpen(true)} className="p-2 text-text-secondary hover:text-primary transition-colors" aria-label="Search">
+              <button onClick={() => setSearchOpen(!searchOpen)} className="p-2 text-text-secondary hover:text-primary transition-colors" aria-label="Search">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -144,22 +144,29 @@ export function Navbar() {
         )}
 
         {searchOpen && (
-          <div className="absolute top-full left-0 right-0 bg-white border-b border-border-color shadow-lg p-4">
-            <form onSubmit={handleSearch} className="container-pad">
-              <div className="flex items-center gap-3 bg-surface rounded-full px-4 py-2.5 border border-border-color">
-                <svg className="w-4 h-4 text-text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <input
-                  ref={searchRef}
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={t.nav.searchPlaceholder}
-                  className="flex-1 bg-transparent text-sm text-text-primary outline-none"
-                />
-                <button type="button" onClick={() => setSearchOpen(false)} className="text-text-muted hover:text-text-primary transition-colors">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="absolute top-full left-0 right-0 bg-white border-b border-border-color shadow-lg">
+            <form onSubmit={handleSearch} className="container-pad py-3">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 bg-surface rounded-full px-3 py-2.5 border border-border-color flex-1 min-w-0">
+                  <svg className="w-4 h-4 text-text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <input
+                    ref={searchRef}
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder={t.nav.searchPlaceholder}
+                    className="flex-1 min-w-0 bg-transparent text-sm text-text-primary outline-none"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => { setSearchOpen(false); setSearchQuery('') }}
+                  className="flex-shrink-0 p-2 rounded-full text-text-muted hover:text-primary hover:bg-surface transition-colors"
+                  aria-label="Close search"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>

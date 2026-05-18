@@ -22,19 +22,13 @@
   font-display: swap;
 }
 
-:root {
+@theme {
   --font-heading: 'HeadingFont', serif;
   --font-subheading: 'SubHeadingFont', sans-serif;
   --font-body: 'BodyFont', serif;
-}
-
-@theme inline {
-  --font-heading: var(--font-heading);
-  --font-subheading: var(--font-subheading);
-  --font-body: var(--font-body);
-  --font-sans: var(--font-body);
-  --font-serif: var(--font-heading), Georgia, serif;
-  --font-ui: var(--font-body);
+  --font-sans: 'BodyFont', serif;
+  --font-serif: 'HeadingFont', Georgia, serif;
+  --font-ui: 'BodyFont', serif;
 
   --color-primary: #AE220A;
   --color-primary-dark: #8B1A08;
@@ -61,7 +55,7 @@ html {
 }
 
 body {
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family: var(--font-body);
   color: #1A0A0A;
   background-color: #FFF7DE;
   -webkit-font-smoothing: antialiased;
@@ -69,7 +63,7 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-heading), serif;
+  font-family: var(--font-heading);
 }
 
 @layer utilities {

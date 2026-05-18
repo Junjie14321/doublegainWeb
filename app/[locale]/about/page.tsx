@@ -31,7 +31,7 @@ export default function AboutPage() {
           </div>
           <div className="shrink-0">
             <Image
-              src="/images/logo-new.png"
+              src="/images/v2 red logo.png"
               alt="Master 2 Foods logo"
               width={300}
               height={300}
@@ -107,7 +107,7 @@ export default function AboutPage() {
             href={priceListLink(locale)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-primary text-white font-ui text-sm px-8 py-4 rounded-lg hover:bg-primary-dark transition-colors"
+            className="inline-flex items-center gap-2 bg-primary text-white font-heading text-sm uppercase tracking-wide px-8 py-4 rounded-lg hover:bg-primary-dark transition-colors"
           >
             {t.cta.button}
           </a>

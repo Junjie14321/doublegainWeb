@@ -55,7 +55,7 @@ export function Footer() {
 
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/50">{t.footer.copyright}</p>
-          <p className="text-xs text-white/30">Master 2 Foods — Since {SITE.since}</p>
+          <p className="text-xs text-white/30">Master 2 Foods · Since {SITE.since}</p>
         </div>
       </div>
     </footer>
