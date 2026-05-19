@@ -3,36 +3,22 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useLanguage } from '@/context/language-context'
+import type { CategoryNode } from '@/lib/sanity/products'
 
-export function CategorySection() {
+const HERO_IMAGES = [
+  '/images/hero-sauces-background.jpg',
+  '/images/hero-noodles-background.jpg',
+  '/images/hero-premade-background.jpg',
+]
+
+interface CategorySectionProps {
+  categories: CategoryNode[]
+}
+
+export function CategorySection({ categories }: CategorySectionProps) {
   const { locale, t } = useLanguage()
 
-  const categories = [
-    {
-      key: 'sauces',
-      href: `/${locale}/products?category=sauces`,
-      name: t.categories.sauces.name,
-      tagline: t.categories.sauces.tagline,
-      heroImage: '/images/hero-sauces-background.jpg',
-      number: '01',
-    },
-    {
-      key: 'noodles',
-      href: `/${locale}/products?category=noodles`,
-      name: t.categories.noodles.name,
-      tagline: t.categories.noodles.tagline,
-      heroImage: '/images/hero-noodles-background.jpg',
-      number: '02',
-    },
-    {
-      key: 'premade',
-      href: `/${locale}/products?category=pre-made`,
-      name: t.categories.premade.name,
-      tagline: t.categories.premade.tagline,
-      heroImage: '/images/hero-premade-background.jpg',
-      number: '03',
-    },
-  ]
+  const displayCategories = categories.slice(0, 3)
 
   return (
     <section style={{ backgroundColor: '#FFF7DE', paddingTop: '22px', paddingBottom: '34px' }}>
@@ -44,27 +30,31 @@ export function CategorySection() {
         </div>
 
         <div className="space-y-4">
-          {categories.map((cat) => (
-            <Link key={cat.key} href={cat.href} className="relative w-full h-48 md:h-56 rounded-2xl overflow-hidden group block cursor-pointer">
+          {displayCategories.map((cat, i) => (
+            <Link
+              key={cat.slug}
+              href={`/${locale}/products?category=${cat.slug}`}
+              className="relative w-full h-48 md:h-56 rounded-2xl overflow-hidden group block cursor-pointer"
+            >
               <Image
-                src={cat.heroImage}
-                alt={cat.name}
+                src={HERO_IMAGES[i] ?? HERO_IMAGES[0]}
+                alt={cat.name[locale] ?? cat.name.en}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 100vw"
-                priority={cat.number === '01'}
+                priority={i === 0}
               />
               <div className="absolute inset-0 bg-gradient-to-l from-black/40 via-black/20 to-transparent" />
               <div className="absolute inset-0 flex items-center justify-end p-6 md:p-12">
                 <div className="max-w-xs text-right">
                   <p className="text-secondary font-subheading text-sm md:text-base uppercase tracking-widest mb-0.5">
-                    {cat.number}
+                    {String(i + 1).padStart(2, '0')}
                   </p>
                   <h3 className="text-white font-heading text-2xl md:text-4xl uppercase tracking-widest font-bold mb-1">
-                    {cat.name}
+                    {cat.name[locale] ?? cat.name.en}
                   </h3>
                   <p className="text-white/90 text-sm md:text-base italic leading-relaxed mb-4">
-                    {cat.tagline}
+                    {[t.categories.sauces.tagline, t.categories.noodles.tagline, t.categories.premade.tagline][i]}
                   </p>
                   <span className="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-dark text-dark font-subheading text-sm px-6 py-2.5 rounded-full transition-all duration-300 font-medium tracking-wide hover:shadow-lg group-hover:scale-105">
                     Explore

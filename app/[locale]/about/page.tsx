@@ -33,9 +33,9 @@ export default function AboutPage() {
             <Image
               src="/images/v2 red logo.png"
               alt="Master 2 Foods logo"
-              width={300}
-              height={300}
-              className="object-contain w-32 h-32 md:w-56 md:h-56 lg:w-72 lg:h-72"
+              width={480}
+              height={480}
+              className="object-contain w-48 h-48 md:w-72 md:h-72 lg:w-96 lg:h-96"
             />
           </div>
         </div>

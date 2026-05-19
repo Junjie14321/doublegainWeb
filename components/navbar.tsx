@@ -55,7 +55,7 @@ export function Navbar() {
           <div className="flex items-center justify-between h-16">
             <Link href={`/${locale}`} className="flex items-center gap-2 flex-shrink-0">
               <Image
-                src="/images/logo-new.png"
+                src="/images/v2 red logo.png"
                 alt="Master 2 Foods"
                 width={120}
                 height={40}

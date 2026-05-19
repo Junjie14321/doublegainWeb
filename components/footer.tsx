@@ -45,7 +45,7 @@ export function Footer() {
           </div>
 
           <div className="flex flex-col md:items-end gap-4">
-            <Image src="/images/logo-new.png" alt="Master 2 Foods" width={100} height={60} className="h-14 w-auto object-contain bg-white rounded p-2" />
+            <Image src="/images/v2 red logo.png" alt="Master 2 Foods" width={100} height={60} className="h-14 w-auto object-contain bg-white rounded p-2" />
             <div className="text-right">
               <p className="font-ui text-secondary text-sm">{t.footer.companyName}</p>
               <p className="text-xs text-white/60 mt-1">{SITE.address}</p>
