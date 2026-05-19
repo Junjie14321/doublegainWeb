@@ -67,12 +67,50 @@ export const translations = {
     faq: {
       title: 'FAQ',
       subtitle: 'Frequently Asked Questions',
-      items: [
-        { question: 'What is the minimum order quantity?', answer: 'Our minimum order is 1 case per SKU. Bulk pricing is available for orders of 10 cases and above. Contact us on WhatsApp for a custom quote.' },
-        { question: 'Do you deliver island-wide in Singapore?', answer: 'Yes, we deliver across Singapore with next-day delivery available for orders placed before 3pm. Delivery is free for orders above SGD 200.' },
-        { question: 'Can I request product samples before ordering?', answer: 'Yes, we offer samples for new clients. Click "Request Sample" on any product to send us a WhatsApp inquiry and we will arrange delivery.' },
-        { question: 'Are your products suitable for halal kitchens?', answer: 'Selected products in our range are halal-certified. Please contact us via WhatsApp to enquire about specific products and certifications.' },
-        { question: 'How do I get a price list?', answer: 'Our full price list is available on request. Tap the "Contact Us" button or message us directly on WhatsApp for an up-to-date catalogue.' },
+      categories: [
+        {
+          name: 'Product Inquiry',
+          items: [
+            { question: 'Do you offer custom packaging or size options?', answer: 'We can provide some customised packaging and size options based on your business needs and minimum order quantities. Most products are designed for commercial kitchen and wholesale use, with some retail packaging sizes also available.' },
+            { question: 'Are Master 2 products designed for commercial kitchen use?', answer: 'Yes. Our products are tailored for commercial kitchen performance with larger packaging sizes, reliable consistency, and efficient kitchen application for food businesses.' },
+          ],
+        },
+        {
+          name: 'Ordering & Shipping',
+          items: [
+            { question: 'What is the minimum order quantity (MOQ) for wholesale food orders?', answer: 'Minimum order quantity depends on the product category and order consistency. We support businesses of different sizes, from small food stalls to hotels and caterers. Contact us to learn more about our order requirements.' },
+            { question: 'Does Master 2 provide island-wide food ingredient delivery in Singapore?', answer: 'Yes. We provide island-wide delivery across Singapore with scheduled delivery arrangements throughout the week.' },
+            { question: 'How long does delivery usually take for wholesale food orders?', answer: 'Delivery is usually scheduled twice a week depending on your area and order arrangement. For urgent business needs, we will do our best to support our clients promptly.' },
+            { question: 'Can I place recurring or scheduled bulk wholesale orders with Master 2?', answer: 'Yes. Recurring and scheduled orders are available for businesses that require regular supply arrangements.' },
+          ],
+        },
+        {
+          name: 'Sample Request',
+          items: [
+            { question: 'Can I request food product samples before placing a bulk order?', answer: 'Yes. Most products on our website include a sample request option. You may also contact us directly via WhatsApp and our sales manager will assist you.' },
+            { question: 'How can I request noodle or sauce samples from Master 2?', answer: 'You can click the "Request Sample" button on the product page or contact us directly through WhatsApp to arrange samples.' },
+            { question: 'Is there a charge for product sample requests?', answer: 'No. Product samples are complimentary for new and existing clients because we value your confidence in our products before ordering.' },
+            { question: 'How long does the sample request process usually take?', answer: 'Sample requests usually take a few days to one week depending on the product and delivery arrangement.' },
+          ],
+        },
+        {
+          name: 'Company Info',
+          items: [
+            { question: 'What makes Master 2 different from other wholesale food suppliers in Singapore?', answer: 'With nearly 30 years in the industry, Master 2 is trusted by over 100 restaurants and food businesses. We curate specialty sauces, noodles, and ingredients specifically for commercial kitchen performance and consistency.' },
+            { question: 'Which industries and food businesses does Master 2 serve?', answer: 'We serve hawkers, pop-ups, restaurants, caterers, cafés, and hotels across Singapore since 1996.' },
+            { question: 'How does Master 2 ensure consistent product quality and supply?', answer: 'We work closely with trusted regional suppliers and maintain strong relationships with our clients to ensure consistent quality control and reliable product supply.' },
+            { question: 'Does Master 2 specialise in Hong Kong style noodles and Asian sauces?', answer: 'Yes. Master 2 carries Yee Fu noodles alongside a wide range of Chinese sauces, noodles, and chilli products suitable for Singapore\'s food industry.' },
+          ],
+        },
+        {
+          name: 'Others',
+          items: [
+            { question: 'How can I request the latest Master 2 wholesale price list?', answer: 'You can contact us via WhatsApp or our contact form and let us know your business requirements. We will get back to you with a quotation.' },
+            { question: 'How can I contact Master 2 for product inquiries or support?', answer: 'You can contact us through WhatsApp or email for product enquiries, wholesale pricing, and business support.' },
+            { question: 'Does Master 2 help reduce kitchen preparation time for food businesses?', answer: 'Yes. We provide pre-made ingredients and ready-to-use sauces that can help reduce kitchen preparation time while maintaining consistent quality for commercial kitchens.' },
+            { question: 'Does Master 2 offer payment terms for wholesale customers?', answer: 'Most products are available with a 14-day payment term depending on the business arrangement and order history.' },
+          ],
+        },
       ],
     },
     cta: {
@@ -252,12 +290,50 @@ export const translations = {
     faq: {
       title: '常见问题',
       subtitle: '常见问题解答',
-      items: [
-        { question: '最低订购量是多少？', answer: '我们每个SKU最低订购1箱。订购10箱及以上可享批量优惠价格。请通过WhatsApp联系我们获取专属报价。' },
-        { question: '你们是否在新加坡全岛配送？', answer: '是的，我们提供全岛配送，下午3点前下单可享次日配送服务。订单满200新元免运费。' },
-        { question: '我可以在下单前申请样品吗？', answer: '可以，我们为新客户提供样品服务。点击"申请样品"，通过WhatsApp询问，我们将安排配送。' },
-        { question: '你们的产品适合清真厨房使用吗？', answer: '我们部分产品已获清真认证。请通过WhatsApp联系我们，查询具体产品的认证情况。' },
-        { question: '如何获取价目表？', answer: '我们的完整价目表可按需提供。点击"联系我们"按钮或直接通过WhatsApp向我们发送消息，获取最新产品目录。' },
+      categories: [
+        {
+          name: '产品咨询',
+          items: [
+            { question: '是否提供定制包装或规格服务？', answer: '我们可根据业务需求及最低订购量提供部分定制包装与规格服务。大部分产品适用于商用厨房和批发用途，同时也提供部分零售包装规格。' },
+            { question: 'Master 2 产品是否适用于商用厨房？', answer: '是的。我们的产品专为商用厨房设计，具备大包装、稳定品质及高效率应用，适合各类餐饮企业。' },
+          ],
+        },
+        {
+          name: '订购与配送',
+          items: [
+            { question: '批发食品订单的最低订购量是多少？', answer: '最低订购量会根据产品类别和订单稳定性而有所不同。我们服务从小型餐饮摊位到酒店及大型餐饮公司的不同规模客户。欢迎联系我们了解详情。' },
+            { question: 'Master 2 是否提供全岛配送服务？', answer: '是的。我们提供新加坡全岛配送服务，并安排定期送货。' },
+            { question: '下单后通常需要多久送达？', answer: '配送通常根据地区安排每周两次。如有紧急业务需求，我们会尽力为客户提供及时支持。' },
+            { question: '可以安排定期或固定时间的订单吗？', answer: '可以。我们可为需要稳定供货的企业安排定期订单和固定送货计划。' },
+          ],
+        },
+        {
+          name: '样品申请',
+          items: [
+            { question: '下单前可以申请产品样品吗？', answer: '可以。我们网站上的大部分产品都可申请样品，您也可以通过 WhatsApp 直接联系我们，我们的销售经理会协助您。' },
+            { question: '如何申请 Master 2 的面条或酱料样品？', answer: '您可以点击产品页面上的"申请样品"按钮，或通过 WhatsApp 直接联系我们安排样品。' },
+            { question: '产品样品需要收费吗？', answer: '不需要。为了让新旧客户在下单前充分了解我们的产品品质，样品将免费提供。' },
+            { question: '样品申请通常需要多久？', answer: '样品申请通常需要几天到一周，具体时间取决于产品及配送安排。' },
+          ],
+        },
+        {
+          name: '公司信息',
+          items: [
+            { question: 'Master 2 与其他食品批发商有什么不同？', answer: 'Master 2 拥有近30年行业经验，深受100多家餐厅和餐饮企业信赖。我们精选适合商用厨房使用的特色酱料、面条及食材，注重稳定性与厨房表现。' },
+            { question: 'Master 2 服务哪些行业和餐饮企业？', answer: '自1996年以来，我们服务于新加坡的小贩、快闪餐饮、餐厅、餐饮公司、咖啡馆及酒店。' },
+            { question: 'Master 2 如何确保产品品质与供应稳定？', answer: '我们与值得信赖的区域供应商紧密合作，并与客户保持密切联系，以确保产品品质稳定和供应可靠。' },
+            { question: 'Master 2 是否专注于港式面条和亚洲酱料？', answer: '是的。Master 2 提供伊府面及多种中式酱料、面条和辣椒产品，适合新加坡餐饮行业使用。' },
+          ],
+        },
+        {
+          name: '其他',
+          items: [
+            { question: '如何向 Master 2 申请批发报价？', answer: '您可以通过 WhatsApp 或联系我们，并告知您的业务需求，我们会尽快为您提供报价。' },
+            { question: '如何联系 Master 2 咨询产品？', answer: '您可以通过电子邮件或 WhatsApp 联系我们，咨询产品、批发价格及业务合作。' },
+            { question: 'Master 2 是否帮助减少厨房备餐时间？', answer: '是的。我们提供预制食材及即用酱料，可帮助商用厨房减少备餐时间，同时保持稳定品质。' },
+            { question: 'Master 2 是否提供付款期限？', answer: '大部分产品可根据合作安排和订单记录提供14天付款期限。' },
+          ],
+        },
       ],
     },
     cta: {

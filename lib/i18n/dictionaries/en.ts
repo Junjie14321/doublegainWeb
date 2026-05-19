@@ -79,26 +79,49 @@ export const en = {
   },
   faq: {
     title: 'Frequently Asked Questions',
-    items: [
+    categories: [
       {
-        question: 'What is your minimum order quantity?',
-        answer: 'Our minimum order varies by product category. For sauces, we typically require a minimum of 1 carton (12 bottles). Contact us via WhatsApp for specific product minimums.',
+        name: 'Product Inquiry',
+        items: [
+          { question: 'Do you offer custom packaging or size options?', answer: 'We can provide some customised packaging and size options based on your business needs and minimum order quantities. Most products are designed for commercial kitchen and wholesale use, with some retail packaging sizes also available.' },
+          { question: 'Are Master 2 products designed for commercial kitchen use?', answer: 'Yes. Our products are tailored for commercial kitchen performance with larger packaging sizes, reliable consistency, and efficient kitchen application for food businesses.' },
+        ],
       },
       {
-        question: 'Do you offer bulk pricing for restaurants?',
-        answer: 'Yes, we offer competitive bulk pricing for all commercial clients including restaurants, hotels, and catering companies. Request our price list via WhatsApp for detailed pricing tiers.',
+        name: 'Ordering & Shipping',
+        items: [
+          { question: 'What is the minimum order quantity (MOQ) for wholesale food orders?', answer: 'Minimum order quantity depends on the product category and order consistency. We support businesses of different sizes, from small food stalls to hotels and caterers. Contact us to learn more about our order requirements.' },
+          { question: 'Does Master 2 provide island-wide food ingredient delivery in Singapore?', answer: 'Yes. We provide island-wide delivery across Singapore with scheduled delivery arrangements throughout the week.' },
+          { question: 'How long does delivery usually take for wholesale food orders?', answer: 'Delivery is usually scheduled twice a week depending on your area and order arrangement. For urgent business needs, we will do our best to support our clients promptly.' },
+          { question: 'Can I place recurring or scheduled bulk wholesale orders with Master 2?', answer: 'Yes. Recurring and scheduled orders are available for businesses that require regular supply arrangements.' },
+        ],
       },
       {
-        question: 'How do I place an order?',
-        answer: 'Simply contact us via WhatsApp with your order details. Our team will confirm availability, provide pricing, and arrange delivery to your location.',
+        name: 'Sample Request',
+        items: [
+          { question: 'Can I request food product samples before placing a bulk order?', answer: 'Yes. Most products on our website include a sample request option. You may also contact us directly via WhatsApp and our sales manager will assist you.' },
+          { question: 'How can I request noodle or sauce samples from Master 2?', answer: 'You can click the "Request Sample" button on the product page or contact us directly through WhatsApp to arrange samples.' },
+          { question: 'Is there a charge for product sample requests?', answer: 'No. Product samples are complimentary for new and existing clients because we value your confidence in our products before ordering.' },
+          { question: 'How long does the sample request process usually take?', answer: 'Sample requests usually take a few days to one week depending on the product and delivery arrangement.' },
+        ],
       },
       {
-        question: 'What is your delivery coverage?',
-        answer: 'We deliver to commercial kitchens throughout the region. Delivery schedules and coverage areas can be discussed when you contact us.',
+        name: 'Company Info',
+        items: [
+          { question: 'What makes Master 2 different from other wholesale food suppliers in Singapore?', answer: 'With nearly 30 years in the industry, Master 2 is trusted by over 100 restaurants and food businesses. We curate specialty sauces, noodles, and ingredients specifically for commercial kitchen performance and consistency.' },
+          { question: 'Which industries and food businesses does Master 2 serve?', answer: 'We serve hawkers, pop-ups, restaurants, caterers, cafés, and hotels across Singapore since 1996.' },
+          { question: 'How does Master 2 ensure consistent product quality and supply?', answer: 'We work closely with trusted regional suppliers and maintain strong relationships with our clients to ensure consistent quality control and reliable product supply.' },
+          { question: 'Does Master 2 specialise in Hong Kong style noodles and Asian sauces?', answer: "Yes. Master 2 carries Yee Fu noodles alongside a wide range of Chinese sauces, noodles, and chilli products suitable for Singapore's food industry." },
+        ],
       },
       {
-        question: 'Are your products suitable for halal kitchens?',
-        answer: 'Please contact us directly to discuss specific product certifications and suitability for your kitchen requirements.',
+        name: 'Others',
+        items: [
+          { question: 'How can I request the latest Master 2 wholesale price list?', answer: 'You can contact us via WhatsApp or our contact form and let us know your business requirements. We will get back to you with a quotation.' },
+          { question: 'How can I contact Master 2 for product inquiries or support?', answer: 'You can contact us through WhatsApp or email for product enquiries, wholesale pricing, and business support.' },
+          { question: 'Does Master 2 help reduce kitchen preparation time for food businesses?', answer: 'Yes. We provide pre-made ingredients and ready-to-use sauces that can help reduce kitchen preparation time while maintaining consistent quality for commercial kitchens.' },
+          { question: 'Does Master 2 offer payment terms for wholesale customers?', answer: 'Most products are available with a 14-day payment term depending on the business arrangement and order history.' },
+        ],
       },
     ],
   },

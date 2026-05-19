@@ -34,7 +34,7 @@ export function FAQSchema({ dict }: FAQSchemaProps) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: dict.faq.items.map((item) => ({
+    mainEntity: dict.faq.categories.flatMap((cat) => cat.items).map((item) => ({
       '@type': 'Question',
       name: item.question,
       acceptedAnswer: {
