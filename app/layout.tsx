@@ -8,24 +8,11 @@ export const metadata: Metadata = {
     default: 'Master 2',
     template: '%s | Master 2',
   },
-  description: 'Master 2 food products catalog and multilingual storefront.',
+  description: 'Master 2 Foods is a trusted B2B supplier that supplies sauces and ingredients to Asian kitchens in Singapore since 1996.',
   applicationName: 'Master 2',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/images/v2 red logo.png',
+    apple: '/images/v2 red logo.png',
   },
 }
 

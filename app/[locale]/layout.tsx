@@ -36,11 +36,13 @@ export async function generateMetadata({
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',
       type: 'website',
       siteName: 'Master 2',
+      images: [{ url: '/images/v2 red logo.png', width: 800, height: 800, alt: 'Master 2 Foods' }],
     },
     twitter: {
       card: 'summary_large_image',
       title: dict.metadata.title,
       description: dict.metadata.description,
+      images: ['/images/v2 red logo.png'],
     },
     alternates: {
       languages: {

@@ -2,7 +2,7 @@ export const translations = {
   en: {
     metadata: {
       title: 'Master 2 Foods | Specialty Sauces, Noodles & Pre-made Ingredients',
-      description: 'Master 2 Foods is a trusted B2B supplier of specialty sauces, noodles, and pre-made ingredients for Asian commercial kitchens. Serving restaurants, hotels, and caterers since 1996.',
+      description: 'Master 2 Foods is a trusted B2B supplier that supplies sauces and ingredients to Asian kitchens in Singapore since 1996.',
     },
     nav: {
       home: 'Home',
