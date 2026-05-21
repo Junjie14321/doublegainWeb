@@ -5,7 +5,6 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import type { Product } from '@/lib/sanity/types'
 import type { CategoryNode } from '@/lib/sanity/products'
 import { useLanguage } from '@/context/language-context'
-import { FilterSidebar } from '@/components/products/filter-sidebar'
 import { ProductCard } from '@/components/products/product-card'
 import { ProductDetailModal } from '@/components/products/product-detail-modal'
 
@@ -13,6 +12,8 @@ interface ProductsClientPageProps {
   products: Product[]
   categories: CategoryNode[]
 }
+
+type TagFilter = 'all' | 'specialty' | 'bestsellers' | 'newitems'
 
 export function ProductsClientPage({ products, categories }: ProductsClientPageProps) {
   const { t, locale } = useLanguage()
@@ -24,8 +25,7 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const [mobileFilterOpen, setMobileFilterOpen] = useState(false)
-  const [filterType, setFilterType] = useState<'all' | 'specialty' | 'bestsellers' | 'newitems'>('all')
+  const [filterType, setFilterType] = useState<TagFilter>('all')
 
   useEffect(() => {
     const cat = searchParams.get('category')
@@ -55,8 +55,12 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
     updateURL(selectedCategory, sub)
   }
 
+  const handleTagFilter = (tag: TagFilter) => {
+    setFilterType(filterType === tag ? 'all' : tag)
+  }
+
   const activeCategory = categories.find((c) => c.slug === selectedCategory)
-  const subCategoriesForSidebar = activeCategory?.subcategories ?? []
+  const subCategoriesForRow = activeCategory?.subcategories ?? []
 
   const filteredProducts = useMemo(() => {
     return products.filter((p) => {
@@ -79,132 +83,169 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
     })
   }, [products, selectedCategory, selectedSubCategory, searchQuery, filterType])
 
-  const productCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: products.length }
-    for (const cat of categories) {
-      counts[cat.slug] = products.filter((p) =>
-        p.categories?.some((c) => c.slug === cat.slug)
-      ).length
-      for (const sub of cat.subcategories) {
-        counts[sub.slug] = products.filter((p) =>
-          p.subcategories?.some((c) => c.slug === sub.slug)
-        ).length
-      }
-    }
-    return counts
-  }, [products, categories])
-
-  const tagButtonClass = (type: typeof filterType) =>
-    `px-4 py-1.5 text-xs font-body font-medium rounded-lg border transition-colors ${
-      filterType === type
-        ? 'bg-secondary border-secondary text-dark'
-        : 'bg-white border-border-color text-text-primary hover:bg-surface'
+  const catPillClass = (slug: string) =>
+    `px-5 py-2 rounded-full text-sm font-subheading border transition-colors whitespace-nowrap ${
+      selectedCategory === slug
+        ? 'bg-primary text-white border-primary'
+        : 'bg-white text-primary border-primary hover:bg-primary/5'
     }`
 
-  const activeCategoryLabel = selectedCategory === 'all'
-    ? t.products.allCategories
-    : (activeCategory?.name[locale] ?? selectedCategory)
+  const subPillClass = (slug: string) =>
+    `px-4 py-1.5 rounded-full text-sm font-subheading border transition-colors whitespace-nowrap ${
+      selectedSubCategory === slug
+        ? 'bg-primary text-white border-primary'
+        : 'bg-white text-text-secondary border-border-color hover:border-primary/50'
+    }`
+
+  const tagItemClass = (tag: TagFilter) =>
+    `block w-full text-left text-sm font-body py-0.5 transition-colors cursor-pointer ${
+      filterType === tag
+        ? 'font-bold text-primary'
+        : 'text-text-secondary hover:text-primary'
+    }`
 
   return (
     <>
       <main className="min-h-screen pt-16" style={{ backgroundColor: '#FFF7DE' }}>
-        <div style={{ backgroundColor: '#FFF7DE' }} className="border-b border-border-color">
-          <div className="container-pad py-4">
-            {/* Search */}
-            <div className="relative mb-3">
-              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <input
-                type="search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={t.products.search}
-                className="w-full pl-10 pr-4 py-2.5 text-sm font-body bg-white border border-border-color rounded-xl focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors placeholder:text-text-muted"
-                aria-label="Search products"
-              />
-              {searchQuery && (
+        <div className="container-pad py-6">
+
+          {/* Search */}
+          <div className="relative mb-6">
+            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={t.products.search}
+              className="w-full pl-12 pr-4 py-3 text-sm font-body bg-white border border-border-color rounded-xl focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors placeholder:text-text-muted"
+              aria-label="Search products"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-surface flex items-center justify-center hover:bg-border-color transition-colors"
+              >
+                <svg className="w-3 h-3 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
+
+          {/* Category pills */}
+          <div className="mb-4">
+            <p className="text-xs font-subheading text-text-secondary uppercase tracking-wider mb-2">
+              {t.products.refineCategory}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <button onClick={() => handleCategoryChange('all')} className={catPillClass('all')}>
+                {t.products.allCategories}
+              </button>
+              {categories.map((cat) => (
                 <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-surface flex items-center justify-center hover:bg-border-color transition-colors"
+                  key={cat.slug}
+                  onClick={() => handleCategoryChange(cat.slug)}
+                  className={catPillClass(cat.slug)}
                 >
-                  <svg className="w-3 h-3 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+                  {cat.name[locale] ?? cat.name.en}
                 </button>
-              )}
+              ))}
             </div>
+          </div>
 
-            {/* Tag filters */}
-            <div className="mb-4 py-2">
-              <p className="text-xs font-subheading not-italic text-center text-text-secondary mb-2">Tags</p>
-              <div className="flex flex-wrap gap-2 justify-center">
-                <button onClick={() => setFilterType(filterType === 'specialty' ? 'all' : 'specialty')} className={tagButtonClass('specialty')}>
-                  {t.products.specialty}
+          {/* Subcategory pills */}
+          {subCategoriesForRow.length > 0 && (
+            <div className="mb-6 flex flex-wrap items-center gap-2">
+              <span className="text-xs font-subheading text-text-secondary mr-1">
+                {activeCategory?.name[locale] ?? activeCategory?.name.en} type:
+              </span>
+              <button onClick={() => handleSubCategoryChange('all')} className={subPillClass('all')}>
+                All
+              </button>
+              {subCategoriesForRow.map((sub) => (
+                <button
+                  key={sub.slug}
+                  onClick={() => handleSubCategoryChange(sub.slug)}
+                  className={subPillClass(sub.slug)}
+                >
+                  {sub.name[locale] ?? sub.name.en}
                 </button>
-                <button onClick={() => setFilterType(filterType === 'bestsellers' ? 'all' : 'bestsellers')} className={tagButtonClass('bestsellers')}>
-                  {t.products.bestSellers}
-                </button>
-                <button onClick={() => setFilterType(filterType === 'newitems' ? 'all' : 'newitems')} className={tagButtonClass('newitems')}>
-                  {t.products.newItems}
-                </button>
-              </div>
+              ))}
             </div>
+          )}
 
-            {/* Mobile filter toggle */}
-            <button
-              onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-              className="lg:hidden flex items-center gap-2 text-xs font-subheading not-italic font-semibold text-text-secondary mb-3 border border-border-color px-3 py-2 rounded-lg hover:border-primary/30 transition-colors"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 4h18M7 8h10M10 12h4" />
-              </svg>
-              Filter
-              {selectedCategory !== 'all' && (
-                <span className="ml-1 bg-primary text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full">1</span>
-              )}
-            </button>
+          {/* Content area: TAGS sidebar + product grid */}
+          <div className="flex gap-6 items-start">
 
-            <div className="flex flex-col lg:flex-row gap-8 items-start">
-              {/* Sidebar */}
-              <div className={`${mobileFilterOpen ? 'block' : 'hidden'} lg:block border-b lg:border-b-0 lg:border-r border-border-color pb-4 lg:pb-0 lg:pr-6 w-full lg:w-56 lg:sticky lg:top-20 lg:self-start`}>
-                <FilterSidebar
-                  categories={categories}
-                  selectedCategory={selectedCategory}
-                  selectedSubCategory={selectedSubCategory}
-                  onCategoryChange={handleCategoryChange}
-                  onSubCategoryChange={handleSubCategoryChange}
-                  subCategories={subCategoriesForSidebar}
-                  productCounts={productCounts}
-                />
-              </div>
-
-              {/* Product Grid */}
-              <div className="flex-1 min-w-0 w-full">
-                <p className="text-xs text-text-muted mb-4">
-                  {t.products.showing} <span className="font-semibold text-text-primary">{filteredProducts.length}</span> {t.products.productsIn}{' '}
-                  <span className="font-semibold text-text-primary">{activeCategoryLabel}</span>
+            {/* TAGS sidebar */}
+            <aside className="hidden lg:block w-44 shrink-0">
+              <div className="bg-white rounded-xl p-5 border border-border-color">
+                <p className="text-xs font-subheading uppercase tracking-wider text-text-muted mb-3">
+                  Tags
                 </p>
-
-                {filteredProducts.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center py-20 text-center">
-                    <svg className="w-12 h-12 text-text-muted opacity-30 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                    <p className="text-text-muted text-sm">No products found. Try adjusting your filters.</p>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {filteredProducts.map((product) => (
-                      <ProductCard
-                        key={product.id}
-                        product={product}
-                        onViewDetails={(p) => setSelectedProduct(p)}
-                      />
-                    ))}
-                  </div>
-                )}
+                <div className="flex flex-col gap-1.5">
+                  <button onClick={() => handleTagFilter('specialty')} className={tagItemClass('specialty')}>
+                    {t.products.specialty}
+                  </button>
+                  <button onClick={() => handleTagFilter('bestsellers')} className={tagItemClass('bestsellers')}>
+                    {t.products.bestSellers}
+                  </button>
+                  <button onClick={() => handleTagFilter('newitems')} className={tagItemClass('newitems')}>
+                    {t.products.newItems}
+                  </button>
+                </div>
               </div>
+            </aside>
+
+            {/* Product grid */}
+            <div className="flex-1 min-w-0">
+
+              {/* Mobile tag filters */}
+              <div className="flex lg:hidden flex-wrap gap-2 mb-4">
+                {(['specialty', 'bestsellers', 'newitems'] as TagFilter[]).map((tag) => (
+                  <button
+                    key={tag}
+                    onClick={() => handleTagFilter(tag)}
+                    className={`px-3 py-1 text-xs font-subheading rounded-full border transition-colors ${
+                      filterType === tag
+                        ? 'bg-secondary border-secondary text-dark font-bold'
+                        : 'bg-white border-border-color text-text-secondary'
+                    }`}
+                  >
+                    {tag === 'specialty' ? t.products.specialty : tag === 'bestsellers' ? t.products.bestSellers : t.products.newItems}
+                  </button>
+                ))}
+              </div>
+
+              <p className="text-xs text-text-muted mb-4">
+                {t.products.showing}{' '}
+                <span className="font-semibold text-text-primary">{filteredProducts.length}</span>{' '}
+                {t.products.productsIn}{' '}
+                <span className="font-semibold text-text-primary">
+                  {selectedCategory === 'all' ? t.products.allCategories : (activeCategory?.name[locale] ?? selectedCategory)}
+                </span>
+              </p>
+
+              {filteredProducts.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-20 text-center">
+                  <svg className="w-12 h-12 text-text-muted opacity-30 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <p className="text-text-muted text-sm">No products found. Try adjusting your filters.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {filteredProducts.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      onViewDetails={(p) => setSelectedProduct(p)}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
