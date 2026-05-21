@@ -203,20 +203,26 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
             <div className="flex-1 min-w-0">
 
               {/* Mobile tag filters */}
-              <div className="flex lg:hidden flex-wrap gap-2 mb-4">
-                {(['specialty', 'bestsellers', 'newitems'] as TagFilter[]).map((tag) => (
-                  <button
-                    key={tag}
-                    onClick={() => handleTagFilter(tag)}
-                    className={`px-3 py-1 text-xs font-subheading rounded-full border transition-colors ${
-                      filterType === tag
-                        ? 'bg-secondary border-secondary text-dark font-bold'
-                        : 'bg-white border-border-color text-text-secondary'
-                    }`}
-                  >
-                    {tag === 'specialty' ? t.products.specialty : tag === 'bestsellers' ? t.products.bestSellers : t.products.newItems}
-                  </button>
-                ))}
+              <div className="flex lg:hidden flex-col gap-2 mb-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-subheading uppercase tracking-wider text-text-muted shrink-0">Tags</span>
+                  <div className="flex-1 h-px bg-primary" />
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {(['specialty', 'bestsellers', 'newitems'] as TagFilter[]).map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => handleTagFilter(tag)}
+                      className={`px-3 py-1 text-xs font-subheading rounded-full border transition-colors ${
+                        filterType === tag
+                          ? 'bg-secondary border-secondary text-dark font-bold'
+                          : 'bg-white border-border-color text-text-secondary'
+                      }`}
+                    >
+                      {tag === 'specialty' ? t.products.specialty : tag === 'bestsellers' ? t.products.bestSellers : t.products.newItems}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <p className="text-xs text-text-muted mb-4">
