@@ -12,11 +12,12 @@ export function middleware(request: NextRequest) {
 
   if (pathnameHasLocale) return NextResponse.next()
 
-  // Skip static files and api routes
+  // Skip static files, api routes, and locale-free routes
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/images') ||
+    pathname.startsWith('/deck') ||
     pathname.includes('.')
   ) {
     return NextResponse.next()
