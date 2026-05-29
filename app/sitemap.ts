@@ -5,7 +5,7 @@ import { locales } from '@/lib/i18n/config'
 export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://master2.com'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://master2foods.com'
   const slugs = await getProductSlugs()
 
   const routes: MetadataRoute.Sitemap = []
