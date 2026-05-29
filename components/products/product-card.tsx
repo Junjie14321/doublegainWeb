@@ -10,9 +10,10 @@ import { productInquiryLink, sampleRequestLink } from '@/lib/whatsapp'
 interface ProductCardProps {
   product: Product
   onViewDetails?: (product: Product) => void
+  isPriority?: boolean
 }
 
-export function ProductCard({ product, onViewDetails }: ProductCardProps) {
+export function ProductCard({ product, onViewDetails, isPriority = false }: ProductCardProps) {
   const { locale, t } = useLanguage()
   const { toggle, isSaved } = useSavedList()
   const saved = isSaved(product.id)
@@ -61,6 +62,7 @@ export function ProductCard({ product, onViewDetails }: ProductCardProps) {
             className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
             onError={() => setImgError(true)}
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            priority={isPriority}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-text-muted">

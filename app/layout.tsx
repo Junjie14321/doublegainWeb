@@ -23,6 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preload" href="/fonts/heading-font.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/sub-heading-font.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/body-font.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
+      </head>
       <body suppressHydrationWarning className="antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

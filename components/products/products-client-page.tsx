@@ -243,11 +243,12 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
                 </div>
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {filteredProducts.map((product) => (
+                  {filteredProducts.map((product, i) => (
                     <ProductCard
                       key={product.id}
                       product={product}
                       onViewDetails={(p) => setSelectedProduct(p)}
+                      isPriority={i < 4}
                     />
                   ))}
                 </div>
