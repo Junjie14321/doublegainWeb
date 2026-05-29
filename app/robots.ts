@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/_next/'],
     },
-    sitemap: 'https://master2.com/sitemap.xml',
+    sitemap: 'https://master2foods.com/sitemap.xml',
   }
 }
