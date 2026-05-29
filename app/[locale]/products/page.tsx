@@ -16,7 +16,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const dict = getDictionary(locale)
 
   return {
-    title: dict.nav.products,
+    title: locale === 'en'
+      ? 'Asian Sauces & Noodles for Commercial Kitchens | Master 2'
+      : '商业厨房亚洲酱料与面条供应商 | Master 2',
     description: locale === 'en'
       ? 'Browse our complete range of specialty sauces, noodles, and pre-made ingredients for commercial kitchens.'
       : '浏览我们为商业厨房提供的全系列特色酱料、面条和预制食材。',
