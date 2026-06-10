@@ -7,6 +7,7 @@ export const translations = {
     nav: {
       home: 'Home',
       products: 'Our Products',
+      recipes: 'Recipes',
       brand: 'Our Brand',
       about: 'About Us',
       contact: 'Contact',
@@ -166,6 +167,11 @@ export const translations = {
         drink: 'Drink',
       },
     },
+    recipes: {
+      sectionHeading: 'More Recipes',
+      getRecipe: 'Get Recipe',
+      empty: 'No recipes available yet. Check back soon!',
+    },
     savedList: {
       title: "I'm interested in",
       empty: 'No products saved yet.',
@@ -190,6 +196,16 @@ export const translations = {
       added: 'Added',
       backToProducts: 'Back to Products',
       relatedProducts: 'Related Products',
+    },
+    recipeDetail: {
+      ingredients: 'Ingredients',
+      instructions: 'Instructions',
+      prepTime: 'Prep Time',
+      cookTime: 'Cook Time',
+      servings: 'Servings',
+      minutes: 'min',
+      shopThisRecipe: 'Shop This Recipe',
+      backToRecipes: 'Back to Recipes',
     },
     quoteBar: {
       title: 'Your quote list',
@@ -241,6 +257,7 @@ export const translations = {
     nav: {
       home: '首页',
       products: '我们的产品',
+      recipes: '食谱',
       brand: '品牌介绍',
       about: '关于我们',
       contact: '联系我们',
@@ -400,6 +417,11 @@ export const translations = {
         drink: '饮品',
       },
     },
+    recipes: {
+      sectionHeading: '更多食谱',
+      getRecipe: '查看食谱',
+      empty: '暂无食谱，敬请期待！',
+    },
     savedList: {
       title: '我感兴趣的产品',
       empty: '尚未收藏任何产品。',
@@ -424,6 +446,16 @@ export const translations = {
       added: '已加入',
       backToProducts: '返回产品列表',
       relatedProducts: '相关产品',
+    },
+    recipeDetail: {
+      ingredients: '食材',
+      instructions: '做法',
+      prepTime: '准备时间',
+      cookTime: '烹饪时间',
+      servings: '份量',
+      minutes: '分钟',
+      shopThisRecipe: '购买相关食材',
+      backToRecipes: '返回食谱列表',
     },
     quoteBar: {
       title: '您的报价清单',

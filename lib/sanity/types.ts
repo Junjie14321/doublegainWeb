@@ -76,3 +76,28 @@ export interface Product {
   allowSample?: boolean
   whatsappMessage?: LocalizedString
 }
+
+export interface RecipeProductRef {
+  id: string
+  slug: string
+  name: LocalizedString
+  image?: string
+  grade?: Grade
+}
+
+export interface Recipe {
+  id: string
+  slug: string
+  name: LocalizedString
+  tagline?: LocalizedString
+  description?: LocalizedString
+  image?: string
+  prepTime?: number
+  cookTime?: number
+  servings?: number
+  ingredients?: LocalizedString
+  instructions?: LocalizedString
+  relatedProducts?: RecipeProductRef[]
+  featured?: boolean
+  order?: number | null
+}

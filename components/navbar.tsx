@@ -72,6 +72,9 @@ export function Navbar() {
               <Link href={`/${locale}/products`} className="text-sm font-subheading not-italic text-text-primary hover:text-primary transition-colors flex items-center gap-1">
                 {t.nav.products}
               </Link>
+              <Link href={`/${locale}/recipes`} className="text-sm font-subheading not-italic text-text-primary hover:text-primary transition-colors">
+                {t.nav.recipes}
+              </Link>
               <Link href={`/${locale}/about`} className="text-sm font-subheading not-italic text-text-primary hover:text-primary transition-colors">
                 {t.nav.brand}
               </Link>
@@ -132,6 +135,7 @@ export function Navbar() {
             <div className="container-pad py-4 flex flex-col gap-4">
               <Link href={`/${locale}`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.home}</Link>
               <Link href={`/${locale}/products`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.products}</Link>
+              <Link href={`/${locale}/recipes`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.recipes}</Link>
               <Link href={`/${locale}/about`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.brand}</Link>
               <Link href={`/${locale}/contact`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.contact}</Link>
               <div className="flex items-center gap-2 pt-2 border-t border-border-color">

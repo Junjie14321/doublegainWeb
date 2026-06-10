@@ -1,12 +1,13 @@
 import { MetadataRoute } from 'next'
 import { getProductSlugs } from '@/lib/sanity/products'
+import { getRecipeSlugs } from '@/lib/sanity/recipes'
 import { locales } from '@/lib/i18n/config'
 
 export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://master2foods.com'
-  const slugs = await getProductSlugs()
+  const [slugs, recipeSlugs] = await Promise.all([getProductSlugs(), getRecipeSlugs()])
 
   const routes: MetadataRoute.Sitemap = []
 
@@ -25,6 +26,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     })
 
+    routes.push({
+      url: `${baseUrl}/${locale}/recipes`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    })
+
     for (const category of ['sauces', 'noodles', 'ingredients']) {
       routes.push({
         url: `${baseUrl}/${locale}/products?category=${category}`,
@@ -37,6 +45,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const slug of slugs) {
       routes.push({
         url: `${baseUrl}/${locale}/products/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.7,
+      })
+    }
+
+    for (const slug of recipeSlugs) {
+      routes.push({
+        url: `${baseUrl}/${locale}/recipes/${slug}`,
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.7,
