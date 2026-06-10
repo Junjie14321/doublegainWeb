@@ -278,7 +278,7 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
       {savedItems.length > 0 && (
         <button
           onClick={() => setSavedOpen(true)}
-          className="fixed bottom-0 left-0 right-0 z-40 bg-background border-t border-border-color"
+          className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-border-color"
           aria-label={t.quoteBar.title}
         >
           <div className="container-pad py-3 flex items-center justify-between text-left">
