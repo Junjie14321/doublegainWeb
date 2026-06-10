@@ -42,12 +42,20 @@ export function ProductDetailModal({ product, allProducts = [], onClose, onSelec
   const packagingDisplay = product.unitSize ?? product.packagingSize ?? product.packaging?.[locale]
   const caseDisplay = product.caseQuantity
 
+  const primarySubCategorySlug = product.subcategories?.[0]?.slug
   const primaryCategorySlug = product.categories?.[0]?.slug
-  const relatedProducts = primaryCategorySlug
-    ? allProducts
-        .filter((p) => p.id !== product.id && p.categories?.some((c) => c.slug === primaryCategorySlug))
-        .slice(0, 2)
+
+  const bySubCategory = primarySubCategorySlug
+    ? allProducts.filter((p) => p.id !== product.id && p.subcategories?.some((c) => c.slug === primarySubCategorySlug))
     : []
+
+  const byCategory = primaryCategorySlug
+    ? allProducts.filter(
+        (p) => p.id !== product.id && p.categories?.some((c) => c.slug === primaryCategorySlug) && !bySubCategory.includes(p)
+      )
+    : []
+
+  const relatedProducts = [...bySubCategory, ...byCategory].slice(0, 2)
 
   const DetailRow = ({ label, value }: { label: string; value: string }) => (
     <div className="flex gap-3 py-3 border-b border-border-color last:border-0">
