@@ -260,6 +260,8 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
 
       <ProductDetailModal
         product={selectedProduct}
+        allProducts={products}
+        onSelectProduct={(p) => setSelectedProduct(p)}
         onClose={() => setSelectedProduct(null)}
       />
     </>

@@ -5,14 +5,16 @@ import Image from 'next/image'
 import type { Product } from '@/lib/sanity/types'
 import { useLanguage } from '@/context/language-context'
 import { useSavedList } from '@/context/saved-list-context'
-import { productInquiryLink, sampleRequestLink } from '@/lib/whatsapp'
+import { sampleRequestLink } from '@/lib/whatsapp'
 
 interface ProductDetailModalProps {
   product: Product | null
+  allProducts?: Product[]
   onClose: () => void
+  onSelectProduct?: (product: Product) => void
 }
 
-export function ProductDetailModal({ product, onClose }: ProductDetailModalProps) {
+export function ProductDetailModal({ product, allProducts = [], onClose, onSelectProduct }: ProductDetailModalProps) {
   const { locale, t } = useLanguage()
   const { toggle, isSaved } = useSavedList()
   const closeRef = useRef<HTMLButtonElement>(null)
@@ -39,6 +41,13 @@ export function ProductDetailModal({ product, onClose }: ProductDetailModalProps
   const name = product.name[locale]
   const packagingDisplay = product.unitSize ?? product.packagingSize ?? product.packaging?.[locale]
   const caseDisplay = product.caseQuantity
+
+  const primaryCategorySlug = product.categories?.[0]?.slug
+  const relatedProducts = primaryCategorySlug
+    ? allProducts
+        .filter((p) => p.id !== product.id && p.categories?.some((c) => c.slug === primaryCategorySlug))
+        .slice(0, 2)
+    : []
 
   const DetailRow = ({ label, value }: { label: string; value: string }) => (
     <div className="flex gap-3 py-3 border-b border-border-color last:border-0">
@@ -146,21 +155,66 @@ export function ProductDetailModal({ product, onClose }: ProductDetailModalProps
               {product.suggestedUses?.[locale] && <DetailRow label={t.productDetail.suggestedUses} value={product.suggestedUses[locale]} />}
             </div>
 
-            <div className="flex gap-3 mt-5 pt-4 border-t border-border-color">
-              <a
-                href={productInquiryLink(name, locale)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 text-center text-sm font-subheading not-italic font-semibold bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary-dark transition-colors"
+            {relatedProducts.length > 0 && (
+              <div className="mt-5 pt-4 border-t border-border-color">
+                <h3 className="text-xs font-subheading not-italic font-semibold text-text-muted uppercase tracking-wide mb-3">
+                  {t.productDetail.relatedProducts}
+                </h3>
+                <div className="flex gap-3">
+                  {relatedProducts.map((rp) => {
+                    const rpName = rp.name[locale]
+                    const rpSaved = isSaved(rp.id)
+                    return (
+                      <div key={rp.id} className="flex-1 max-w-[140px] bg-surface rounded-lg border border-border-color p-2 flex flex-col items-center text-center">
+                        <button
+                          onClick={() => onSelectProduct?.(rp)}
+                          className="relative w-full aspect-square mb-2"
+                          aria-label={`View details for ${rpName}`}
+                        >
+                          {rp.image ? (
+                            <Image src={rp.image} alt={rpName} fill className="object-contain" sizes="100px" />
+                          ) : (
+                            <div className="absolute inset-0 flex items-center justify-center text-text-muted">
+                              <svg className="w-8 h-8 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                          )}
+                        </button>
+                        <p className="text-xs font-body text-text-secondary leading-snug line-clamp-2 mb-1">{rpName}</p>
+                        <button
+                          onClick={() => toggle({ id: rp.id, name: rp.name, image: rp.image ?? '', grade: rp.grade })}
+                          className="text-xs font-subheading not-italic font-semibold text-primary hover:text-primary-dark transition-colors"
+                        >
+                          {rpSaved ? t.productDetail.added : `+${t.productDetail.add}`}
+                        </button>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+
+            <div className="mt-5 pt-4 border-t border-border-color">
+              <button
+                onClick={() => toggle({ id: product.id, name: product.name, image: product.image ?? '', grade: product.grade })}
+                className={`w-full text-center text-sm font-subheading not-italic font-semibold py-3 px-4 rounded-lg transition-colors ${
+                  saved
+                    ? 'bg-primary/10 text-primary border border-primary'
+                    : 'bg-primary text-white hover:bg-primary-dark'
+                }`}
               >
-                {t.productDetail.addToOrder}
-              </a>
+                {saved ? t.productDetail.addedToQuoteList : `+ ${t.productDetail.addToQuoteList}`}
+              </button>
               <a
                 href={sampleRequestLink(name, locale)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 text-center text-sm font-subheading not-italic font-semibold bg-surface text-text-primary border border-border-color py-3 px-4 rounded-lg hover:border-primary/30 hover:bg-white transition-colors"
+                className="mt-3 flex items-center justify-center gap-1.5 text-sm font-body text-text-secondary hover:text-primary transition-colors"
               >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                </svg>
                 {t.productDetail.askForSample}
               </a>
             </div>
