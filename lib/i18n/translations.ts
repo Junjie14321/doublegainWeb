@@ -173,7 +173,7 @@ export const translations = {
       empty: 'No recipes available yet. Check back soon!',
     },
     savedList: {
-      title: "I'm interested in",
+      title: 'Quote List',
       empty: 'No products saved yet.',
       emptySubtitle: 'Tap the heart on any product to save it here.',
       sendWhatsApp: 'Submit Request via WhatsApp',
@@ -423,7 +423,7 @@ export const translations = {
       empty: '暂无食谱，敬请期待！',
     },
     savedList: {
-      title: '我感兴趣的产品',
+      title: '报价清单',
       empty: '尚未收藏任何产品。',
       emptySubtitle: '点击产品上的心形图标将其收藏于此。',
       sendWhatsApp: '通过WhatsApp提交请求',

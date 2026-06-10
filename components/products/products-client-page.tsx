@@ -95,7 +95,7 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
     }`
 
   const subPillClass = (slug: string) =>
-    `px-4 py-1.5 rounded-full text-sm font-subheading border transition-colors whitespace-nowrap ${
+    `px-3 py-1 rounded-full text-xs font-subheading border transition-colors whitespace-nowrap ${
       selectedSubCategory === slug
         ? 'bg-primary text-white border-primary'
         : 'bg-white text-text-secondary border-border-color hover:border-primary/50'
@@ -169,7 +169,7 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
                     : `${activeCategory?.name[locale] ?? activeCategory?.name.en} ${t.products.subCategoryType}`}
                 </span>
               </div>
-              <div className="flex flex-nowrap gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
+              <div className="flex flex-nowrap gap-1.5 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
                 <button onClick={() => handleSubCategoryChange('all')} className={subPillClass('all')}>
                   {t.products.all}
                 </button>
@@ -218,12 +218,12 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
                   <span className="text-xs font-subheading uppercase tracking-wider text-text-muted shrink-0">Tags</span>
                   <div className="flex-1 h-px bg-primary" />
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {(['specialty', 'bestsellers', 'newitems'] as TagFilter[]).map((tag) => (
                     <button
                       key={tag}
                       onClick={() => handleTagFilter(tag)}
-                      className={`px-3 py-1 text-xs font-subheading rounded-full border transition-colors ${
+                      className={`px-2.5 py-0.5 text-xs font-subheading rounded-full border transition-colors ${
                         filterType === tag
                           ? 'bg-secondary border-secondary text-dark font-bold'
                           : 'bg-white border-border-color text-text-secondary'
