@@ -21,6 +21,7 @@ export const translations = {
     },
     categories: {
       title: 'Specialty Products',
+      exploreProducts: 'Explore Our Products',
       viewProducts: 'View Products',
       viewAll: 'View All Products',
       sauces: {
@@ -254,6 +255,7 @@ export const translations = {
     },
     categories: {
       title: '特色产品',
+      exploreProducts: '探索我们的产品',
       viewProducts: '查看产品',
       viewAll: '查看所有产品',
       sauces: {
