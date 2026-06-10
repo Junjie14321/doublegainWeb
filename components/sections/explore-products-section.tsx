@@ -45,7 +45,7 @@ export function ExploreProductsSection({ products }: ExploreProductsSectionProps
 
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory"
+            className="flex-1 min-w-0 flex gap-4 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory"
           >
             {products.map((product) => {
               const name = product.name[locale]
