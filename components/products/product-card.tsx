@@ -5,7 +5,7 @@ import { useState } from 'react'
 import type { Product } from '@/lib/sanity/types'
 import { useLanguage } from '@/context/language-context'
 import { useSavedList } from '@/context/saved-list-context'
-import { productInquiryLink, sampleRequestLink } from '@/lib/whatsapp'
+import { sampleRequestLink } from '@/lib/whatsapp'
 
 interface ProductCardProps {
   product: Product
@@ -118,23 +118,33 @@ export function ProductCard({ product, onViewDetails, isPriority = false }: Prod
           </span>
         )}
 
-        <div className="flex flex-col md:flex-row gap-2 mt-auto">
-          <a
-            href={productInquiryLink(name, locale)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full text-center text-xs font-subheading not-italic font-semibold bg-primary text-white py-2 px-2 rounded-lg hover:bg-primary-dark transition-colors"
+        <div className="flex flex-col gap-2 mt-auto">
+          <button
+            onClick={handleSave}
+            className="w-full flex items-center justify-center gap-1.5 text-center text-xs font-subheading not-italic font-semibold bg-primary text-white py-2 px-2 rounded-lg hover:bg-primary-dark transition-colors"
           >
-            {t.products.addToOrder}
-          </a>
+            {saved ? (
+              <>
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
+                {t.productDetail.addedToQuoteList}
+              </>
+            ) : (
+              <>+ {t.productDetail.addToQuoteList}</>
+            )}
+          </button>
           {product.allowSample !== false && (
             <a
               href={sampleRequestLink(name, locale)}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full text-center text-xs font-subheading not-italic font-semibold bg-surface text-text-primary border border-border-color py-2 px-2 rounded-lg hover:border-primary/30 hover:bg-white transition-colors"
+              className="flex items-center justify-center gap-1.5 text-center text-xs font-subheading not-italic font-semibold text-primary hover:text-primary-dark transition-colors"
             >
-              {t.products.askForSample}
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+              </svg>
+              {t.productDetail.askForSample}
             </a>
           )}
         </div>

@@ -5,8 +5,10 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import type { Product } from '@/lib/sanity/types'
 import type { CategoryNode } from '@/lib/sanity/products'
 import { useLanguage } from '@/context/language-context'
+import { useSavedList } from '@/context/saved-list-context'
 import { ProductCard } from '@/components/products/product-card'
 import { ProductDetailModal } from '@/components/products/product-detail-modal'
+import { SavedListPanel } from '@/components/products/saved-list-panel'
 
 interface ProductsClientPageProps {
   products: Product[]
@@ -17,6 +19,7 @@ type TagFilter = 'all' | 'specialty' | 'bestsellers' | 'newitems'
 
 export function ProductsClientPage({ products, categories }: ProductsClientPageProps) {
   const { t, locale } = useLanguage()
+  const { savedItems } = useSavedList()
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
@@ -26,6 +29,7 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [filterType, setFilterType] = useState<TagFilter>('all')
+  const [savedOpen, setSavedOpen] = useState(false)
 
   useEffect(() => {
     const cat = searchParams.get('category')
@@ -106,7 +110,7 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
 
   return (
     <>
-      <main className="min-h-screen pt-16" style={{ backgroundColor: '#FFF7DE' }}>
+      <main className={`min-h-screen pt-16 ${savedItems.length > 0 ? 'pb-20' : ''}`} style={{ backgroundColor: '#FFF7DE' }}>
         <div className="container-pad py-6">
 
           {/* Search */}
@@ -139,7 +143,7 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
             <p className="text-xs font-subheading text-text-secondary uppercase tracking-wider mb-2">
               {t.products.refineCategory}
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-nowrap gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
               <button onClick={() => handleCategoryChange('all')} className={catPillClass('all')}>
                 {t.products.allCategories}
               </button>
@@ -155,24 +159,30 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
             </div>
           </div>
 
-          {/* Subcategory pills */}
+          {/* Subcategory section */}
           {subCategoriesForRow.length > 0 && (
-            <div className="mb-6 flex flex-wrap items-center gap-2">
-              <span className="text-xs font-subheading text-text-secondary mr-1">
-                {activeCategory?.name[locale] ?? activeCategory?.name.en} type:
-              </span>
-              <button onClick={() => handleSubCategoryChange('all')} className={subPillClass('all')}>
-                All
-              </button>
-              {subCategoriesForRow.map((sub) => (
-                <button
-                  key={sub.slug}
-                  onClick={() => handleSubCategoryChange(sub.slug)}
-                  className={subPillClass(sub.slug)}
-                >
-                  {sub.name[locale] ?? sub.name.en}
+            <div className="mb-6">
+              <div className="border-b-2 border-primary pb-1.5 mb-3">
+                <span className="text-sm font-subheading not-italic font-bold text-primary">
+                  {locale === 'zh'
+                    ? `${activeCategory?.name[locale] ?? activeCategory?.name.en}${t.products.subCategoryType}`
+                    : `${activeCategory?.name[locale] ?? activeCategory?.name.en} ${t.products.subCategoryType}`}
+                </span>
+              </div>
+              <div className="flex flex-nowrap gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
+                <button onClick={() => handleSubCategoryChange('all')} className={subPillClass('all')}>
+                  {t.products.all}
                 </button>
-              ))}
+                {subCategoriesForRow.map((sub) => (
+                  <button
+                    key={sub.slug}
+                    onClick={() => handleSubCategoryChange(sub.slug)}
+                    className={subPillClass(sub.slug)}
+                  >
+                    {sub.name[locale] ?? sub.name.en}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
 
@@ -264,6 +274,29 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
         onSelectProduct={(p) => setSelectedProduct(p)}
         onClose={() => setSelectedProduct(null)}
       />
+
+      {savedItems.length > 0 && (
+        <button
+          onClick={() => setSavedOpen(true)}
+          className="fixed bottom-0 left-0 right-0 z-40 bg-background border-t border-border-color"
+          aria-label={t.quoteBar.title}
+        >
+          <div className="container-pad py-3 flex items-center justify-between text-left">
+            <div>
+              <p className="text-xs font-body text-text-secondary">{t.quoteBar.title}</p>
+              <p className="text-sm font-subheading not-italic font-bold text-primary">
+                {t.quoteBar.productsSelected.replace('{count}', String(savedItems.length))}
+              </p>
+            </div>
+            <svg className="w-6 h-6 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+        </button>
+      )}
+
+      {savedOpen && <SavedListPanel onClose={() => setSavedOpen(false)} />}
+      {savedOpen && <div className="fixed inset-0 z-40 bg-black/20" onClick={() => setSavedOpen(false)} />}
     </>
   )
 }

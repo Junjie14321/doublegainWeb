@@ -95,4 +95,13 @@ h1, h2, h3, h4 {
     padding: 0.125rem 0.625rem;
     border-radius: 9999px;
   }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -198,13 +198,18 @@ export function ProductDetailModal({ product, allProducts = [], onClose, onSelec
             <div className="mt-5 pt-4 border-t border-border-color">
               <button
                 onClick={() => toggle({ id: product.id, name: product.name, image: product.image ?? '', grade: product.grade })}
-                className={`w-full text-center text-sm font-subheading not-italic font-semibold py-3 px-4 rounded-lg transition-colors ${
-                  saved
-                    ? 'bg-primary/10 text-primary border border-primary'
-                    : 'bg-primary text-white hover:bg-primary-dark'
-                }`}
+                className="w-full flex items-center justify-center gap-1.5 text-center text-sm font-subheading not-italic font-semibold bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary-dark transition-colors"
               >
-                {saved ? t.productDetail.addedToQuoteList : `+ ${t.productDetail.addToQuoteList}`}
+                {saved ? (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                    {t.productDetail.addedToQuoteList}
+                  </>
+                ) : (
+                  <>+ {t.productDetail.addToQuoteList}</>
+                )}
               </button>
               <a
                 href={sampleRequestLink(name, locale)}

@@ -136,6 +136,8 @@ export const translations = {
       productsIn: 'products in',
       addToOrder: 'Request for Quote',
       askForSample: 'Request Sample',
+      subCategoryType: 'Type',
+      all: 'All',
       grades: {
         standard: 'Standard',
         'semi-premium': 'Semi Premium',
@@ -187,6 +189,10 @@ export const translations = {
       added: 'Added',
       backToProducts: 'Back to Products',
       relatedProducts: 'Related Products',
+    },
+    quoteBar: {
+      title: 'Your quote list',
+      productsSelected: '{count} products selected',
     },
     about: {
       title: 'Our Brand',
@@ -363,6 +369,8 @@ export const translations = {
       productsIn: '款产品，',
       addToOrder: '获取报价',
       askForSample: '申请样品',
+      subCategoryType: '类型',
+      all: '全部',
       grades: {
         standard: '标准',
         'semi-premium': '半特级',
@@ -414,6 +422,10 @@ export const translations = {
       added: '已加入',
       backToProducts: '返回产品列表',
       relatedProducts: '相关产品',
+    },
+    quoteBar: {
+      title: '您的报价清单',
+      productsSelected: '已选择 {count} 件产品',
     },
     about: {
       title: '品牌介绍',
