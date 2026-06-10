@@ -11,8 +11,12 @@ export const metadata: Metadata = {
   description: 'Master 2 Foods is a trusted B2B supplier that supplies sauces and ingredients to Asian kitchens in Singapore since 1996.',
   applicationName: 'Master 2',
   icons: {
-    icon: '/images/LogoIcon.png',
-    apple: '/images/LogoIcon.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: { url: '/apple-touch-icon.png', type: 'image/png', sizes: '180x180' },
   },
 }
 
