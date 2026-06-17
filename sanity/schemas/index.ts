@@ -1,9 +1,16 @@
 import product from './product'
 import category from './category'
-import subcategory from './subcategory' // Add your new subcategory
-import faq from './faq'                 // Add your updated FAQ
-import whatsapp from './whatsapp'       // Add your new WhatsApp
+import subcategory from './subcategory'
+import faq from './faq'
+import whatsapp from './whatsapp'
 import recipe from './recipe'
+import article, {
+  articleTextBlock,
+  articleSectionBlock,
+  articleProductGridBlock,
+  articleTableBlock,
+  articleFaqBlock,
+} from './article'
 
 export const schemaTypes = [
   product,
@@ -11,5 +18,11 @@ export const schemaTypes = [
   subcategory,
   faq,
   whatsapp,
-  recipe
+  recipe,
+  article,
+  articleTextBlock,
+  articleSectionBlock,
+  articleProductGridBlock,
+  articleTableBlock,
+  articleFaqBlock,
 ]

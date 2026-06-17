@@ -101,3 +101,91 @@ export interface Recipe {
   featured?: boolean
   order?: number | null
 }
+
+// ── Article block types ──────────────────────────────────────────────────────
+
+export interface ArticleTextBlock {
+  _type: 'articleTextBlock'
+  body?: LocalizedString
+}
+
+export interface ArticleSectionBlock {
+  _type: 'articleSectionBlock'
+  heading?: LocalizedString
+  body?: LocalizedString
+}
+
+export interface ArticleGridProduct {
+  label?: LocalizedString
+  product?: {
+    id: string
+    slug: string
+    name: LocalizedString
+    image?: string
+    grade?: Grade
+  }
+}
+
+export interface ArticleProductGridBlock {
+  _type: 'articleProductGridBlock'
+  items?: ArticleGridProduct[]
+}
+
+export interface ArticleTableBlock {
+  _type: 'articleTableBlock'
+  heading?: string
+  columns?: string[]
+  rows?: Array<{ cells: string[] }>
+}
+
+export interface ArticleFaqItem {
+  question?: LocalizedString
+  answer?: LocalizedString
+}
+
+export interface ArticleFaqBlock {
+  _type: 'articleFaqBlock'
+  items?: ArticleFaqItem[]
+}
+
+export type ArticleContentBlock =
+  | ArticleTextBlock
+  | ArticleSectionBlock
+  | ArticleProductGridBlock
+  | ArticleTableBlock
+  | ArticleFaqBlock
+
+export interface ArticleSidebarProduct {
+  id: string
+  slug: string
+  name: LocalizedString
+  image?: string
+  grade?: Grade
+}
+
+export interface ArticleRef {
+  id: string
+  slug: string
+  category: string
+  title?: LocalizedString
+  subtitle?: LocalizedString
+  heroImage?: string
+  publishedAt?: string
+  readTime?: number
+}
+
+export interface Article {
+  id: string
+  slug: string
+  category: string
+  title?: LocalizedString
+  subtitle?: LocalizedString
+  heroImage?: string
+  author?: string
+  publishedAt?: string
+  readTime?: number
+  featured?: boolean
+  content?: ArticleContentBlock[]
+  sidebarProducts?: ArticleSidebarProduct[]
+  relatedArticles?: ArticleRef[]
+}
