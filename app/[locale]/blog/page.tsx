@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { getArticles } from '@/lib/sanity/articles'
 import type { Locale } from '@/lib/i18n/config'
 
-export const revalidate = 3600
+export const revalidate = 300
 
 export const metadata: Metadata = {
   title: 'Blog | Master 2 Foods',
