@@ -85,6 +85,15 @@ export interface RecipeProductRef {
   grade?: Grade
 }
 
+export interface RecipeNutrition {
+  calories?: number
+  protein?: number
+  carbohydrates?: number
+  fat?: number
+  fiber?: number
+  sodium?: number
+}
+
 export interface Recipe {
   id: string
   slug: string
@@ -97,6 +106,8 @@ export interface Recipe {
   servings?: number
   ingredients?: LocalizedString
   instructions?: LocalizedString
+  tip?: LocalizedString
+  nutrition?: RecipeNutrition
   relatedProducts?: RecipeProductRef[]
   featured?: boolean
   order?: number | null

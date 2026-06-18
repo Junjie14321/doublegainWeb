@@ -15,6 +15,8 @@ const RECIPE_PROJECTION = `{
   servings,
   ingredients,
   instructions,
+  tip,
+  nutrition,
   "relatedProducts": relatedProducts[]->{
     "id": _id,
     "slug": slug.current,
@@ -41,6 +43,13 @@ export async function getRecipeBySlug(slug: string): Promise<Recipe | null> {
 
 export async function getRecipeSlugs(): Promise<string[]> {
   return await client.fetch(`*[_type == "recipe" && defined(slug.current)].slug.current`)
+}
+
+export async function getOtherRecipes(currentSlug: string): Promise<Recipe[]> {
+  return client.fetch(
+    `*[_type == "recipe" && slug.current != $currentSlug] | order(coalesce(order, 999) asc, _createdAt asc) [0...4] ${RECIPE_PROJECTION}`,
+    { currentSlug }
+  )
 }
 
 export async function getFeaturedRecipe(): Promise<Recipe | null> {

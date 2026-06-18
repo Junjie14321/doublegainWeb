@@ -10,11 +10,45 @@ import type { Locale } from '@/lib/i18n/config'
 interface RecipeRelatedProductsProps {
   products: RecipeProductRef[]
   locale: Locale
+  compact?: boolean
 }
 
-export function RecipeRelatedProducts({ products, locale }: RecipeRelatedProductsProps) {
+export function RecipeRelatedProducts({ products, locale, compact }: RecipeRelatedProductsProps) {
   const { t } = useLanguage()
   const { toggle, isSaved } = useSavedList()
+
+  if (compact) {
+    return (
+      <div className="grid grid-cols-3 gap-2">
+        {products.map((p) => {
+          const name = p.name[locale] ?? p.name.en
+          const saved = isSaved(p.id)
+          return (
+            <div key={p.id} className="flex flex-col items-center">
+              <Link href={`/${locale}/products/${p.slug}`} className="block w-full">
+                <div className="relative aspect-square bg-white rounded-lg border border-border-color overflow-hidden mb-1">
+                  {p.image ? (
+                    <Image src={p.image} alt={name} fill className="object-contain p-1.5" sizes="80px" />
+                  ) : (
+                    <div className="absolute inset-0 bg-surface" />
+                  )}
+                </div>
+                <p className="text-[10px] font-ui text-text-primary line-clamp-2 leading-tight text-center mb-0.5">
+                  {name}
+                </p>
+              </Link>
+              <button
+                onClick={() => toggle({ id: p.id, name: p.name, image: p.image ?? '', grade: p.grade })}
+                className="text-[10px] font-subheading not-italic font-semibold text-primary"
+              >
+                {saved ? t.productDetail.added : `+${t.productDetail.add}`}
+              </button>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
 
   return (
     <div>
