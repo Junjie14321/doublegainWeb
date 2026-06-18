@@ -39,17 +39,17 @@ export default async function BlogPage({ params }: PageProps) {
     : null
 
   return (
-    <div style={{ backgroundColor: '#FFF7DE' }} className="min-h-screen pt-16">
+    <div style={{ backgroundColor: '#FFF7DE' }} className="min-h-screen pt-16 overflow-x-hidden">
 
       {/* ── Featured Recipe Hero ── */}
       {heroRecipe && (
         <section className="bg-primary py-10 md:py-14">
           <div className="container-pad">
-            <div className="flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12">
+            <div className="flex flex-col-reverse md:flex-row items-center gap-6 md:gap-12">
 
               {/* Left — circular dish image */}
               <div className="shrink-0">
-                <div className="relative w-44 h-44 sm:w-60 sm:h-60 md:w-72 md:h-72 rounded-full overflow-hidden ring-4 ring-white/20 bg-white/10">
+                <div className="relative w-36 h-36 sm:w-56 sm:h-56 md:w-72 md:h-72 rounded-full overflow-hidden ring-4 ring-white/20 bg-white/10">
                   {heroRecipe.image ? (
                     <Image
                       src={heroRecipe.image}
@@ -99,7 +99,7 @@ export default async function BlogPage({ params }: PageProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 3v1m0 16v1M4.22 4.22l.707.707M18.364 18.364l.707.707M1 12h2m18 0h2M4.22 19.78l.707-.707M18.364 5.636l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
               </svg>
             </SectionIcon>
-            <h2 className="text-base md:text-lg font-heading text-text-primary">Popular Recipes</h2>
+            <h2 className="text-base md:text-lg font-heading text-text-primary shrink-0">Popular Recipes</h2>
             {recipes.length > 0 && (
               <>
                 <div className="flex-1 h-px bg-border-color" />
@@ -185,7 +185,7 @@ export default async function BlogPage({ params }: PageProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
             </SectionIcon>
-            <h2 className="text-base md:text-lg font-heading text-text-primary">Knowledge</h2>
+            <h2 className="text-base md:text-lg font-heading text-text-primary shrink-0">Knowledge</h2>
             {articles.length > 0 && (
               <>
                 <div className="flex-1 h-px bg-border-color" />
@@ -246,22 +246,22 @@ export default async function BlogPage({ params }: PageProps) {
 
             {/* Left — text + form */}
             <div className="flex-1 min-w-0">
-              <div className="flex items-start gap-4 mb-5">
-                <div className="w-10 h-10 rounded-full border-2 border-primary flex items-center justify-center shrink-0 text-primary">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-start gap-3 mb-5">
+                <div className="w-9 h-9 rounded-full border-2 border-primary flex items-center justify-center shrink-0 text-primary mt-0.5">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <div>
-                  <p className="font-heading text-text-primary text-base md:text-lg leading-snug mb-1">
+                <div className="min-w-0">
+                  <p className="font-heading text-text-primary text-sm md:text-base leading-snug mb-1">
                     Get Recipes & More Knowledge Straight to Your Inbox
                   </p>
-                  <p className="text-xs md:text-sm font-body text-text-secondary">
+                  <p className="text-xs font-body text-text-secondary">
                     New recipes, cooking guides, and exclusive tips.
                   </p>
                 </div>
               </div>
-              <form className="flex gap-2 max-w-md">
+              <form className="flex gap-2 w-full max-w-md">
                 <input
                   type="email"
                   placeholder="Enter your email"
