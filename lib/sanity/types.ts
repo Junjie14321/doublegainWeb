@@ -85,6 +85,11 @@ export interface RecipeProductRef {
   grade?: Grade
 }
 
+export interface RecipeInstructionStep {
+  heading?: LocalizedString
+  body?: LocalizedString
+}
+
 export interface RecipeFaqItem {
   question?: LocalizedString
   answer?: LocalizedString
@@ -110,7 +115,7 @@ export interface Recipe {
   cookTime?: number
   servings?: number
   ingredients?: LocalizedString
-  instructions?: LocalizedString
+  instructions?: RecipeInstructionStep[]
   tip?: LocalizedString
   nutrition?: RecipeNutrition
   faq?: RecipeFaqItem[]

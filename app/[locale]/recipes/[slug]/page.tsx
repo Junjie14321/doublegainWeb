@@ -95,12 +95,12 @@ export default async function RecipeDetailPage({ params }: PageProps) {
 
   const ingredientLines = (recipe.ingredients?.[locale] ?? recipe.ingredients?.en ?? '')
     .split('\n').map((l) => l.trim()).filter(Boolean)
-  const instructionLines = (recipe.instructions?.[locale] ?? recipe.instructions?.en ?? '')
-    .split('\n').map((l) => l.trim()).filter(Boolean)
+  const instructionSteps = recipe.instructions ?? []
 
   const showNutrition = hasAnyNutrition(recipe.nutrition)
   const hasRelatedProducts = (recipe.relatedProducts?.length ?? 0) > 0
   const hasOtherRecipes = otherRecipes.length > 0
+  const hasInstructions = instructionSteps.length > 0
 
   const nutritionRows = showNutrition
     ? ([
@@ -120,7 +120,11 @@ export default async function RecipeDetailPage({ params }: PageProps) {
     image: recipe.image ? [recipe.image] : undefined,
     description: description || undefined,
     recipeIngredient: ingredientLines.length > 0 ? ingredientLines : undefined,
-    recipeInstructions: instructionLines.map((step) => ({ '@type': 'HowToStep', text: step })),
+    recipeInstructions: instructionSteps.map((step) => ({
+      '@type': 'HowToStep',
+      name: step.heading?.[locale] ?? step.heading?.en,
+      text: step.body?.[locale] ?? step.body?.en,
+    })),
     prepTime: toIsoDuration(recipe.prepTime),
     cookTime: toIsoDuration(recipe.cookTime),
     recipeYield: recipe.servings ? String(recipe.servings) : undefined,
@@ -283,7 +287,7 @@ export default async function RecipeDetailPage({ params }: PageProps) {
             {/* Center — Instructions + Other Recipes */}
             <div className="flex-1 min-w-0">
 
-              {instructionLines.length > 0 && (
+              {hasInstructions && (
                 <div className="mb-8">
                   <SectionHeading
                     title={dict.recipeDetail.instructions}
@@ -293,15 +297,28 @@ export default async function RecipeDetailPage({ params }: PageProps) {
                       </svg>
                     }
                   />
-                  <ol className="space-y-4">
-                    {instructionLines.map((step, i) => (
-                      <li key={i} className="flex gap-3 text-sm font-body text-text-secondary leading-relaxed">
-                        <span className="shrink-0 w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center">
-                          {i + 1}
-                        </span>
-                        <span className="pt-0.5">{step}</span>
-                      </li>
-                    ))}
+                  <ol className="space-y-5">
+                    {instructionSteps.map((step, i) => {
+                      const heading = step.heading?.[locale] ?? step.heading?.en ?? ''
+                      const body = step.body?.[locale] ?? step.body?.en ?? ''
+                      return (
+                        <li key={i} className="flex gap-3">
+                          <span className="shrink-0 w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center mt-0.5">
+                            {i + 1}
+                          </span>
+                          <div className="flex-1 min-w-0">
+                            {heading && (
+                              <p className="text-sm font-subheading not-italic font-semibold text-text-primary leading-snug mb-1">
+                                {heading}
+                              </p>
+                            )}
+                            {body && (
+                              <p className="text-sm font-body text-text-secondary leading-relaxed">{body}</p>
+                            )}
+                          </div>
+                        </li>
+                      )
+                    })}
                   </ol>
                 </div>
               )}

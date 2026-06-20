@@ -14,7 +14,7 @@ const RECIPE_PROJECTION = `{
   cookTime,
   servings,
   ingredients,
-  instructions,
+  instructions[]{ heading, body },
   tip,
   nutrition,
   faq[]{ question, answer },

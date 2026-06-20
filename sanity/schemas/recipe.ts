@@ -67,11 +67,45 @@ const recipe = defineType({
     defineField({
       name: 'instructions',
       title: 'Instructions',
-      description: 'One step per line',
-      type: 'object',
-      fields: [
-        { name: 'en', type: 'text', title: 'English' },
-        { name: 'zh', type: 'text', title: 'Chinese' },
+      description: 'Add one step per item — each step has a heading and a body',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          name: 'instructionStep',
+          title: 'Step',
+          fields: [
+            defineField({
+              name: 'heading',
+              title: 'Step Heading',
+              description: 'e.g. "Prepare the noodles"',
+              type: 'object',
+              fields: [
+                { name: 'en', type: 'string', title: 'English' },
+                { name: 'zh', type: 'string', title: 'Chinese' },
+              ],
+            }),
+            defineField({
+              name: 'body',
+              title: 'Step Body',
+              description: 'Detailed instructions for this step',
+              type: 'object',
+              fields: [
+                { name: 'en', type: 'text', title: 'English', rows: 3 },
+                { name: 'zh', type: 'text', title: 'Chinese', rows: 3 },
+              ],
+            }),
+          ],
+          preview: {
+            select: { heading: 'heading.en', body: 'body.en' },
+            prepare({ heading, body }: { heading?: string; body?: string }) {
+              return {
+                title: heading ?? 'Step',
+                subtitle: body ? body.slice(0, 60) + (body.length > 60 ? '…' : '') : '',
+              }
+            },
+          },
+        },
       ],
       validation: (Rule) => Rule.required(),
     }),
