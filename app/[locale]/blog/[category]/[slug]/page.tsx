@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -101,11 +102,21 @@ function ProductGridBlock({ block, locale }: { block: ArticleProductGridBlock; l
         const product = item.product
         const label = item.label?.[locale] ?? item.label?.en ?? product?.name?.[locale] ?? product?.name?.en ?? ''
         const image = product?.image
+        const href = product?.slug ? `/${locale}/products/${product.slug}` : null
+        const Wrapper = href
+          ? ({ children }: { children: React.ReactNode }) => (
+              <Link href={href} className="flex flex-col items-center gap-2 group">
+                {children}
+              </Link>
+            )
+          : ({ children }: { children: React.ReactNode }) => (
+              <div className="flex flex-col items-center gap-2">{children}</div>
+            )
         return (
-          <div key={i} className="flex flex-col items-center gap-2">
-            <div className="relative w-full aspect-square bg-white rounded-xl border border-border-color overflow-hidden">
+          <Wrapper key={i}>
+            <div className={`relative w-full aspect-square bg-white rounded-xl border border-border-color overflow-hidden transition-shadow ${href ? 'group-hover:shadow-md group-hover:border-primary/30' : ''}`}>
               {image ? (
-                <Image src={image} alt={label} fill className="object-contain p-3 sm:p-4" sizes="200px" />
+                <Image src={image} alt={label} fill className={`object-contain p-3 sm:p-4 ${href ? 'group-hover:scale-105 transition-transform duration-300' : ''}`} sizes="200px" />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center text-text-muted">
                   <svg className="w-10 h-10 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,11 +126,11 @@ function ProductGridBlock({ block, locale }: { block: ArticleProductGridBlock; l
               )}
             </div>
             {label && (
-              <span className="text-xs font-subheading not-italic text-text-secondary text-center leading-snug">
+              <span className={`text-xs font-subheading not-italic text-center leading-snug transition-colors ${href ? 'text-primary group-hover:underline' : 'text-text-secondary'}`}>
                 {label}
               </span>
             )}
-          </div>
+          </Wrapper>
         )
       })}
     </div>
