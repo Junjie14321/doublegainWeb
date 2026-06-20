@@ -207,6 +207,7 @@ export const translations = {
       minutes: 'min',
       shopThisRecipe: 'Shop This Recipe',
       backToRecipes: 'Back to Recipes',
+      faq: 'Frequently Asked Questions',
     },
     quoteBar: {
       title: 'Your quote list',
@@ -458,6 +459,7 @@ export const translations = {
       minutes: '分钟',
       shopThisRecipe: '购买相关食材',
       backToRecipes: '返回食谱列表',
+      faq: '常见问题',
     },
     quoteBar: {
       title: '您的报价清单',

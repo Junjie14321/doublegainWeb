@@ -85,6 +85,11 @@ export interface RecipeProductRef {
   grade?: Grade
 }
 
+export interface RecipeFaqItem {
+  question?: LocalizedString
+  answer?: LocalizedString
+}
+
 export interface RecipeNutrition {
   calories?: number
   protein?: number
@@ -108,6 +113,7 @@ export interface Recipe {
   instructions?: LocalizedString
   tip?: LocalizedString
   nutrition?: RecipeNutrition
+  faq?: RecipeFaqItem[]
   relatedProducts?: RecipeProductRef[]
   featured?: boolean
   order?: number | null

@@ -100,6 +100,45 @@ const recipe = defineType({
       ],
     }),
     defineField({
+      name: 'faq',
+      title: 'FAQ (optional)',
+      description: 'Frequently asked questions shown at the bottom of the recipe page',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          name: 'recipeFaqItem',
+          title: 'FAQ Item',
+          fields: [
+            defineField({
+              name: 'question',
+              title: 'Question',
+              type: 'object',
+              fields: [
+                { name: 'en', type: 'string', title: 'English' },
+                { name: 'zh', type: 'string', title: 'Chinese' },
+              ],
+            }),
+            defineField({
+              name: 'answer',
+              title: 'Answer',
+              type: 'object',
+              fields: [
+                { name: 'en', type: 'text', title: 'English', rows: 3 },
+                { name: 'zh', type: 'text', title: 'Chinese', rows: 3 },
+              ],
+            }),
+          ],
+          preview: {
+            select: { question: 'question.en' },
+            prepare({ question }: { question?: string }) {
+              return { title: question ?? 'Question', subtitle: 'FAQ' }
+            },
+          },
+        },
+      ],
+    }),
+    defineField({
       name: 'relatedProducts',
       title: 'Shop This Recipe (Related Products)',
       description: 'Products used in this recipe, shown as "Shop this recipe"',

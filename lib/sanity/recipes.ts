@@ -17,6 +17,7 @@ const RECIPE_PROJECTION = `{
   instructions,
   tip,
   nutrition,
+  faq[]{ question, answer },
   "relatedProducts": relatedProducts[]->{
     "id": _id,
     "slug": slug.current,

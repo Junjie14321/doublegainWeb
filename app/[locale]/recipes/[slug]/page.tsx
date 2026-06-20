@@ -5,6 +5,12 @@ import { notFound } from 'next/navigation'
 import { getDictionary } from '@/lib/i18n/get-dictionary'
 import { getRecipeBySlug, getRecipeSlugs, getOtherRecipes } from '@/lib/sanity/recipes'
 import { RecipeRelatedProducts } from '@/components/recipes/recipe-related-products'
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/accordion'
 import type { Locale } from '@/lib/i18n/config'
 import type { RecipeNutrition } from '@/lib/sanity/types'
 
@@ -361,6 +367,33 @@ export default async function RecipeDetailPage({ params }: PageProps) {
           </div>
         </div>
       </div>
+
+      {/* FAQ — only rendered when items exist in Sanity */}
+      {(recipe.faq?.length ?? 0) > 0 && (
+        <div className="container-pad py-8 md:py-10">
+          <h2 className="text-xl md:text-2xl font-heading text-text-primary mb-5">
+            {dict.recipeDetail.faq}
+          </h2>
+          <div className="border border-border-color rounded-xl overflow-hidden bg-white">
+            <Accordion type="multiple">
+              {recipe.faq!.map((item, i) => {
+                const question = item.question?.[locale] ?? item.question?.en ?? ''
+                const answer = item.answer?.[locale] ?? item.answer?.en ?? ''
+                return (
+                  <AccordionItem key={i} value={`faq-${i}`}>
+                    <AccordionTrigger className="px-5 text-sm font-subheading not-italic font-semibold text-text-primary hover:no-underline hover:text-primary">
+                      {question}
+                    </AccordionTrigger>
+                    <AccordionContent className="px-5">
+                      <p className="text-sm font-body text-text-secondary leading-relaxed">{answer}</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                )
+              })}
+            </Accordion>
+          </div>
+        </div>
+      )}
 
     </div>
   )
