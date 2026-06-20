@@ -7,6 +7,7 @@ import recipe from './recipe'
 import article, {
   articleTextBlock,
   articleSectionBlock,
+  articleImageBlock,
   articleProductGridBlock,
   articleTableBlock,
   articleFaqBlock,
@@ -22,6 +23,7 @@ export const schemaTypes = [
   article,
   articleTextBlock,
   articleSectionBlock,
+  articleImageBlock,
   articleProductGridBlock,
   articleTableBlock,
   articleFaqBlock,

@@ -161,6 +161,34 @@ export const articleTableBlock = defineType({
   },
 })
 
+export const articleImageBlock = defineType({
+  name: 'articleImageBlock',
+  title: 'Image',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: { hotspot: true },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'caption',
+      title: 'Caption (optional)',
+      description: 'Short description shown below the image',
+      type: 'object',
+      fields: [
+        { name: 'en', type: 'string', title: 'English' },
+        { name: 'zh', type: 'string', title: 'Chinese' },
+      ],
+    }),
+  ],
+  preview: {
+    select: { title: 'caption.en', media: 'image' },
+  },
+})
+
 export const articleFaqBlock = defineType({
   name: 'articleFaqBlock',
   title: 'FAQ',
@@ -297,6 +325,7 @@ const article = defineType({
       of: [
         { type: 'articleTextBlock' },
         { type: 'articleSectionBlock' },
+        { type: 'articleImageBlock' },
         { type: 'articleProductGridBlock' },
         { type: 'articleTableBlock' },
         { type: 'articleFaqBlock' },

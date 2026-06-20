@@ -17,6 +17,7 @@ import type {
   ArticleProductGridBlock,
   ArticleTableBlock,
   ArticleFaqBlock,
+  ArticleImageBlock,
 } from '@/lib/sanity/types'
 
 export const revalidate = 3600
@@ -162,6 +163,30 @@ function TableBlock({ block }: { block: ArticleTableBlock }) {
   )
 }
 
+function ImageBlock({ block, locale }: { block: ArticleImageBlock; locale: Locale }) {
+  if (!block.image) return null
+  const caption = block.caption?.[locale] ?? block.caption?.en
+
+  return (
+    <figure className="mb-8">
+      <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-surface border border-border-color">
+        <Image
+          src={block.image}
+          alt={caption ?? 'Article image'}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 800px"
+        />
+      </div>
+      {caption && (
+        <figcaption className="mt-2 text-center text-sm font-body text-text-muted italic">
+          {caption}
+        </figcaption>
+      )}
+    </figure>
+  )
+}
+
 function FaqBlock({ block, locale }: { block: ArticleFaqBlock; locale: Locale }) {
   const items = block.items ?? []
   if (items.length === 0) return null
@@ -205,6 +230,8 @@ function renderBlock(block: ArticleContentBlock, locale: Locale, index: number) 
       return <TableBlock key={index} block={block} />
     case 'articleFaqBlock':
       return <FaqBlock key={index} block={block} locale={locale} />
+    case 'articleImageBlock':
+      return <ImageBlock key={index} block={block} locale={locale} />
     default:
       return null
   }

@@ -159,12 +159,19 @@ export interface ArticleFaqBlock {
   items?: ArticleFaqItem[]
 }
 
+export interface ArticleImageBlock {
+  _type: 'articleImageBlock'
+  image?: string
+  caption?: LocalizedString
+}
+
 export type ArticleContentBlock =
   | ArticleTextBlock
   | ArticleSectionBlock
   | ArticleProductGridBlock
   | ArticleTableBlock
   | ArticleFaqBlock
+  | ArticleImageBlock
 
 export interface ArticleSidebarProduct {
   id: string

@@ -41,6 +41,10 @@ const ARTICLE_PROJECTION = `{
     },
     _type == "articleFaqBlock" => {
       items[]{ question, answer }
+    },
+    _type == "articleImageBlock" => {
+      "image": image.asset->url,
+      caption
     }
   },
   "sidebarProducts": sidebarProducts[]->{
