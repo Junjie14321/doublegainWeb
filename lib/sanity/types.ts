@@ -205,6 +205,29 @@ export interface ArticleRef {
   readTime?: number
 }
 
+export interface RelatedArticleRef {
+  _type: 'article'
+  id: string
+  slug: string
+  category: string
+  title?: LocalizedString
+  subtitle?: LocalizedString
+  heroImage?: string
+  publishedAt?: string
+  readTime?: number
+}
+
+export interface RelatedRecipeRef {
+  _type: 'recipe'
+  id: string
+  slug: string
+  name?: LocalizedString
+  tagline?: LocalizedString
+  image?: string
+}
+
+export type RelatedContentRef = RelatedArticleRef | RelatedRecipeRef
+
 export interface Article {
   id: string
   slug: string
@@ -218,5 +241,5 @@ export interface Article {
   featured?: boolean
   content?: ArticleContentBlock[]
   sidebarProducts?: ArticleSidebarProduct[]
-  relatedArticles?: ArticleRef[]
+  relatedArticles?: RelatedContentRef[]
 }

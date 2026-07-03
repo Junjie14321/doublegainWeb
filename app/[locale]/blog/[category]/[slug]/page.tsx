@@ -19,6 +19,8 @@ import type {
   ArticleTableBlock,
   ArticleFaqBlock,
   ArticleImageBlock,
+  RelatedArticleRef,
+  RelatedRecipeRef,
 } from '@/lib/sanity/types'
 
 export const revalidate = 3600
@@ -70,7 +72,7 @@ function TextBlock({ block, locale }: { block: ArticleTextBlock; locale: Locale 
   const text = block.body?.[locale] ?? block.body?.en
   if (!text) return null
   return (
-    <p className="text-base font-body text-text-secondary leading-relaxed mb-8">{text}</p>
+    <p className="text-base font-body text-text-secondary leading-relaxed mb-8 text-justify">{text}</p>
   )
 }
 
@@ -84,7 +86,7 @@ function SectionBlock({ block, locale }: { block: ArticleSectionBlock; locale: L
         <h2 className="text-xl md:text-2xl font-heading text-text-primary mb-4">{heading}</h2>
       )}
       {body && (
-        <p className="text-base font-body text-text-secondary leading-relaxed">{body}</p>
+        <p className="text-base font-body text-text-secondary leading-relaxed text-justify">{body}</p>
       )}
     </section>
   )
@@ -307,7 +309,7 @@ export default async function ArticlePage({ params }: PageProps) {
                 {title}
               </h1>
               {subtitle && (
-                <p className="text-text-secondary font-body text-base md:text-lg leading-relaxed mb-6">
+                <p className="text-text-secondary font-body text-base md:text-lg leading-relaxed mb-6 text-justify">
                   {subtitle}
                 </p>
               )}
@@ -432,7 +434,7 @@ export default async function ArticlePage({ params }: PageProps) {
                   </div>
                 )}
 
-                {/* Related articles */}
+                {/* Related articles / recipes */}
                 {hasRelatedArticles && (
                   <div className="bg-white rounded-xl border border-border-color p-5">
                     <p className="text-xs font-subheading not-italic uppercase tracking-wider text-text-muted mb-4">
@@ -440,26 +442,39 @@ export default async function ArticlePage({ params }: PageProps) {
                     </p>
                     <div className="flex flex-col gap-4">
                       {article.relatedArticles!.map((related) => {
-                        const relTitle = related.title?.[locale] ?? related.title?.en ?? ''
+                        let href: string
+                        let displayTitle: string
+                        let thumb: string | undefined
+                        let date: string | undefined
+
+                        if (related._type === 'recipe') {
+                          const r = related as RelatedRecipeRef
+                          href = `/${locale}/recipes/${r.slug}`
+                          displayTitle = r.name?.[locale] ?? r.name?.en ?? ''
+                          thumb = r.image
+                        } else {
+                          const a = related as RelatedArticleRef
+                          href = `/${locale}/blog/${a.category}/${a.slug}`
+                          displayTitle = a.title?.[locale] ?? a.title?.en ?? ''
+                          thumb = a.heroImage
+                          date = a.publishedAt
+                        }
+
                         return (
-                          <Link
-                            key={related.id}
-                            href={`/${locale}/blog/${related.category}/${related.slug}`}
-                            className="flex gap-3 group"
-                          >
+                          <Link key={related.id} href={href} className="flex gap-3 group">
                             <div className="relative w-14 h-14 shrink-0 rounded-lg overflow-hidden bg-surface border border-border-color">
-                              {related.heroImage ? (
-                                <Image src={related.heroImage} alt={relTitle} fill className="object-cover" sizes="56px" />
+                              {thumb ? (
+                                <Image src={thumb} alt={displayTitle} fill className="object-cover" sizes="56px" />
                               ) : (
                                 <div className="absolute inset-0 bg-surface" />
                               )}
                             </div>
                             <div className="min-w-0">
                               <p className="text-sm font-ui font-medium text-text-primary group-hover:text-primary transition-colors leading-snug line-clamp-2 mb-1">
-                                {relTitle}
+                                {displayTitle}
                               </p>
-                              {related.publishedAt && (
-                                <p className="text-xs text-text-muted">{related.publishedAt}</p>
+                              {date && (
+                                <p className="text-xs text-text-muted">{date}</p>
                               )}
                             </div>
                           </Link>

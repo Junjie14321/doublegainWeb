@@ -58,13 +58,21 @@ const ARTICLE_PROJECTION = `{
   },
   "relatedArticles": relatedArticles[]->{
     "id": _id,
+    "_type": _type,
     "slug": slug.current,
-    category,
-    title,
-    subtitle,
-    "heroImage": heroImage.asset->url,
-    publishedAt,
-    readTime
+    _type == "article" => {
+      category,
+      title,
+      subtitle,
+      "heroImage": heroImage.asset->url,
+      publishedAt,
+      readTime
+    },
+    _type == "recipe" => {
+      name,
+      tagline,
+      "image": image.asset->url
+    }
   }
 }`
 

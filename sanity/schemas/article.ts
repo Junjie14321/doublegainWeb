@@ -358,11 +358,11 @@ const article = defineType({
     }),
     defineField({
       name: 'relatedArticles',
-      title: 'Sidebar — Related Articles (max 3)',
-      description: 'Articles shown as related guides in the sidebar. Leave empty to hide.',
+      title: 'Sidebar — Related Articles / Recipes (max 3)',
+      description: 'Articles or recipes shown as related content in the sidebar. Leave empty to hide.',
       type: 'array',
       validation: (Rule) => Rule.max(3),
-      of: [{ type: 'reference', to: [{ type: 'article' }] }],
+      of: [{ type: 'reference', to: [{ type: 'article' }, { type: 'recipe' }] }],
     }),
   ],
   preview: {
