@@ -169,9 +169,11 @@ export const translations = {
       },
     },
     recipes: {
+      homeHeading: 'Recipes',
       sectionHeading: 'More Recipes',
       getRecipe: 'Get Recipe',
       empty: 'No recipes available yet. Check back soon!',
+      viewAll: 'View All',
     },
     savedList: {
       title: 'Quote List',
@@ -421,9 +423,11 @@ export const translations = {
       },
     },
     recipes: {
+      homeHeading: '食谱',
       sectionHeading: '更多食谱',
       getRecipe: '查看食谱',
       empty: '暂无食谱，敬请期待！',
+      viewAll: '查看全部',
     },
     savedList: {
       title: '报价清单',

@@ -346,7 +346,7 @@ export default async function ArticlePage({ params }: PageProps) {
           <span>›</span>
           <Link href={`/${locale}/blog`} className="hover:text-primary transition-colors">Blog</Link>
           <span>›</span>
-          <span className="text-text-secondary">{categoryLabel}</span>
+          <Link href={`/${locale}/blog`} className="hover:text-primary transition-colors">{categoryLabel}</Link>
           <span>›</span>
           <span className="text-text-secondary truncate max-w-[200px] sm:max-w-xs">{title}</span>
         </nav>
