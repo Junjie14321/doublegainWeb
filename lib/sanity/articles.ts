@@ -29,6 +29,7 @@ const ARTICLE_PROJECTION = `{
   featured,
   content[]{
     _type,
+    level,
     body,
     heading,
     columns,

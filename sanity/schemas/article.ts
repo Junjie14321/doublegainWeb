@@ -26,9 +26,22 @@ export const articleTextBlock = defineType({
 
 export const articleSectionBlock = defineType({
   name: 'articleSectionBlock',
-  title: 'Section (H2)',
+  title: 'Section (Heading)',
   type: 'object',
   fields: [
+    defineField({
+      name: 'level',
+      title: 'Heading Level',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Heading 1 — large, full-width', value: 'h2' },
+          { title: 'Heading 2 — smaller, indented', value: 'h3' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'h2',
+    }),
     defineField({
       name: 'heading',
       title: 'Heading',
@@ -49,9 +62,9 @@ export const articleSectionBlock = defineType({
     }),
   ],
   preview: {
-    select: { heading: 'heading.en' },
-    prepare({ heading }: { heading?: string }) {
-      return { title: heading ?? 'Untitled Section', subtitle: 'H2 Section' }
+    select: { heading: 'heading.en', level: 'level' },
+    prepare({ heading, level }: { heading?: string; level?: string }) {
+      return { title: heading ?? 'Untitled Section', subtitle: level === 'h3' ? 'Heading 2 (indented)' : 'Heading 1' }
     },
   },
 })

@@ -133,6 +133,7 @@ export interface ArticleTextBlock {
 
 export interface ArticleSectionBlock {
   _type: 'articleSectionBlock'
+  level?: 'h2' | 'h3'
   heading?: LocalizedString
   body?: LocalizedString
 }

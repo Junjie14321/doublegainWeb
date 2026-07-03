@@ -131,11 +131,16 @@ function TextBlock({ block, locale }: { block: ArticleTextBlock; locale: Locale 
 function SectionBlock({ block, locale }: { block: ArticleSectionBlock; locale: Locale }) {
   const heading = block.heading?.[locale] ?? block.heading?.en ?? ''
   const body = block.body?.[locale] ?? block.body?.en
+  const isH3 = block.level === 'h3'
 
   return (
-    <section id={toAnchorId(heading)} className="mb-10 scroll-mt-24">
+    <section id={toAnchorId(heading)} className={`scroll-mt-24 ${isH3 ? 'pl-5 mb-6' : 'mb-10'}`}>
       {heading && (
-        <h2 className="text-xl md:text-2xl font-heading text-text-primary mb-4">{heading}</h2>
+        isH3 ? (
+          <h3 className="text-base md:text-lg font-heading text-text-primary mb-2">{heading}</h3>
+        ) : (
+          <h2 className="text-xl md:text-2xl font-heading text-text-primary mb-4">{heading}</h2>
+        )
       )}
       {body && <RichText text={body} />}
     </section>
@@ -320,7 +325,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
   // Auto-derive TOC from section blocks
   const tocItems = content
-    .filter((b): b is ArticleSectionBlock => b._type === 'articleSectionBlock')
+    .filter((b): b is ArticleSectionBlock => b._type === 'articleSectionBlock' && b.level !== 'h3')
     .map((b) => {
       const label = b.heading?.[locale] ?? b.heading?.en ?? ''
       return { id: toAnchorId(label), label }
