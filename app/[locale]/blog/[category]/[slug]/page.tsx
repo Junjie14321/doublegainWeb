@@ -177,9 +177,10 @@ function TableBlock({ block }: { block: ArticleTableBlock }) {
 function ImageBlock({ block, locale }: { block: ArticleImageBlock; locale: Locale }) {
   if (!block.image) return null
   const caption = block.caption?.[locale] ?? block.caption?.en
+  const source = block.source?.[locale] ?? block.source?.en
 
   return (
-    <figure className="mb-8">
+    <figure id={block.slug ?? undefined} className="mb-8 scroll-mt-24">
       <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-surface border border-border-color">
         <Image
           src={block.image}
@@ -189,9 +190,14 @@ function ImageBlock({ block, locale }: { block: ArticleImageBlock; locale: Local
           sizes="(max-width: 768px) 100vw, 800px"
         />
       </div>
-      {caption && (
-        <figcaption className="mt-2 text-center text-sm font-body text-text-muted italic">
-          {caption}
+      {(caption || source) && (
+        <figcaption className="mt-2 text-center">
+          {caption && (
+            <span className="block text-sm font-body text-text-muted italic">{caption}</span>
+          )}
+          {source && (
+            <span className="block text-xs font-body text-text-muted/70 mt-0.5">{source}</span>
+          )}
         </figcaption>
       )}
     </figure>

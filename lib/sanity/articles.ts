@@ -44,7 +44,9 @@ const ARTICLE_PROJECTION = `{
     },
     _type == "articleImageBlock" => {
       "image": image.asset->url,
-      caption
+      "slug": slug.current,
+      caption,
+      source
     }
   },
   "sidebarProducts": sidebarProducts[]->{

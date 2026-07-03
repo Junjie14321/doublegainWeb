@@ -173,7 +173,9 @@ export interface ArticleFaqBlock {
 export interface ArticleImageBlock {
   _type: 'articleImageBlock'
   image?: string
+  slug?: string
   caption?: LocalizedString
+  source?: LocalizedString
 }
 
 export type ArticleContentBlock =

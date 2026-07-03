@@ -174,9 +174,26 @@ export const articleImageBlock = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'slug',
+      title: 'Slug / Anchor ID (optional)',
+      description: 'URL-friendly name used as an anchor link for this image (e.g. "tai-lok-mee-comparison")',
+      type: 'slug',
+      options: { maxLength: 96 },
+    }),
+    defineField({
       name: 'caption',
       title: 'Caption (optional)',
       description: 'Short description shown below the image',
+      type: 'object',
+      fields: [
+        { name: 'en', type: 'string', title: 'English' },
+        { name: 'zh', type: 'string', title: 'Chinese' },
+      ],
+    }),
+    defineField({
+      name: 'source',
+      title: 'Image Source (optional)',
+      description: 'Attribution shown below the caption (e.g. "Source: Getty Images")',
       type: 'object',
       fields: [
         { name: 'en', type: 'string', title: 'English' },
