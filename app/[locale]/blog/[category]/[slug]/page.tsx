@@ -11,6 +11,7 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion'
 import type { Locale } from '@/lib/i18n/config'
+import { ArticleSidebarProducts } from '@/components/articles/article-sidebar-products'
 import type {
   ArticleContentBlock,
   ArticleTextBlock,
@@ -454,32 +455,7 @@ export default async function ArticlePage({ params }: PageProps) {
                         </svg>
                       </Link>
                     </div>
-                    <div className="flex flex-col gap-3">
-                      {article.sidebarProducts!.map((p) => {
-                        const name = p.name[locale] ?? p.name.en
-                        return (
-                          <Link
-                            key={p.id}
-                            href={`/${locale}/products?q=${encodeURIComponent(p.name.en)}`}
-                            className="flex items-center gap-3 group"
-                          >
-                            <div className="relative w-12 h-12 shrink-0 bg-surface rounded-lg border border-border-color overflow-hidden">
-                              {p.image ? (
-                                <Image src={p.image} alt={name} fill className="object-contain p-1" sizes="48px" />
-                              ) : (
-                                <div className="absolute inset-0 bg-surface" />
-                              )}
-                            </div>
-                            <div className="min-w-0">
-                              <p className="text-sm font-ui font-medium text-text-primary group-hover:text-primary transition-colors leading-tight">
-                                {name}
-                              </p>
-                              {p.grade && <p className="text-xs text-text-muted capitalize">{p.grade}</p>}
-                            </div>
-                          </Link>
-                        )
-                      })}
-                    </div>
+                    <ArticleSidebarProducts products={article.sidebarProducts!} locale={locale} />
                   </div>
                 )}
 
