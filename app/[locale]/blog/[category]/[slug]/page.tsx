@@ -60,6 +60,59 @@ function toAnchorId(text: string): string {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/, '')
 }
 
+const bodyTextClass = 'text-base font-body text-text-secondary leading-relaxed'
+
+function RichText({ text, className = '' }: { text: string; className?: string }) {
+  const lines = text.split('\n')
+  const elements: React.ReactNode[] = []
+  let i = 0
+
+  while (i < lines.length) {
+    const line = lines[i].trim()
+
+    if (!line) { i++; continue }
+
+    if (line.startsWith('- ') || line.startsWith('* ')) {
+      const items: string[] = []
+      while (i < lines.length && (lines[i].trim().startsWith('- ') || lines[i].trim().startsWith('* '))) {
+        items.push(lines[i].trim().replace(/^[-*] /, ''))
+        i++
+      }
+      elements.push(
+        <ul key={elements.length} className="list-disc pl-5 space-y-1 mb-4">
+          {items.map((item, j) => (
+            <li key={j} className={bodyTextClass}>{item}</li>
+          ))}
+        </ul>
+      )
+      continue
+    }
+
+    if (/^\d+\.\s/.test(line)) {
+      const items: string[] = []
+      while (i < lines.length && /^\d+\.\s/.test(lines[i].trim())) {
+        items.push(lines[i].trim().replace(/^\d+\.\s+/, ''))
+        i++
+      }
+      elements.push(
+        <ol key={elements.length} className="list-decimal pl-5 space-y-1 mb-4">
+          {items.map((item, j) => (
+            <li key={j} className={bodyTextClass}>{item}</li>
+          ))}
+        </ol>
+      )
+      continue
+    }
+
+    elements.push(
+      <p key={elements.length} className={`${bodyTextClass} mb-4 text-justify`}>{line}</p>
+    )
+    i++
+  }
+
+  return <div className={className}>{elements}</div>
+}
+
 const CATEGORY_LABEL: Record<string, string> = {
   guides: 'Guides',
   tips: 'Tips',
@@ -71,9 +124,7 @@ const CATEGORY_LABEL: Record<string, string> = {
 function TextBlock({ block, locale }: { block: ArticleTextBlock; locale: Locale }) {
   const text = block.body?.[locale] ?? block.body?.en
   if (!text) return null
-  return (
-    <p className="text-base font-body text-text-secondary leading-relaxed mb-8 text-justify">{text}</p>
-  )
+  return <RichText text={text} className="mb-8" />
 }
 
 function SectionBlock({ block, locale }: { block: ArticleSectionBlock; locale: Locale }) {
@@ -85,9 +136,7 @@ function SectionBlock({ block, locale }: { block: ArticleSectionBlock; locale: L
       {heading && (
         <h2 className="text-xl md:text-2xl font-heading text-text-primary mb-4">{heading}</h2>
       )}
-      {body && (
-        <p className="text-base font-body text-text-secondary leading-relaxed text-justify">{body}</p>
-      )}
+      {body && <RichText text={body} />}
     </section>
   )
 }
