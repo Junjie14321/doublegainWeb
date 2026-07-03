@@ -53,7 +53,7 @@ export function RecipeRelatedProducts({ products, locale, compact }: RecipeRelat
   return (
     <div>
       <h2 className="text-xl font-heading text-primary mb-6">{t.recipeDetail.shopThisRecipe}</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         {products.map((p) => {
           const name = p.name[locale] ?? p.name.en
           const saved = isSaved(p.id)
