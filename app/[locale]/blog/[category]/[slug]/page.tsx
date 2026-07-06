@@ -344,7 +344,7 @@ export default async function ArticlePage({ params }: PageProps) {
         <nav className="text-xs font-body text-text-muted flex items-center gap-1.5 flex-wrap">
           <Link href={`/${locale}`} className="hover:text-primary transition-colors">Home</Link>
           <span>›</span>
-          <Link href={`/${locale}/blog`} className="hover:text-primary transition-colors">Blog</Link>
+          <Link href={`/${locale}/blog`} className="hover:text-primary transition-colors">Articles</Link>
           <span>›</span>
           <Link href={`/${locale}/blog`} className="hover:text-primary transition-colors">{categoryLabel}</Link>
           <span>›</span>

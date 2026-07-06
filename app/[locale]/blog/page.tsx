@@ -8,7 +8,7 @@ import type { Locale } from '@/lib/i18n/config'
 export const revalidate = 300
 
 export const metadata: Metadata = {
-  title: 'Blog | Master 2 Foods',
+  title: 'Articles | Master 2 Foods',
   description: 'Recipes, guides and knowledge for catering businesses and commercial kitchens in Singapore.',
 }
 
