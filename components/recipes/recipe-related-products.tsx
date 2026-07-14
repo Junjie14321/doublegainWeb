@@ -19,7 +19,7 @@ export function RecipeRelatedProducts({ products, locale, compact }: RecipeRelat
 
   if (compact) {
     return (
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 gap-2">
         {products.map((p) => {
           const name = p.name[locale] ?? p.name.en
           const saved = isSaved(p.id)
