@@ -151,7 +151,7 @@ function ProductGridBlock({ block, locale }: { block: ArticleProductGridBlock; l
   const items = block.items ?? []
   if (items.length === 0) return null
 
-  const cols = items.length === 1 ? 'grid-cols-1 max-w-[200px]' : items.length === 2 ? 'grid-cols-2' : 'grid-cols-3'
+  const cols = items.length === 1 ? 'grid-cols-1 max-w-[200px]' : 'grid-cols-2'
 
   return (
     <div className={`grid ${cols} gap-3 sm:gap-4 mb-8`}>
