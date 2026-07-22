@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getArticleBySlug, getArticleSlugs } from '@/lib/sanity/articles'
+import { bulkSupplyLink } from '@/lib/whatsapp'
 import {
   Accordion,
   AccordionItem,
@@ -292,6 +293,27 @@ function FaqBlock({ block, locale }: { block: ArticleFaqBlock; locale: Locale })
   )
 }
 
+function BulkEnquiryCta({ locale }: { locale: Locale }) {
+  const href = bulkSupplyLink(locale)
+  const label = locale === 'zh' ? '批量供应询价' : 'Bulk Supply Enquiry'
+  return (
+    <div className="my-10 flex justify-center">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-3 bg-primary text-white font-subheading not-italic font-semibold uppercase tracking-widest text-sm px-10 py-4 rounded-full hover:bg-primary/90 transition-colors shadow-md"
+      >
+        <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+        </svg>
+        {label}
+        <span>→</span>
+      </a>
+    </div>
+  )
+}
+
 function renderBlock(block: ArticleContentBlock, locale: Locale, index: number) {
   switch (block._type) {
     case 'articleTextBlock':
@@ -414,7 +436,12 @@ export default async function ArticlePage({ params }: PageProps) {
 
           {/* Article content */}
           <article className="flex-1 min-w-0">
-            {content.map((block, i) => renderBlock(block, locale, i))}
+            {content.map((block, i) => (
+              <React.Fragment key={i}>
+                {block._type === 'articleFaqBlock' && <BulkEnquiryCta locale={locale} />}
+                {renderBlock(block, locale, i)}
+              </React.Fragment>
+            ))}
           </article>
 
           {/* Sticky sidebar — only rendered when there's something to show */}

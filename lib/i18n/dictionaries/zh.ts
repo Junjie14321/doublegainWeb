@@ -160,6 +160,9 @@ export const zh: Dictionary = {
     remove: '移除',
     items: '件商品',
   },
+  articleCta: {
+    bulkSupply: '批量供应询价',
+  },
   whatsapp: {
     priceListIntent: '我想索取您的报价单。',
     productInquiry: '我对您的以下产品感兴趣：',

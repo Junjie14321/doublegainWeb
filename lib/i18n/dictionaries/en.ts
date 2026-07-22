@@ -158,6 +158,9 @@ export const en = {
     remove: 'Remove',
     items: 'item(s) in list',
   },
+  articleCta: {
+    bulkSupply: 'Bulk Supply Enquiry',
+  },
   whatsapp: {
     priceListIntent: 'I would like to request your price list.',
     productInquiry: 'I am interested in your',

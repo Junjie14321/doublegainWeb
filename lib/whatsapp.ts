@@ -37,6 +37,14 @@ export function savedListLink(productNames: string[], locale: 'en' | 'zh'): stri
   return buildWhatsAppLink(msg)
 }
 
+export function bulkSupplyLink(locale: 'en' | 'zh'): string {
+  const msg =
+    locale === 'zh'
+      ? '您好，我想了解Master 2 Foods的批量供应详情，请问能否提供价格和货源信息？'
+      : "Hi, I'm interested in bulk supply from Master 2 Foods. Could you please share more details on pricing and availability? Thank you!"
+  return buildWhatsAppLink(msg)
+}
+
 // Legacy compat — used by structured-data and product detail page
 export function generateWhatsAppLink(params: {
   intent: 'price-list' | 'product-inquiry'
