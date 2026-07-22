@@ -106,7 +106,7 @@ function RichText({ text, className = '' }: { text: string; className?: string }
     }
 
     elements.push(
-      <p key={elements.length} className={`${bodyTextClass} mb-4 text-justify`}>{line}</p>
+      <p key={elements.length} className={`${bodyTextClass} mb-4`} style={{ textAlign: 'justify' }}>{line}</p>
     )
     i++
   }
@@ -364,7 +364,7 @@ export default async function ArticlePage({ params }: PageProps) {
                 {title}
               </h1>
               {subtitle && (
-                <p className="text-text-secondary font-body text-base md:text-lg leading-relaxed mb-6 text-justify">
+                <p className="text-text-secondary font-body text-base md:text-lg leading-relaxed mb-6" style={{ textAlign: 'justify' }}>
                   {subtitle}
                 </p>
               )}
