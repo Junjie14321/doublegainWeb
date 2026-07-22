@@ -73,10 +73,10 @@ function RichText({ text, className = '' }: { text: string; className?: string }
 
     if (!line) { i++; continue }
 
-    if (line.startsWith('- ') || line.startsWith('* ')) {
+    if (/^[-*]\s*\S/.test(line) && !line.startsWith('--')) {
       const items: string[] = []
-      while (i < lines.length && (lines[i].trim().startsWith('- ') || lines[i].trim().startsWith('* '))) {
-        items.push(lines[i].trim().replace(/^[-*] /, ''))
+      while (i < lines.length && /^[-*]\s*\S/.test(lines[i].trim()) && !lines[i].trim().startsWith('--')) {
+        items.push(lines[i].trim().replace(/^[-*]\s*/, ''))
         i++
       }
       elements.push(
