@@ -5,11 +5,23 @@ import Link from 'next/link'
 import { useLanguage } from '@/context/language-context'
 import type { CategoryNode } from '@/lib/sanity/products'
 
-const HERO_IMAGES = [
-  '/images/hero-sauces-background.jpg',
-  '/images/hero-noodles-background.jpg',
-  '/images/hero-premade-background.jpg',
-]
+type ConfigKey = 'sauces' | 'noodles' | 'premade'
+
+const IMAGE_BY_KEY: Record<ConfigKey, string> = {
+  sauces: '/images/hero-sauces-background.png',
+  noodles: '/images/hero-noodles-background.png',
+  premade: '/images/hero-premade-background.png',
+}
+
+const DISPLAY_ORDER: ConfigKey[] = ['sauces', 'noodles', 'premade']
+
+function getCategoryKey(nameEn: string): ConfigKey | null {
+  const lower = nameEn.toLowerCase()
+  if (lower.includes('sauce')) return 'sauces'
+  if (lower.includes('noodle')) return 'noodles'
+  if (lower.includes('pre-made') || lower.includes('ingredient')) return 'premade'
+  return null
+}
 
 interface CategorySectionProps {
   categories: CategoryNode[]
@@ -18,7 +30,23 @@ interface CategorySectionProps {
 export function CategorySection({ categories }: CategorySectionProps) {
   const { locale, t } = useLanguage()
 
-  const displayCategories = categories.slice(0, 3)
+  const categoriesByKey = new Map<ConfigKey, CategoryNode>()
+  for (const cat of categories) {
+    const key = getCategoryKey(cat.name.en)
+    if (key && !categoriesByKey.has(key)) {
+      categoriesByKey.set(key, cat)
+    }
+  }
+
+  const displayCategories = DISPLAY_ORDER
+    .filter((key) => categoriesByKey.has(key))
+    .map((key) => ({ key, cat: categoriesByKey.get(key)! }))
+
+  const taglineByKey: Record<ConfigKey, string> = {
+    sauces: t.categories.sauces.tagline,
+    noodles: t.categories.noodles.tagline,
+    premade: t.categories.premade.tagline,
+  }
 
   return (
     <section style={{ backgroundColor: '#FFF7DE', paddingTop: '22px', paddingBottom: '34px' }}>
@@ -30,14 +58,14 @@ export function CategorySection({ categories }: CategorySectionProps) {
         </div>
 
         <div className="space-y-4">
-          {displayCategories.map((cat, i) => (
+          {displayCategories.map(({ key, cat }, i) => (
             <Link
               key={cat.slug}
               href={`/${locale}/products`}
               className="relative w-full h-48 md:h-56 rounded-2xl overflow-hidden group block cursor-pointer"
             >
               <Image
-                src={HERO_IMAGES[i] ?? HERO_IMAGES[0]}
+                src={IMAGE_BY_KEY[key]}
                 alt={cat.name[locale] ?? cat.name.en}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -54,7 +82,7 @@ export function CategorySection({ categories }: CategorySectionProps) {
                     {cat.name[locale] ?? cat.name.en}
                   </h3>
                   <p className="text-white/90 text-sm md:text-base italic leading-relaxed mb-4">
-                    {[t.categories.sauces.tagline, t.categories.noodles.tagline, t.categories.premade.tagline][i]}
+                    {taglineByKey[key]}
                   </p>
                   <span className="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-dark text-dark font-subheading text-sm px-6 py-2.5 rounded-full transition-all duration-300 font-medium tracking-wide hover:shadow-lg group-hover:scale-105">
                     Explore
