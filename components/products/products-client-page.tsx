@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import type { Product } from '@/lib/sanity/types'
 import type { CategoryNode } from '@/lib/sanity/products'
@@ -24,27 +24,28 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
   const router = useRouter()
   const pathname = usePathname()
 
-  const selectedCategory = searchParams.get('category') ?? 'all'
-  const selectedSubCategory = searchParams.get('sub') ?? 'all'
-  const [searchQuery, setSearchQuery] = useState(() => searchParams.get('q') ?? '')
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('all')
+  const [searchQuery, setSearchQuery] = useState('')
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [filterType, setFilterType] = useState<TagFilter>('all')
   const [savedOpen, setSavedOpen] = useState(false)
 
-  const updateURL = (cat: string, sub: string) => {
-    const params = new URLSearchParams()
-    if (cat !== 'all') params.set('category', cat)
-    if (sub !== 'all') params.set('sub', sub)
-    const qs = params.toString()
-    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
-  }
+  // Clear any URL params left over from previous navigation so refresh always starts fresh
+  useEffect(() => {
+    if (searchParams.toString()) {
+      router.replace(pathname, { scroll: false })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleCategoryChange = (cat: string) => {
-    updateURL(cat, 'all')
+    setSelectedCategory(cat)
+    setSelectedSubCategory('all')
   }
 
   const handleSubCategoryChange = (sub: string) => {
-    updateURL(selectedCategory, sub)
+    setSelectedSubCategory(sub)
   }
 
   const handleTagFilter = (tag: TagFilter) => {
