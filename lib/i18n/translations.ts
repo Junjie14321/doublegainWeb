@@ -48,6 +48,13 @@ export const translations = {
       sugar: 'Sugar',
       drink: 'Drink',
     },
+    intro: {
+      badge: 'B2B Food Supplier · Singapore',
+      heading: "Singapore's Trusted Asian Food Ingredient Supplier",
+      p1: 'Master 2 Foods is a specialty Asian food ingredient supplier serving commercial kitchens across Singapore. Since 1996, we have supplied a curated range of sauces, noodles, and pre-made ingredients to restaurants, hotels, caterers, and food distributors. Our products are designed for high-volume kitchen environments where consistency, efficiency, and reliability are non-negotiable.',
+      p2: 'Whether you run a hawker centre, manage a hotel banquet kitchen, or operate a catering company, our range covers the Asian sauces and specialty ingredients your kitchen needs. From premium oyster sauces and soya sauces to handcrafted Yee Fu noodles and ready-to-cook pre-made products, every item we carry is sourced to perform under commercial conditions.',
+      p3: 'We offer flexible ordering, island-wide delivery across Singapore, and a dedicated sales team to support your business. New clients can request product samples before committing to a full order — because we want you to be confident in every ingredient you serve.',
+    },
     trust: {
       since: 'Since 1996',
       description: 'Product recommendation based on your business type',
@@ -308,6 +315,13 @@ export const translations = {
       herbsSpices: '香料',
       sugar: '糖',
       drink: '饮品',
+    },
+    intro: {
+      badge: 'B2B食材供应商 · 新加坡',
+      heading: '新加坡值得信赖的亚洲食材B2B供应商',
+      p1: 'Master 2 Foods是一家专注亚洲食材的B2B供应商，为新加坡各类商业厨房提供全方位服务。自1996年起，我们向餐厅、酒店、餐饮公司及食品经销商供应精选酱料、面条及预制食材，致力于为高产量商业厨房提供稳定、高效的食材供应方案。',
+      p2: '无论您经营小贩档口、酒店宴会厨房还是大型餐饮公司，我们的产品系列均能满足您厨房所需的核心亚洲酱料与特色食材。从优质蚝油、酱油到手工伊府面与即煮预制食材，每款产品均经过严格筛选，确保在商业厨房高产量环境下稳定发挥。',
+      p3: '我们提供灵活订购方式、全岛配送服务及专属销售支持。新客户可在正式下单前申请产品样品，确保每款食材都符合您的品质标准，让您放心使用。',
     },
     trust: {
       since: '自1996年起',

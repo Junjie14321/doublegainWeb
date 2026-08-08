@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { HeroSection } from '@/components/sections/hero-section'
 import { ExploreProductsSection } from '@/components/sections/explore-products-section'
 import { CategorySection } from '@/components/sections/category-section'
+import { IntroSection } from '@/components/sections/intro-section'
 import { ArticlesSection } from '@/components/sections/articles-section'
 import { TrustSection } from '@/components/sections/trust-section'
 import { FAQSection } from '@/components/sections/faq-section'
@@ -42,6 +43,7 @@ export default async function HomePage() {
       <HeroSection />
       <ExploreProductsSection products={products} />
       <CategorySection categories={categories} />
+      <IntroSection />
       <ArticlesSection articles={articles.slice(0, 3)} />
       <TrustSection />
       <FAQSection />
