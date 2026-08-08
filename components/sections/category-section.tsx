@@ -33,7 +33,7 @@ export function CategorySection({ categories }: CategorySectionProps) {
           {displayCategories.map((cat, i) => (
             <Link
               key={cat.slug}
-              href={`/${locale}/products?category=${cat.slug}`}
+              href={`/${locale}/products`}
               className="relative w-full h-48 md:h-56 rounded-2xl overflow-hidden group block cursor-pointer"
             >
               <Image

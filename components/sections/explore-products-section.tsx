@@ -55,7 +55,7 @@ export function ExploreProductsSection({ products }: ExploreProductsSectionProps
               return (
                 <Link
                   key={product.id}
-                  href={categorySlug ? `/${locale}/products?category=${categorySlug}` : `/${locale}/products`}
+                  href={`/${locale}/products`}
                   className="relative shrink-0 w-[78%] sm:w-[45%] md:w-[calc(25%-12px)] aspect-[4/5] rounded-2xl overflow-hidden snap-start bg-gradient-to-br from-primary to-dark group"
                 >
                   {product.image && (

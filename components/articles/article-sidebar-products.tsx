@@ -25,7 +25,7 @@ export function ArticleSidebarProducts({ products, locale }: ArticleSidebarProdu
         return (
           <div key={p.id} className="flex items-center gap-3">
             <Link
-              href={`/${locale}/products?q=${encodeURIComponent(p.name.en)}`}
+              href={`/${locale}/products/${p.slug}`}
               className="flex items-center gap-3 group flex-1 min-w-0"
             >
               <div className="relative w-12 h-12 shrink-0 bg-surface rounded-lg border border-border-color overflow-hidden">

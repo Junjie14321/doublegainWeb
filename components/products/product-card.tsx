@@ -139,6 +139,7 @@ export function ProductCard({ product, onViewDetails, isPriority = false }: Prod
               href={sampleRequestLink(name, locale)}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${t.productDetail.askForSample} – ${name}`}
               className="flex items-center justify-center gap-1.5 text-center text-xs font-subheading not-italic font-semibold text-primary hover:text-primary-dark transition-colors"
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

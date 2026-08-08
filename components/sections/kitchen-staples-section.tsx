@@ -49,7 +49,7 @@ export function KitchenStaplesSection() {
           {STAPLES.map((item) => (
             <Link
               key={item.key}
-              href={`/${locale}/products?category=others&sub=${item.subKey}`}
+              href={`/${locale}/products`}
               className={`rounded-xl p-5 flex items-center justify-between transition-all hover:shadow-lg hover:scale-105 group ${
                 item.dark ? 'bg-primary hover:bg-primary/90' : 'bg-[#FFF7DE] hover:bg-white'
               }`}
