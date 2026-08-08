@@ -54,11 +54,11 @@ export function KitchenStaplesSection() {
                 item.dark ? 'bg-primary hover:bg-primary/90' : 'bg-[#FFF7DE] hover:bg-white'
               }`}
             >
-              <h3 className={`font-subheading text-sm font-semibold ${
+              <p className={`font-subheading text-sm font-semibold ${
                 item.dark ? 'text-white' : 'text-text-primary'
               }`}>
                 {labels[item.key]}
-              </h3>
+              </p>
               <svg
                 className={`w-5 h-5 transition-transform group-hover:translate-x-1 ${
                   item.dark ? 'text-white' : 'text-text-primary'

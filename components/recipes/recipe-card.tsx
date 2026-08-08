@@ -30,9 +30,9 @@ export function RecipeCard({ recipe, locale }: RecipeCardProps) {
           </div>
         )}
       </div>
-      <h3 className="mt-3 text-sm md:text-base font-subheading not-italic font-bold text-primary leading-tight line-clamp-2">
+      <p className="mt-3 text-sm md:text-base font-subheading not-italic font-bold text-primary leading-tight line-clamp-2">
         {name}
-      </h3>
+      </p>
     </Link>
   )
 }

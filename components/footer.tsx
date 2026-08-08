@@ -13,9 +13,9 @@ export function Footer() {
       <div className="container-pad py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="font-ui text-secondary text-sm uppercase tracking-widest mb-4">
+            <p className="font-ui text-secondary text-sm uppercase tracking-widest mb-4">
               {t.footer.stayConnected}
-            </h3>
+            </p>
             <div className="flex flex-col gap-3">
               <a href={`mailto:${SITE.email}`} className="flex items-center gap-2 text-sm text-white/80 hover:text-secondary transition-colors">
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,9 +33,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-ui text-secondary text-sm uppercase tracking-widest mb-4">
+            <p className="font-ui text-secondary text-sm uppercase tracking-widest mb-4">
               {t.footer.quickLinks}
-            </h3>
+            </p>
             <div className="flex flex-col gap-2">
               <Link href={`/${locale}`} className="text-sm text-white/80 hover:text-secondary transition-colors">{t.nav.home}</Link>
               <Link href={`/${locale}/products`} className="text-sm text-white/80 hover:text-secondary transition-colors">{t.nav.products}</Link>

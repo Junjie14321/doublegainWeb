@@ -68,9 +68,9 @@ export function ExploreProductsSection({ products }: ExploreProductsSectionProps
                     />
                   )}
                   <div className="absolute inset-x-0 bottom-0 p-4 flex items-end justify-between gap-2">
-                    <h3 className="text-white font-subheading not-italic font-bold text-base leading-tight line-clamp-2">
+                    <p className="text-white font-subheading not-italic font-bold text-base leading-tight line-clamp-2">
                       {name}
-                    </h3>
+                    </p>
                     <button
                       onClick={(e) => {
                         e.preventDefault()
