@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import type { Product } from '@/lib/sanity/types'
 import type { CategoryNode } from '@/lib/sanity/products'
@@ -24,21 +24,12 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
   const router = useRouter()
   const pathname = usePathname()
 
-  const [selectedCategory, setSelectedCategory] = useState<string>('all')
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('all')
-  const [searchQuery, setSearchQuery] = useState('')
+  const selectedCategory = searchParams.get('category') ?? 'all'
+  const selectedSubCategory = searchParams.get('sub') ?? 'all'
+  const [searchQuery, setSearchQuery] = useState(() => searchParams.get('q') ?? '')
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [filterType, setFilterType] = useState<TagFilter>('all')
   const [savedOpen, setSavedOpen] = useState(false)
-
-  useEffect(() => {
-    const cat = searchParams.get('category')
-    const sub = searchParams.get('sub')
-    const q = searchParams.get('q')
-    if (cat) setSelectedCategory(cat)
-    if (sub) setSelectedSubCategory(sub)
-    if (q) setSearchQuery(q)
-  }, [searchParams])
 
   const updateURL = (cat: string, sub: string) => {
     const params = new URLSearchParams()
@@ -49,13 +40,10 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
   }
 
   const handleCategoryChange = (cat: string) => {
-    setSelectedCategory(cat)
-    setSelectedSubCategory('all')
     updateURL(cat, 'all')
   }
 
   const handleSubCategoryChange = (sub: string) => {
-    setSelectedSubCategory(sub)
     updateURL(selectedCategory, sub)
   }
 
