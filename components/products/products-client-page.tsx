@@ -135,7 +135,7 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
               <button onClick={() => handleCategoryChange('all')} className={catPillClass('all')}>
                 {t.products.allCategories}
               </button>
-              {categories.map((cat) => (
+              {categories.filter((cat) => cat.slug).map((cat) => (
                 <button
                   key={cat.slug}
                   onClick={() => handleCategoryChange(cat.slug)}
