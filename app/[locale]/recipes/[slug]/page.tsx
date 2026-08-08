@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/accordion'
 import type { Locale } from '@/lib/i18n/config'
 import type { RecipeNutrition } from '@/lib/sanity/types'
+import { seoAlternates } from '@/lib/seo'
 
 export const revalidate = 3600
 
@@ -42,6 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description,
       ...(recipe.image ? { images: [recipe.image] } : {}),
     },
+    alternates: seoAlternates(`/${locale}/recipes/${slug}`),
   }
 }
 

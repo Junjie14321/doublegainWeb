@@ -10,6 +10,7 @@ import {
 } from '@/lib/sanity/products'
 import { productInquiryLink, sampleRequestLink } from '@/lib/whatsapp'
 import type { Locale } from '@/lib/i18n/config'
+import { seoAlternates } from '@/lib/seo'
 
 export const revalidate = 3600
 
@@ -44,6 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description,
       ...(product.image ? { images: [product.image] } : {}),
     },
+    alternates: seoAlternates(`/${locale}/products/${slug}`),
   }
 }
 

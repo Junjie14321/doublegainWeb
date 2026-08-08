@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { locales, type Locale } from '@/lib/i18n/config'
 import { getDictionary } from '@/lib/i18n/get-dictionary'
+import { seoAlternates } from '@/lib/seo'
 import { LanguageProvider } from '@/context/language-context'
 import { SavedListProvider } from '@/context/saved-list-context'
 import { Navbar } from '@/components/navbar'
@@ -44,12 +45,7 @@ export async function generateMetadata({
       description: dict.metadata.description,
       images: ['/images/v2 red logo.png'],
     },
-    alternates: {
-      languages: {
-        en: '/en',
-        zh: '/zh',
-      },
-    },
+    alternates: seoAlternates(`/${locale}`),
   }
 }
 

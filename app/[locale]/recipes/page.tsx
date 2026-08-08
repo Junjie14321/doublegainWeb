@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getDictionary } from '@/lib/i18n/get-dictionary'
+import { seoAlternates } from '@/lib/seo'
 import { getRecipes, getFeaturedRecipe } from '@/lib/sanity/recipes'
 import { RecipesHero } from '@/components/recipes/recipes-hero'
 import { RecipeCard } from '@/components/recipes/recipe-card'
@@ -18,6 +19,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: locale === 'en'
       ? 'Discover recipes using Master 2 sauces, noodles, and pre-made ingredients — built for commercial kitchens and home cooks alike.'
       : '探索使用 Master 2 酱料、面条及预制食材制作的食谱 —— 适合商业厨房与家庭厨房。',
+    alternates: seoAlternates(`/${locale}/recipes`),
   }
 }
 

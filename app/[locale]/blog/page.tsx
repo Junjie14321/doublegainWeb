@@ -4,12 +4,19 @@ import Link from 'next/link'
 import { getArticles } from '@/lib/sanity/articles'
 import { getRecipes, getFeaturedRecipe } from '@/lib/sanity/recipes'
 import type { Locale } from '@/lib/i18n/config'
+import { seoAlternates } from '@/lib/seo'
 
 export const revalidate = 300
 
-export const metadata: Metadata = {
-  title: 'Articles | Master 2 Foods',
-  description: 'Recipes, guides and knowledge for catering businesses and commercial kitchens in Singapore.',
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+  const { locale } = await params
+  return {
+    title: locale === 'en' ? 'Articles | Master 2 Foods' : '文章 | Master 2 Foods',
+    description: locale === 'en'
+      ? 'Recipes, guides and knowledge for catering businesses and commercial kitchens in Singapore.'
+      : '为新加坡餐饮企业和商业厨房提供的食谱、指南和知识。',
+    alternates: seoAlternates(`/${locale}/blog`),
+  }
 }
 
 interface PageProps {

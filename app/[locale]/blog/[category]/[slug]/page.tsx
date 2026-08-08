@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getArticleBySlug, getArticleSlugs } from '@/lib/sanity/articles'
 import { bulkSupplyLink } from '@/lib/whatsapp'
+import { seoAlternates } from '@/lib/seo'
 import {
   Accordion,
   AccordionItem,
@@ -40,7 +41,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { locale, slug } = await params
+  const { locale, category, slug } = await params
   const article = await getArticleBySlug(slug)
   if (!article) return { title: 'Article Not Found' }
 
@@ -55,6 +56,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description,
       ...(article.heroImage ? { images: [article.heroImage] } : {}),
     },
+    alternates: seoAlternates(`/${locale}/blog/${category}/${slug}`),
   }
 }
 

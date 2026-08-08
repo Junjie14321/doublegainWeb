@@ -4,6 +4,7 @@ import { getDictionary } from '@/lib/i18n/get-dictionary'
 import { ProductsClientPage } from '@/components/products/products-client-page'
 import { getProducts, getCategoriesWithSubs } from '@/lib/sanity/products'
 import type { Locale } from '@/lib/i18n/config'
+import { seoAlternates } from '@/lib/seo'
 
 export const revalidate = 1800
 
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: locale === 'en'
       ? 'Browse our complete range of specialty sauces, noodles, and pre-made ingredients for commercial kitchens.'
       : '浏览我们为商业厨房提供的全系列特色酱料、面条和预制食材。',
+    alternates: seoAlternates(`/${locale}/products`),
   }
 }
 
