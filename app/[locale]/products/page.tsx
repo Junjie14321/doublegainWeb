@@ -5,7 +5,7 @@ import { ProductsClientPage } from '@/components/products/products-client-page'
 import { getProducts, getCategoriesWithSubs } from '@/lib/sanity/products'
 import type { Locale } from '@/lib/i18n/config'
 
-export const revalidate = 3600
+export const revalidate = 1800
 
 interface PageProps {
   params: Promise<{ locale: Locale }>
