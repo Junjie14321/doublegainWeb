@@ -7,7 +7,7 @@ export function CTASection() {
   const { locale, t } = useLanguage()
 
   return (
-    <section style={{ backgroundColor: '#FFFEF8' }} className="py-14 md:py-20">
+    <section style={{ backgroundColor: '#FFFEF8', paddingTop: '48px', paddingBottom: '48px' }}>
       <div className="container-pad text-center">
         <h2 className="text-3xl md:text-4xl font-heading text-primary mb-4 text-balance">
           {t.cta.title}
