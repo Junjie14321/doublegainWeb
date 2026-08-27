@@ -37,6 +37,7 @@
   ],
   "exclude": [
     "node_modules",
-    "Master-2-food"
+    "Master-2-food",
+    "design-import"
   ]
 }

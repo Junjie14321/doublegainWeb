@@ -1,14 +1,11 @@
 import type { Metadata } from 'next'
 import { HeroSection } from '@/components/sections/hero-section'
-import { ExploreProductsSection } from '@/components/sections/explore-products-section'
 import { CategorySection } from '@/components/sections/category-section'
-import { IntroSection } from '@/components/sections/intro-section'
-import { ArticlesSection } from '@/components/sections/articles-section'
+import { BrandTonalitySection } from '@/components/sections/brand-tonality-section'
+import { BrandStorySection } from '@/components/sections/brand-story-section'
 import { TrustSection } from '@/components/sections/trust-section'
 import { FAQSection } from '@/components/sections/faq-section'
 import { CTASection } from '@/components/sections/cta-section'
-import { getCategoriesWithSubs, getProducts } from '@/lib/sanity/products'
-import { getArticles } from '@/lib/sanity/articles'
 import { seoAlternates } from '@/lib/seo'
 import type { Locale } from '@/lib/i18n/config'
 
@@ -31,20 +28,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default async function HomePage() {
-  const [categories, products, articles] = await Promise.all([
-    getCategoriesWithSubs(),
-    getProducts(),
-    getArticles(),
-  ])
-
+export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <ExploreProductsSection products={products} />
-      <CategorySection categories={categories} />
-      <IntroSection />
-      <ArticlesSection articles={articles.slice(0, 3)} />
+      <CategorySection />
+      <BrandTonalitySection />
+      <BrandStorySection />
       <TrustSection />
       <FAQSection />
       <CTASection />

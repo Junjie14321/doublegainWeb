@@ -3,100 +3,74 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useLanguage } from '@/context/language-context'
-import type { CategoryNode } from '@/lib/sanity/products'
 
-type ConfigKey = 'sauces' | 'noodles' | 'premade'
-
-const IMAGE_BY_KEY: Record<ConfigKey, string> = {
-  sauces: '/images/hero-sauces-background.png',
-  noodles: '/images/hero-noodles-background.png',
-  premade: '/images/hero-premade-background.png',
+const CATEGORY_IMAGES = {
+  sauces: '/images/master2food-saucesnCondiments.png',
+  noodles: '/images/master2food-noodle.png',
+  premade: '/images/master2food-premade.png',
 }
 
-const DISPLAY_ORDER: ConfigKey[] = ['sauces', 'noodles', 'premade']
-
-function getCategoryKey(nameEn: string): ConfigKey | null {
-  const lower = nameEn.toLowerCase()
-  if (lower.includes('sauce')) return 'sauces'
-  if (lower.includes('noodle')) return 'noodles'
-  if (lower.includes('pre-made') || lower.includes('ingredient')) return 'premade'
-  return null
-}
-
-interface CategorySectionProps {
-  categories: CategoryNode[]
-}
-
-export function CategorySection({ categories }: CategorySectionProps) {
+export function CategorySection() {
   const { locale, t } = useLanguage()
 
-  const categoriesByKey = new Map<ConfigKey, CategoryNode>()
-  for (const cat of categories) {
-    const key = getCategoryKey(cat.name.en)
-    if (key && !categoriesByKey.has(key)) {
-      categoriesByKey.set(key, cat)
-    }
-  }
-
-  const displayCategories = DISPLAY_ORDER
-    .filter((key) => categoriesByKey.has(key))
-    .map((key) => ({ key, cat: categoriesByKey.get(key)! }))
-
-  const taglineByKey: Record<ConfigKey, string> = {
-    sauces: t.categories.sauces.tagline,
-    noodles: t.categories.noodles.tagline,
-    premade: t.categories.premade.tagline,
-  }
+  const categories = [
+    {
+      key: 'sauces' as const,
+      name: t.categories.sauces.name,
+      tagline: t.categories.sauces.tagline,
+    },
+    {
+      key: 'noodles' as const,
+      name: t.categories.noodles.name,
+      tagline: t.categories.noodles.tagline,
+    },
+    {
+      key: 'premade' as const,
+      name: t.categories.premade.name,
+      tagline: t.categories.premade.tagline,
+    },
+  ]
 
   return (
-    <section style={{ backgroundColor: '#FFF7DE', paddingTop: '22px', paddingBottom: '34px' }}>
+    <section style={{ backgroundColor: '#FFFEF8', paddingTop: '41px', paddingBottom: '34px' }}>
       <div className="container-pad">
-        <div className="text-left mb-6">
-          <h2 className="text-xl md:text-2xl font-heading text-primary">
+        <div className="text-center mb-6">
+          <h2 className="font-heading text-primary text-balance" style={{ fontSize: '30px' }}>
             {t.categories.title}
           </h2>
         </div>
 
-        <div className="space-y-4">
-          {displayCategories.map(({ key, cat }, i) => (
-            <Link
-              key={cat.slug}
-              href={`/${locale}/products`}
-              className="relative w-full h-48 md:h-56 rounded-2xl overflow-hidden group block cursor-pointer"
-            >
-              <Image
-                src={IMAGE_BY_KEY[key]}
-                alt={cat.name[locale] ?? cat.name.en}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 100vw"
-                priority={i === 0}
-              />
-              <div className="absolute inset-0 bg-gradient-to-l from-black/40 via-black/20 to-transparent" />
-              <div className="absolute inset-0 flex items-center justify-end p-6 md:p-12">
-                <div className="max-w-xs text-right">
-                  <p className="text-secondary font-subheading text-sm md:text-base uppercase tracking-widest mb-0.5">
-                    {String(i + 1).padStart(2, '0')}
-                  </p>
-                  <h3 className="text-white font-heading text-2xl md:text-4xl uppercase tracking-widest font-bold mb-1">
-                    {cat.name[locale] ?? cat.name.en}
-                  </h3>
-                  <p className="text-white/90 text-sm md:text-base italic leading-relaxed mb-4">
-                    {taglineByKey[key]}
-                  </p>
-                  <span className="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-dark text-dark font-subheading text-sm px-6 py-2.5 rounded-full transition-all duration-300 font-medium tracking-wide hover:shadow-lg group-hover:scale-105">
-                    Explore
-                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </span>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {categories.map((cat) => (
+            <article key={cat.key} className="text-center">
+              <Link
+                href={`/${locale}/products`}
+                aria-label={`${cat.name} — view products`}
+                className="group relative block aspect-square overflow-hidden rounded-2xl bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                <Image
+                  src={CATEGORY_IMAGES[cat.key]}
+                  alt={cat.name}
+                  fill
+                  className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(max-width: 767px) 100vw, (max-width: 1023px) 33vw, 30vw"
+                  priority={cat.key === 'sauces'}
+                  style={{ backgroundColor: '#FFFEF8' }}
+                />
+              </Link>
+              <div className="mt-3">
+                <h3 className="text-primary font-heading text-xl md:text-2xl uppercase tracking-wide mb-0">
+                  {cat.name}
+                </h3>
+                <p className="text-text-secondary font-body text-sm leading-relaxed">
+                  {cat.tagline}
+                </p>
               </div>
-            </Link>
+            </article>
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center" style={{ marginTop: '14px' }}>
           <Link
             href={`/${locale}/products`}
             className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-subheading text-sm px-8 py-3 rounded-lg transition-all duration-300 uppercase tracking-wide shadow-md hover:shadow-lg hover:scale-105"

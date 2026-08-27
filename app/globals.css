@@ -22,9 +22,17 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'SubHeadingTwoFont';
+  src: url('/fonts/sub-heading-2-font.ttf') format('truetype');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
 @theme {
   --font-heading: 'HeadingFont', serif;
   --font-subheading: 'SubHeadingFont', sans-serif;
+  --font-subheading-two: 'SubHeadingTwoFont', sans-serif;
   --font-body: 'BodyFont', serif;
   --font-sans: 'BodyFont', serif;
   --font-serif: 'HeadingFont', Georgia, serif;
