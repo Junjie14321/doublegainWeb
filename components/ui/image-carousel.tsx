@@ -11,9 +11,11 @@ type ImageCarouselProps = {
   interval?: number
   imageClassName?: string
   imageStyle?: React.CSSProperties
+  priority?: boolean
+  quality?: number
 }
 
-export function ImageCarousel({ slides, className = '', interval = 6000, imageClassName = '', imageStyle }: ImageCarouselProps) {
+export function ImageCarousel({ slides, className = '', interval = 6000, imageClassName = '', imageStyle, priority = false, quality = 80 }: ImageCarouselProps) {
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const startX = useRef<number | null>(null)
@@ -56,7 +58,7 @@ export function ImageCarousel({ slides, className = '', interval = 6000, imageCl
       <div className="flex h-full transition-transform duration-700 motion-reduce:transition-none" style={{ transform: `translateX(-${index * 100}%)` }}>
         {slides.map((slide, slideIndex) => (
           <div className="relative h-full min-w-full" key={slide.src} aria-hidden={slides[index].src !== slide.src}>
-            <Image src={slide.src} alt={slide.alt} fill className={`object-cover ${imageClassName}`} sizes="100vw" priority={slideIndex === 0} style={imageStyle} />
+            <Image src={slide.src} alt={slide.alt} fill className={`object-cover ${imageClassName}`} sizes="100vw" priority={priority && slideIndex === 0} loading={priority && slideIndex === 0 ? 'eager' : 'lazy'} quality={quality} style={imageStyle} />
           </div>
         ))}
       </div>

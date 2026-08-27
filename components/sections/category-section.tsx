@@ -54,7 +54,9 @@ export function CategorySection() {
                   fill
                   className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                   sizes="(max-width: 767px) 100vw, (max-width: 1023px) 33vw, 30vw"
-                  priority={cat.key === 'sauces'}
+                  priority={false}
+                  loading="lazy"
+                  quality={80}
                   style={{ backgroundColor: '#FFFEF8' }}
                 />
               </Link>

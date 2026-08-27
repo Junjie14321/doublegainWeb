@@ -12,6 +12,8 @@ export function HeroSection() {
       <div className="absolute inset-0 z-0">
         <ImageCarousel
           className="h-full"
+          priority
+          quality={85}
           slides={[
             {
               src: '/images/master2food-hero-banner-new.png',
