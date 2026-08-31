@@ -23,7 +23,7 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 hidden lg:flex w-full justify-start lg:pb-[145px] lg:pl-[91px]">
+      <div className="absolute z-10 hidden lg:flex bottom-[22%] left-[91px]">
         <div className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-center">
           <Link
             href={`/${locale}/products`}
