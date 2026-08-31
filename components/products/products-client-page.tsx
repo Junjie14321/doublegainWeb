@@ -31,8 +31,16 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
   const [filterType, setFilterType] = useState<TagFilter>('all')
   const [savedOpen, setSavedOpen] = useState(false)
 
-  // Clear any URL params left over from previous navigation so refresh always starts fresh
+  // On first load, read ?category= param and pre-apply the filter (for Google Ads landing pages),
+  // then clear the URL so refresh returns to the default "all" view.
   useEffect(() => {
+    const categoryParam = searchParams.get('category')
+    if (categoryParam) {
+      const match = categories.find(
+        (c) => c.slug === categoryParam || c.slug.includes(categoryParam)
+      )
+      if (match) setSelectedCategory(match.slug)
+    }
     if (searchParams.toString()) {
       router.replace(pathname, { scroll: false })
     }
