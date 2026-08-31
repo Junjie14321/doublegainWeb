@@ -67,7 +67,7 @@ export default async function LocaleLayout({
       <SavedListProvider>
         <div className="bg-background min-h-screen flex flex-col font-sans antialiased">
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 pt-16">{children}</main>
           <Footer />
           <WhatsAppFAB />
         </div>

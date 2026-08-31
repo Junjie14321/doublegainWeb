@@ -8,7 +8,7 @@ export function HeroSection() {
   const { locale, t } = useLanguage()
 
   return (
-    <section className="relative flex items-end justify-start overflow-hidden bg-background min-h-[300px] sm:min-h-0" style={{ aspectRatio: '2445.7 / 1000' }}>
+    <section className="relative flex items-end justify-start overflow-hidden bg-background min-h-[41vw] sm:min-h-0" style={{ aspectRatio: '2445.7 / 1000' }}>
       <div className="absolute inset-0 z-0">
         <ImageCarousel
           className="h-full"
