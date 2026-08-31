@@ -8,7 +8,7 @@ export function HeroSection() {
   const { locale, t } = useLanguage()
 
   return (
-    <section className="relative flex items-end justify-start overflow-hidden bg-background" style={{ aspectRatio: '2445.7 / 1000' }}>
+    <section className="relative flex items-end justify-start overflow-hidden bg-background min-h-[300px] sm:min-h-0" style={{ aspectRatio: '2445.7 / 1000' }}>
       <div className="absolute inset-0 z-0">
         <ImageCarousel
           className="h-full"
@@ -23,7 +23,7 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 flex w-full justify-start" style={{ paddingBottom: '145px', paddingLeft: '91px' }}>
+      <div className="relative z-10 flex w-full justify-start pb-6 pl-5 sm:pb-[145px] sm:pl-[91px]">
         <div className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-center">
           <Link
             href={`/${locale}/products`}
