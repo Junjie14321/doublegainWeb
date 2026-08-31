@@ -28,11 +28,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default function HomePage() {
+export default async function HomePage({ params }: PageProps) {
+  const { locale } = await params
   return (
     <>
       {/* Preload hero banner so browser fetches it immediately on HTML parse, not after JS hydration */}
       <link rel="preload" as="image" href="/images/master2food-hero-banner-new.webp" fetchPriority="high" />
+      {/* H1 for SEO — visually hidden, the hero image carries the visual headline */}
+      <h1 className="sr-only">
+        {locale === 'zh'
+          ? 'Master 2 — 新加坡亚洲酱料、面条及食材批发供应商'
+          : 'Master 2 — Wholesale Asian Sauces, Noodles & Ingredients Supplier Singapore'}
+      </h1>
       <HeroSection />
       <CategorySection />
       <BrandTonalitySection />

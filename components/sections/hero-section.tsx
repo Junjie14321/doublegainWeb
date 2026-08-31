@@ -27,6 +27,7 @@ export function HeroSection() {
         <div className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-center">
           <Link
             href={`/${locale}/products`}
+            aria-label="Browse all Master 2 products"
             className="inline-flex items-center justify-center gap-1 rounded-lg border border-white/30 text-sm font-subheading uppercase tracking-wide transition-all duration-300 hover:scale-105 hover:border-secondary hover:shadow-lg"
             style={{ backgroundColor: 'rgba(255, 204, 90, 0.96)', color: 'var(--color-dark)', paddingTop: '12px', paddingBottom: '13px', paddingLeft: '16px', paddingRight: '10px' }}
           >

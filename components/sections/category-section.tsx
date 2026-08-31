@@ -75,6 +75,7 @@ export function CategorySection() {
         <div className="text-center" style={{ marginTop: '14px' }}>
           <Link
             href={`/${locale}/products`}
+            aria-label="View the full Master 2 product catalogue"
             className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-subheading text-sm px-8 py-3 rounded-lg transition-all duration-300 uppercase tracking-wide shadow-md hover:shadow-lg hover:scale-105"
           >
             {t.categories.viewAll}
