@@ -31,6 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default function HomePage() {
   return (
     <>
+      {/* Preload hero banner so browser fetches it immediately on HTML parse, not after JS hydration */}
+      <link rel="preload" as="image" href="/images/master2food-hero-banner-new.webp" fetchPriority="high" />
       <HeroSection />
       <CategorySection />
       <BrandTonalitySection />
