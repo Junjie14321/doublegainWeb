@@ -46,7 +46,7 @@ export function CategorySection() {
               <Link
                 href={`/${locale}/products`}
                 aria-label={`${cat.name} — view products`}
-                className="group relative block aspect-square overflow-hidden rounded-2xl bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                className="group relative block aspect-[4/3] sm:aspect-square overflow-hidden rounded-2xl bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 <Image
                   src={CATEGORY_IMAGES[cat.key]}
