@@ -16,7 +16,7 @@ export function HeroSection() {
           quality={85}
           slides={[
             {
-              src: '/images/master2food-hero-banner-new.jpg',
+              src: '/images/master2food-hero-banner-new.webp',
               alt: 'Master 2 Foods — specialty sauces and pre-made ingredients for commercial kitchens',
             },
           ]}
