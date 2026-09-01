@@ -50,8 +50,10 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
     }
 
     if (searchParams.toString()) {
-      // Update Next.js router state (not just browser URL bar) so the router
-      // cache stores the clean URL and won't re-open the modal on return visits.
+      // Immediately clear URL bar (replaceState is sync, router.replace is async)
+      window.history.replaceState(null, '', pathname)
+      // Also update Next.js router state so useSearchParams returns clean data
+      // on the next remount, preventing the modal from re-opening on return visits.
       router.replace(pathname, { scroll: false })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
