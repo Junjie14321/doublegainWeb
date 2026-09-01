@@ -55,11 +55,11 @@ export function ProductDetailModal({ product, allProducts = [], onClose, onSelec
       )
     : []
 
-  const relatedProducts = [...bySubCategory, ...byCategory].slice(0, 2)
+  const relatedProducts = [...bySubCategory, ...byCategory].slice(0, 3)
 
   const DetailRow = ({ label, value }: { label: string; value: string }) => (
     <div className="flex gap-3 py-3 border-b border-border-color last:border-0">
-      <span className="text-xs font-subheading not-italic font-semibold text-text-muted uppercase tracking-wide w-28 shrink-0">{label}</span>
+      <span className="text-xs font-subheading not-italic font-semibold text-text-muted uppercase tracking-wide w-32 shrink-0">{label}</span>
       <span className="text-sm font-body text-text-secondary leading-relaxed">{value}</span>
     </div>
   )
@@ -84,13 +84,14 @@ export function ProductDetailModal({ product, allProducts = [], onClose, onSelec
         </svg>
       </button>
 
-      <div className="relative bg-white w-full sm:max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-2xl flex flex-col">
-        <div className="flex flex-col sm:flex-row gap-0">
-          {/* Image */}
-          <div className="sm:w-64 shrink-0 bg-surface sm:rounded-l-2xl flex items-center justify-center p-6 relative">
-            <div className="relative w-full aspect-square max-w-[200px]">
+      <div className="relative bg-white w-full sm:max-w-3xl max-h-[92vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-2xl">
+        {/* Top: image + details */}
+        <div className="flex flex-col sm:flex-row">
+          {/* Image panel */}
+          <div className="sm:w-72 shrink-0 bg-surface sm:rounded-tl-2xl flex items-center justify-center p-8 relative">
+            <div className="relative w-full aspect-square max-w-[220px]">
               {product.image ? (
-                <Image src={product.image} alt={name} fill className="object-contain" sizes="200px" />
+                <Image src={product.image} alt={name} fill className="object-contain" sizes="220px" />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center text-text-muted">
                   <svg className="w-16 h-16 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,8 +114,8 @@ export function ProductDetailModal({ product, allProducts = [], onClose, onSelec
           </div>
 
           {/* Details */}
-          <div className="flex-1 p-6">
-            <div className="flex items-start justify-between gap-3 mb-2">
+          <div className="flex-1 p-6 md:p-8">
+            <div className="flex items-start justify-between gap-3 mb-3">
               <div>
                 {product.tags && product.tags.length > 0 && (
                   <div className="flex gap-1 mb-2">
@@ -129,11 +130,11 @@ export function ProductDetailModal({ product, allProducts = [], onClose, onSelec
                     ))}
                   </div>
                 )}
-                <h2 id="product-modal-title" className="text-xl font-heading text-text-primary leading-tight">
+                <h2 id="product-modal-title" className="text-2xl font-heading text-text-primary leading-tight">
                   {name}
                 </h2>
                 {product.sku && (
-                  <p className="text-xs font-body text-text-muted mt-0.5">{t.productDetail.sku}: {product.sku}</p>
+                  <p className="text-xs font-body text-text-muted mt-1">{t.productDetail.sku}: {product.sku}</p>
                 )}
               </div>
               <button
@@ -163,50 +164,11 @@ export function ProductDetailModal({ product, allProducts = [], onClose, onSelec
               {product.suggestedUses?.[locale] && <DetailRow label={t.productDetail.suggestedUses} value={product.suggestedUses[locale]} />}
             </div>
 
-            {relatedProducts.length > 0 && (
-              <div className="mt-5 pt-4 border-t border-border-color">
-                <h3 className="text-xs font-subheading not-italic font-semibold text-text-muted uppercase tracking-wide mb-3">
-                  {t.productDetail.relatedProducts}
-                </h3>
-                <div className="flex gap-3">
-                  {relatedProducts.map((rp) => {
-                    const rpName = rp.name[locale]
-                    const rpSaved = isSaved(rp.id)
-                    return (
-                      <div key={rp.id} className="flex-1 max-w-[140px] bg-surface rounded-lg border border-border-color p-2 flex flex-col items-center text-center">
-                        <button
-                          onClick={() => onSelectProduct?.(rp)}
-                          className="relative w-full aspect-square mb-2"
-                          aria-label={`View details for ${rpName}`}
-                        >
-                          {rp.image ? (
-                            <Image src={rp.image} alt={rpName} fill className="object-contain" sizes="100px" />
-                          ) : (
-                            <div className="absolute inset-0 flex items-center justify-center text-text-muted">
-                              <svg className="w-8 h-8 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                              </svg>
-                            </div>
-                          )}
-                        </button>
-                        <p className="text-xs font-body text-text-secondary leading-snug line-clamp-2 mb-1">{rpName}</p>
-                        <button
-                          onClick={() => toggle({ id: rp.id, name: rp.name, image: rp.image ?? '', grade: rp.grade })}
-                          className="text-xs font-subheading not-italic font-semibold text-primary hover:text-primary-dark transition-colors"
-                        >
-                          {rpSaved ? t.productDetail.added : `+${t.productDetail.add}`}
-                        </button>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            )}
-
-            <div className="mt-5 pt-4 border-t border-border-color">
+            {/* CTAs — side by side */}
+            <div className="flex gap-3 mt-6">
               <button
                 onClick={() => toggle({ id: product.id, name: product.name, image: product.image ?? '', grade: product.grade })}
-                className="w-full flex items-center justify-center gap-1.5 text-center text-sm font-subheading not-italic font-semibold bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary-dark transition-colors"
+                className="flex-1 flex items-center justify-center gap-1.5 text-sm font-subheading not-italic font-semibold bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary-dark transition-colors"
               >
                 {saved ? (
                   <>
@@ -223,16 +185,57 @@ export function ProductDetailModal({ product, allProducts = [], onClose, onSelec
                 href={sampleRequestLink(name, locale)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 flex items-center justify-center gap-1.5 text-sm font-subheading not-italic font-semibold text-primary hover:text-primary-dark transition-colors"
+                className="flex-1 flex items-center justify-center gap-1.5 text-sm font-subheading not-italic font-semibold text-text-secondary border border-border-color py-3 px-4 rounded-lg hover:border-primary/40 hover:text-primary transition-colors"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
-                </svg>
                 {t.productDetail.askForSample}
               </a>
             </div>
           </div>
         </div>
+
+        {/* Related products — full-width section below */}
+        {relatedProducts.length > 0 && (
+          <div className="border-t border-border-color px-6 md:px-8 py-5">
+            <h3 className="text-xs font-subheading not-italic font-semibold text-text-muted uppercase tracking-wide mb-4">
+              {t.productDetail.relatedProducts}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {relatedProducts.map((rp) => {
+                const rpName = rp.name[locale]
+                const rpSaved = isSaved(rp.id)
+                return (
+                  <button
+                    key={rp.id}
+                    onClick={() => onSelectProduct?.(rp)}
+                    className="flex items-center gap-3 bg-surface rounded-xl border border-border-color p-3 hover:border-primary/20 hover:shadow-sm transition-all text-left group"
+                    aria-label={`View details for ${rpName}`}
+                  >
+                    <div className="relative w-14 h-14 shrink-0 bg-white rounded-lg overflow-hidden">
+                      {rp.image ? (
+                        <Image src={rp.image} alt={rpName} fill className="object-contain p-1" sizes="56px" />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center text-text-muted">
+                          <svg className="w-6 h-6 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-body text-text-primary line-clamp-2 group-hover:text-primary transition-colors leading-snug mb-1">{rpName}</p>
+                      <span
+                        onClick={(e) => { e.stopPropagation(); toggle({ id: rp.id, name: rp.name, image: rp.image ?? '', grade: rp.grade }) }}
+                        className="text-xs font-subheading not-italic font-semibold text-primary hover:text-primary-dark transition-colors"
+                      >
+                        {rpSaved ? t.productDetail.added : `+ ${t.productDetail.addToQuoteList}`}
+                      </span>
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
