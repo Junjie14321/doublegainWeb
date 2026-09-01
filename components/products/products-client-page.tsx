@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
-import { useSearchParams, useRouter, usePathname } from 'next/navigation'
+import { useSearchParams, usePathname } from 'next/navigation'
 import type { Product } from '@/lib/sanity/types'
 import type { CategoryNode } from '@/lib/sanity/products'
 import { useLanguage } from '@/context/language-context'
@@ -21,7 +21,6 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
   const { t, locale } = useLanguage()
   const { savedItems } = useSavedList()
   const searchParams = useSearchParams()
-  const router = useRouter()
   const pathname = usePathname()
 
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
@@ -39,18 +38,18 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
 
     if (categoryParam) {
       const match = categories.find(
-        (c) => c.slug === categoryParam || c.slug.includes(categoryParam)
+        (c) => c.slug === categoryParam.toLowerCase() || c.slug.includes(categoryParam.toLowerCase())
       )
       if (match) setSelectedCategory(match.slug)
     }
 
     if (productParam) {
-      const match = products.find((p) => p.slug === productParam)
+      const match = products.find((p) => p.slug === productParam.toLowerCase())
       if (match) setSelectedProduct(match)
     }
 
     if (searchParams.toString()) {
-      router.replace(pathname, { scroll: false })
+      window.history.replaceState(null, '', pathname)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
