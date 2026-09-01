@@ -43,7 +43,7 @@ export function EnquiryFormSection() {
           >
             <div className="relative w-full h-full min-h-[280px] lg:min-h-[420px]">
               <Image
-                src="/images/master2food-saucesnCondiments.jpg"
+                src="/images/m2f_enquire-form-section.jpg"
                 alt="Master 2 product range"
                 fill
                 className="object-contain object-bottom"
