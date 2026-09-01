@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
-import { useSearchParams, usePathname } from 'next/navigation'
+import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import type { Product } from '@/lib/sanity/types'
 import type { CategoryNode } from '@/lib/sanity/products'
 import { useLanguage } from '@/context/language-context'
@@ -22,6 +22,7 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
   const { savedItems } = useSavedList()
   const searchParams = useSearchParams()
   const pathname = usePathname()
+  const router = useRouter()
 
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('all')
@@ -49,7 +50,9 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
     }
 
     if (searchParams.toString()) {
-      window.history.replaceState(null, '', pathname)
+      // Update Next.js router state (not just browser URL bar) so the router
+      // cache stores the clean URL and won't re-open the modal on return visits.
+      router.replace(pathname, { scroll: false })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
