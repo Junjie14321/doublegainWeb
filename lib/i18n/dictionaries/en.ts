@@ -158,6 +158,16 @@ export const en = {
     remove: 'Remove',
     items: 'item(s) in list',
   },
+  enquiry: {
+    title: 'Ingredients for your kitchen',
+    subtitle: 'Looking for a specific product, exploring our range, or planning your next order? Talk to our team.',
+    nameLabel: 'Your Name',
+    businessTypeLabel: 'Business Type',
+    messageLabel: 'Message',
+    messagePlaceholder: 'Tell us what you are looking for...',
+    sendButton: 'Send to WhatsApp',
+    businessTypes: ['Restaurant', 'Hotel', 'Caterer', 'Distributor', 'Other'],
+  },
   articleCta: {
     bulkSupply: 'Bulk Supply Enquiry',
   },

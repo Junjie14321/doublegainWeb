@@ -6,6 +6,7 @@ import { BrandStorySection } from '@/components/sections/brand-story-section'
 import { TrustSection } from '@/components/sections/trust-section'
 import { FAQSection } from '@/components/sections/faq-section'
 import { CTASection } from '@/components/sections/cta-section'
+import { EnquiryFormSection } from '@/components/sections/enquiry-form-section'
 import { seoAlternates } from '@/lib/seo'
 import type { Locale } from '@/lib/i18n/config'
 
@@ -42,6 +43,7 @@ export default async function HomePage({ params }: PageProps) {
       </h1>
       <HeroSection />
       <CategorySection />
+      <EnquiryFormSection />
       <BrandTonalitySection />
       <BrandStorySection />
       <TrustSection />

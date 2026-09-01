@@ -160,6 +160,16 @@ export const zh: Dictionary = {
     remove: '移除',
     items: '件商品',
   },
+  enquiry: {
+    title: '为您的厨房选购食材',
+    subtitle: '正在寻找特定产品、了解我们的系列，或规划下一次订单？欢迎联系我们的团队。',
+    nameLabel: '您的姓名',
+    businessTypeLabel: '业务类型',
+    messageLabel: '留言',
+    messagePlaceholder: '请告诉我们您在寻找什么…',
+    sendButton: '通过 WhatsApp 发送',
+    businessTypes: ['餐厅', '酒店', '餐饮服务商', '经销商', '其他'],
+  },
   articleCta: {
     bulkSupply: '批量供应询价',
   },

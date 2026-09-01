@@ -267,6 +267,16 @@ export const translations = {
       address: 'Address',
       email: 'Email',
     },
+    enquiry: {
+      title: 'Ingredients for your kitchen',
+      subtitle: 'Looking for a specific product, exploring our range, or planning your next order? Talk to our team.',
+      nameLabel: 'Your Name',
+      businessTypeLabel: 'Business Type',
+      messageLabel: 'Message',
+      messagePlaceholder: 'Tell us what you are looking for...',
+      sendButton: 'Send to WhatsApp',
+      businessTypes: ['Restaurant', 'Hotel', 'Caterer', 'Distributor', 'Other'],
+    },
     footer: {
       stayConnected: 'Stay Connected with Us',
       companyName: 'Master 2 Foods',
@@ -542,6 +552,16 @@ export const translations = {
       hoursValue: '周一至周五：上午9时 – 下午6时\n周六：上午9时 – 下午1时',
       address: '地址',
       email: '邮箱',
+    },
+    enquiry: {
+      title: '为您的厨房选购食材',
+      subtitle: '正在寻找特定产品、了解我们的系列，或规划下一次订单？欢迎联系我们的团队。',
+      nameLabel: '您的姓名',
+      businessTypeLabel: '业务类型',
+      messageLabel: '留言',
+      messagePlaceholder: '请告诉我们您在寻找什么…',
+      sendButton: '通过 WhatsApp 发送',
+      businessTypes: ['餐厅', '酒店', '餐饮服务商', '经销商', '其他'],
     },
     footer: {
       stayConnected: '与我们保持联系',
