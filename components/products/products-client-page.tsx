@@ -31,16 +31,24 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
   const [filterType, setFilterType] = useState<TagFilter>('all')
   const [savedOpen, setSavedOpen] = useState(false)
 
-  // On first load, read ?category= param and pre-apply the filter (for Google Ads landing pages),
+  // On first load, read ?category= and ?product= params (for Google Ads landing pages),
   // then clear the URL so refresh returns to the default "all" view.
   useEffect(() => {
     const categoryParam = searchParams.get('category')
+    const productParam = searchParams.get('product')
+
     if (categoryParam) {
       const match = categories.find(
         (c) => c.slug === categoryParam || c.slug.includes(categoryParam)
       )
       if (match) setSelectedCategory(match.slug)
     }
+
+    if (productParam) {
+      const match = products.find((p) => p.slug === productParam)
+      if (match) setSelectedProduct(match)
+    }
+
     if (searchParams.toString()) {
       router.replace(pathname, { scroll: false })
     }
