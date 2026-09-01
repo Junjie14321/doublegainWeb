@@ -34,19 +34,15 @@ export function EnquiryFormSection() {
         <div className="flex flex-col lg:flex-row min-h-[420px]">
           {/* Left — product image with warm radial glow */}
           <div
-            className="lg:w-[42%] shrink-0 relative flex items-end justify-center overflow-hidden"
-            style={{
-              background:
-                'radial-gradient(ellipse 80% 70% at 45% 65%, #FFCC5A55 0%, #FFEDC4 45%, #FFFEF8 100%)',
-              minHeight: '300px',
-            }}
+            className="lg:w-[42%] shrink-0 relative flex items-center justify-center overflow-hidden"
+            style={{ backgroundColor: '#FFFEF8', minHeight: '300px' }}
           >
             <div className="relative w-full h-full min-h-[280px] lg:min-h-[420px]">
               <Image
                 src="/images/m2f_enquire-form-section.jpg"
                 alt="Master 2 product range"
                 fill
-                className="object-contain object-bottom"
+                className="object-contain object-center"
                 sizes="(max-width: 1023px) 100vw, 42vw"
               />
             </div>
