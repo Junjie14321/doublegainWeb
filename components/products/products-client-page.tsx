@@ -1,7 +1,12 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
-import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+import { useSearchParams, usePathname } from 'next/navigation'
+
+// Module-level: persists within the JS bundle lifetime (same tab session).
+// Resets on full page reload (address bar navigation, new tab, F5).
+// Prevents the modal from re-opening when the user navigates away and comes back.
+let _processedParamsKey: string | null = null
 import type { Product } from '@/lib/sanity/types'
 import type { CategoryNode } from '@/lib/sanity/products'
 import { useLanguage } from '@/context/language-context'
@@ -22,7 +27,6 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
   const { savedItems } = useSavedList()
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  const router = useRouter()
 
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('all')
@@ -34,27 +38,34 @@ export function ProductsClientPage({ products, categories }: ProductsClientPageP
   // On first load, read ?category= and ?product= params (for Google Ads landing pages),
   // then clear the URL so refresh returns to the default "all" view.
   useEffect(() => {
-    const categoryParam = searchParams.get('category')
-    const productParam = searchParams.get('product')
+    const paramsStr = searchParams.toString()
 
-    if (categoryParam) {
-      const match = categories.find(
-        (c) => c.slug === categoryParam.toLowerCase() || c.slug.includes(categoryParam.toLowerCase())
-      )
-      if (match) setSelectedCategory(match.slug)
-    }
+    if (paramsStr) {
+      // If we already processed these exact params in this browser session
+      // (module variable persists across client navigations, resets on full page load),
+      // just clear the URL bar and bail — don't re-open the modal on return visits.
+      if (_processedParamsKey === paramsStr) {
+        window.history.replaceState(null, '', pathname)
+        return
+      }
 
-    if (productParam) {
-      const match = products.find((p) => p.slug === productParam.toLowerCase())
-      if (match) setSelectedProduct(match)
-    }
+      const categoryParam = searchParams.get('category')
+      const productParam = searchParams.get('product')
 
-    if (searchParams.toString()) {
-      // Immediately clear URL bar (replaceState is sync, router.replace is async)
+      if (categoryParam) {
+        const match = categories.find(
+          (c) => c.slug === categoryParam.toLowerCase() || c.slug.includes(categoryParam.toLowerCase())
+        )
+        if (match) setSelectedCategory(match.slug)
+      }
+
+      if (productParam) {
+        const match = products.find((p) => p.slug === productParam.toLowerCase())
+        if (match) setSelectedProduct(match)
+      }
+
+      _processedParamsKey = paramsStr
       window.history.replaceState(null, '', pathname)
-      // Also update Next.js router state so useSearchParams returns clean data
-      // on the next remount, preventing the modal from re-opening on return visits.
-      router.replace(pathname, { scroll: false })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
