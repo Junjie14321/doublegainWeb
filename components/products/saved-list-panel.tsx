@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useLanguage } from '@/context/language-context'
 import { useSavedList } from '@/context/saved-list-context'
 import { savedListLink } from '@/lib/whatsapp'
+import { trackWhatsAppClick } from '@/lib/analytics'
 
 interface SavedListPanelProps {
   onClose: () => void
@@ -14,6 +15,7 @@ export function SavedListPanel({ onClose }: SavedListPanelProps) {
   const { savedItems, toggle } = useSavedList()
 
   const handleWhatsApp = () => {
+    trackWhatsAppClick('saved-list')
     const names = savedItems.map((p) => p.name[locale])
     window.open(savedListLink(names, locale), '_blank', 'noopener,noreferrer')
   }

@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/context/language-context'
 import { useSavedList } from '@/context/saved-list-context'
 import { priceListLink } from '@/lib/whatsapp'
+import { trackWhatsAppClick } from '@/lib/analytics'
 
 export function WhatsAppFAB() {
   const { locale } = useLanguage()
@@ -20,6 +21,7 @@ export function WhatsAppFAB() {
       className={`fixed right-6 z-40 flex items-center gap-2 bg-[#25D366] text-white font-subheading text-xs font-semibold pl-3 pr-4 py-3 rounded-full shadow-lg hover:opacity-90 transition-all hover:scale-105 ${
         quoteBarVisible ? 'bottom-24' : 'bottom-6'
       }`}
+      onClick={() => trackWhatsAppClick('floating-button')}
       aria-label="Chat with us on WhatsApp"
     >
       <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">

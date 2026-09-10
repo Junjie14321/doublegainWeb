@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useLanguage } from '@/context/language-context'
 import { SITE, WHATSAPP_BASE } from '@/lib/constants/site'
+import { trackWhatsAppClick } from '@/lib/analytics'
 
 export function EnquiryFormSection() {
   const { t, locale } = useLanguage()
@@ -13,6 +14,7 @@ export function EnquiryFormSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    trackWhatsAppClick('enquiry-form')
     const text =
       locale === 'zh'
         ? `您好，我是${name}（${businessType || '未指定'}）。\n\n${message}`

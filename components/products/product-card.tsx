@@ -6,6 +6,7 @@ import type { Product } from '@/lib/sanity/types'
 import { useLanguage } from '@/context/language-context'
 import { useSavedList } from '@/context/saved-list-context'
 import { sampleRequestLink } from '@/lib/whatsapp'
+import { trackWhatsAppClick } from '@/lib/analytics'
 
 interface ProductCardProps {
   product: Product
@@ -139,6 +140,7 @@ export function ProductCard({ product, onViewDetails, isPriority = false }: Prod
               href={sampleRequestLink(name, locale)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick('product-card-sample', name)}
               aria-label={`${t.productDetail.askForSample} – ${name}`}
               className="flex items-center justify-center gap-1.5 text-center text-xs font-subheading not-italic font-semibold text-primary hover:text-primary-dark transition-colors"
             >

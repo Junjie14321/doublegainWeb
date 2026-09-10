@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useLanguage } from '@/context/language-context'
 import { priceListLink } from '@/lib/whatsapp'
+import { trackWhatsAppClick } from '@/lib/analytics'
 import { SITE, WHATSAPP_BASE } from '@/lib/constants/site'
 
 function buildWhatsAppLink(message: string): string {
@@ -15,6 +16,7 @@ export function ContactClient() {
   const [submitted, setSubmitted] = useState(false)
 
   const handleWhatsAppSend = () => {
+    trackWhatsAppClick('contact-form')
     const parts = [
       form.name ? `Hi, my name is ${form.name}.` : 'Hi,',
       form.businessType ? `I'm reaching out from a ${form.businessType} business.` : null,
@@ -141,6 +143,7 @@ export function ContactClient() {
                 href={priceListLink(locale)}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick('contact-direct')}
                 className="inline-flex items-center gap-2 bg-[#25D366] text-white font-heading not-italic font-semibold text-sm px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

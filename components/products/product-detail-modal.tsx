@@ -6,6 +6,7 @@ import type { Product } from '@/lib/sanity/types'
 import { useLanguage } from '@/context/language-context'
 import { useSavedList } from '@/context/saved-list-context'
 import { sampleRequestLink } from '@/lib/whatsapp'
+import { trackWhatsAppClick } from '@/lib/analytics'
 
 interface ProductDetailModalProps {
   product: Product | null
@@ -185,6 +186,7 @@ export function ProductDetailModal({ product, allProducts = [], onClose, onSelec
                 href={sampleRequestLink(name, locale)}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick('product-modal-sample', name)}
                 className="flex-1 flex items-center justify-center gap-1.5 text-sm font-subheading not-italic font-semibold text-text-secondary border border-border-color py-3 px-4 rounded-lg hover:border-primary/40 hover:text-primary transition-colors"
               >
                 {t.productDetail.askForSample}

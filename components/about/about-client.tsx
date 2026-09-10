@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useLanguage } from '@/context/language-context'
 import { priceListLink } from '@/lib/whatsapp'
+import { trackWhatsAppClick } from '@/lib/analytics'
 
 export function AboutClient() {
   const { t, locale } = useLanguage()
@@ -107,6 +108,7 @@ export function AboutClient() {
             href={priceListLink(locale)}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick('about-page')}
             className="inline-flex items-center gap-2 bg-primary text-white font-heading text-sm uppercase tracking-wide px-8 py-4 rounded-lg hover:bg-primary-dark transition-colors"
           >
             {t.cta.button}

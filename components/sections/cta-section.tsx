@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/context/language-context'
 import { priceListLink } from '@/lib/whatsapp'
+import { trackWhatsAppClick } from '@/lib/analytics'
 
 export function CTASection() {
   const { locale, t } = useLanguage()
@@ -19,6 +20,7 @@ export function CTASection() {
           href={priceListLink(locale)}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackWhatsAppClick('cta-section')}
           className="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-dark text-dark font-subheading text-sm px-8 py-4 rounded-lg transition-colors uppercase tracking-wide"
         >
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
