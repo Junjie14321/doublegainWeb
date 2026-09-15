@@ -94,7 +94,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
   return (
     <main className="min-h-screen bg-background text-dark">
       {/* Hero */}
-      <section className="relative aspect-[4/3] overflow-hidden bg-background">
+      <section className="relative aspect-[16/9] overflow-hidden bg-background">
         <Image
           src={heroImages[variant]}
           alt="Landing page product hero"
