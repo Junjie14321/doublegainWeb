@@ -10,6 +10,7 @@ export const en = {
     noodles: 'Noodles',
     ingredients: 'Pre-made Ingredients',
     contact: 'Contact',
+    landingPages: 'Landing Pages',
   },
   hero: {
     tagline: 'Supplying specialty sauces and noodles to Asian kitchens from caterers to hotels and restaurants since 1996',

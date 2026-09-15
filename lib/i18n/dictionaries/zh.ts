@@ -12,6 +12,7 @@ export const zh: Dictionary = {
     noodles: '面条',
     ingredients: '预制食材',
     contact: '联系我们',
+    landingPages: '落地页',
   },
   hero: {
     tagline: '自1996年起，为餐饮业、酒店和餐厅的亚洲厨房供应特色酱料和面条',
