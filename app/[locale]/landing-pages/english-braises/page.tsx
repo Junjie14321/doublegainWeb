@@ -100,6 +100,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
           alt="Landing page product hero"
           fill
           priority
+          quality={90}
           className="object-contain object-center"
           sizes="100vw"
         />
@@ -125,6 +126,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
               src={noodle ? productImages.noodle : productImages.sauce}
               alt="Product image"
               fill
+              quality={90}
               className="object-contain"
               sizes="(min-width: 768px) 40vw, 90vw"
             />
