@@ -57,7 +57,7 @@ const englishDishes = [
 ]
 
 const chineseDishes = [
-  { name: 'Braised Duck', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/braised%20pork%20chi-0yIQWCFu1s5oJsjHoP2vqWi40HiFE.png' },
+  { name: 'Braised Duck', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/braised%20pork%20chi-0yIQWCMfu1s5oJsjHoP2vqWi40HiFE.png' },
   { name: 'Braised Pork', image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/braised%20duck%20chi-dvzIKN0UdEFkoxsjEHzdriI2sETkls.png' },
 ]
 
