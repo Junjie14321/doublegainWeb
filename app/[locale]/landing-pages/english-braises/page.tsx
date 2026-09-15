@@ -101,7 +101,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
           fill
           priority
           quality={90}
-          className="object-contain object-center"
+          className="object-contain object-center mix-blend-multiply"
           sizes="100vw"
         />
       </section>
