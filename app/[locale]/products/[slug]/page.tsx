@@ -70,7 +70,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
     : []
 
   return (
-    <div style={{ backgroundColor: '#FFF7DE' }} className="min-h-screen pt-20 pb-8">
+    <div style={{ backgroundColor: '#fffef8' }} className="min-h-screen pt-20 pb-8">
       <div className="container-pad">
         {/* Back link */}
         <Link

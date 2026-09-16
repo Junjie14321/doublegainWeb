@@ -35,7 +35,7 @@ export default async function RecipesPage({ params }: PageProps) {
     <>
       {heroRecipe && <RecipesHero recipe={heroRecipe} locale={locale} dict={dict} />}
 
-      <section style={{ backgroundColor: '#FFF7DE' }} className="py-12 md:py-16">
+      <section style={{ backgroundColor: '#fffef8' }} className="py-12 md:py-16">
         <div className="container-pad">
           <h2 className="text-xl md:text-2xl font-heading text-primary mb-6">
             {dict.recipes.sectionHeading}

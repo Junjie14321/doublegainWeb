@@ -136,7 +136,7 @@ export default async function RecipeDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div style={{ backgroundColor: '#FFF7DE' }} className="min-h-screen overflow-x-hidden">
+    <div style={{ backgroundColor: '#fffef8' }} className="min-h-screen overflow-x-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* Back link */}
@@ -265,7 +265,7 @@ export default async function RecipeDetailPage({ params }: PageProps) {
 
               {/* Tip — only if filled in Sanity */}
               {tipText && (
-                <div className="rounded-xl p-3 mb-6" style={{ backgroundColor: '#FFF7DE' }}>
+                <div className="rounded-xl p-3 mb-6" style={{ backgroundColor: '#fffef8' }}>
                   <p className="text-xs font-body text-text-secondary leading-relaxed">
                     <span className="font-semibold text-primary">Tip: </span>
                     {tipText}

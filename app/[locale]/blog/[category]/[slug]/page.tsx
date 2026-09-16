@@ -361,7 +361,7 @@ export default async function ArticlePage({ params }: PageProps) {
   const hasSidebar = tocItems.length > 0 || hasSidebarProducts || hasRelatedArticles
 
   return (
-    <div style={{ backgroundColor: '#FFF7DE' }} className="min-h-screen pt-20">
+    <div style={{ backgroundColor: '#fffef8' }} className="min-h-screen pt-20">
 
       {/* Breadcrumb */}
       <div className="container-pad py-4">

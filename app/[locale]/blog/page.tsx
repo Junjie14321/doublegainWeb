@@ -46,7 +46,7 @@ export default async function BlogPage({ params }: PageProps) {
     : null
 
   return (
-    <div style={{ backgroundColor: '#FFF7DE' }} className="min-h-screen pt-16 overflow-x-hidden">
+    <div style={{ backgroundColor: '#fffef8' }} className="min-h-screen pt-16 overflow-x-hidden">
 
       {/* ── Featured Recipe Hero ── */}
       {heroRecipe && (

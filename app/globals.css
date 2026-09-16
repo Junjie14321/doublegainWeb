@@ -45,7 +45,7 @@
   --color-secondary-dark: #E6B540;
   --color-dark: #451919;
   --color-dark-muted: #6B3030;
-  --color-background: #FFF7DE;
+  --color-background: #fffef8;
   --color-surface: #F8F5F3;
   --color-surface-dark: #F0EAE6;
   --color-border-color: #E5DDD8;
@@ -67,7 +67,7 @@ html {
 body {
   font-family: var(--font-body);
   color: #1A0A0A;
-  background-color: #FFF7DE;
+  background-color: #fffef8;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
