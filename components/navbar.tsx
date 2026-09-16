@@ -81,9 +81,6 @@ export function Navbar() {
               <Link href={`/${locale}/contact`} className="text-sm font-subheading not-italic text-text-primary hover:text-primary transition-colors">
                 {t.nav.contact}
               </Link>
-              <Link href={`/${locale}/landing-pages`} className="text-sm font-subheading not-italic text-text-primary hover:text-primary transition-colors">
-                {t.nav.landingPages}
-              </Link>
             </nav>
 
             <div className="flex items-center gap-1">
@@ -141,7 +138,6 @@ export function Navbar() {
               <Link href={`/${locale}/blog`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.blog}</Link>
               <Link href={`/${locale}/about`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.brand}</Link>
               <Link href={`/${locale}/contact`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.contact}</Link>
-              <Link href={`/${locale}/landing-pages`} className="text-sm font-subheading not-italic text-text-primary" onClick={() => setMobileMenuOpen(false)}>{t.nav.landingPages}</Link>
               <div className="flex items-center gap-2 pt-2 border-t border-border-color">
                 <span className="text-xs text-text-muted">Language:</span>
                 <button onClick={() => { switchLocale('en'); setMobileMenuOpen(false) }} className={`text-xs px-3 py-1 rounded-full border ${locale === 'en' ? 'bg-primary text-white border-primary' : 'border-border-color text-text-secondary'}`}>EN</button>
