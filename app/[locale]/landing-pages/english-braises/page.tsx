@@ -19,7 +19,7 @@ const whatsappIconUrl = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com
 const englishDetails = [
   { highlight: 'Rich', text: ' reddish tint that gives dishes a glossy, appetizing finish' },
   { highlight: 'Bold', text: ' umami taste, not overly salty, savoury and smooth, with deep caramel notes' },
-  { highlight: 'concentrated', text: ' for kitchen use' },
+  { highlight: 'Concentrated', text: ' for kitchen use' },
   { highlight: 'Aged longer', text: ' than regular light soy for a deeper flavour that holds up in slow-cooked dishes' },
 ]
 
@@ -40,15 +40,15 @@ const chineseNoodleDetails = [
 ]
 
 const heroImages: Record<LandingVariant, string> = {
-  english: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/m2f%20web%20%26%20LP%20%2829%29-CW3V95515MzLZw2Qry4lgibhE6FVJf.png',
-  chinese: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/m2f%20web%20%26%20LP%20%2830%29-X65CmU1zxcAF8IJbuGuMc3Jyc9tXUQ.png',
-  'english-noodle': 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/m2f%20web%20%26%20LP%20%2832%29-19MmWADj6x3O4LLoC9iaZDbMEpPTSF.png',
-  'chinese-noodle': 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/m2f%20web%20%26%20LP%20%2831%29-RwIjGAHA6aBAukiRkTgxhcedPjLg6E.png',
+  english: '/images/[en] LP braise banner.png',
+  chinese: '/images/[chi] LP braise header.png',
+  'english-noodle': '/images/[en] LP noodle banner.png',
+  'chinese-noodle': '/images/[chi] LP noodle banner.png',
 }
 
 const productImages: Record<string, string> = {
-  sauce: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/m2f%20web%20%26%20LP%20%2828%29-7hxdvocUkEiem1dfMd8j5c9M0dkL8a.png',
-  noodle: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/m2f%20web%20%26%20LP%20%2820%29-6TIUC6idELaT3nyvHnRHZvL73F74bW.png',
+  sauce: '/images/xlc product image.png',
+  noodle: '/images/tlm product image.png',
 }
 
 const englishDishes = [
