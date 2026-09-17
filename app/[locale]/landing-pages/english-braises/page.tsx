@@ -76,7 +76,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
   const pageTitle = variant === 'chinese-noodle' ? '正宗吉隆坡福建面专用面'
     : variant === 'english-noodle' ? 'Tai Lok Mee KL Hokkien Noodle'
     : chinese ? '特浓香老抽'
-    : 'Extra Rich fragrant dark soya sauce'
+    : 'Extra Rich Fragrant Dark Soya Sauce'
 
   const productDescription = variant === 'chinese-noodle' ? '宽厚粗切，口感软润却筋道弹牙。马来西亚传统工艺制作。高温煮炒不易断、久焖不易软塌。'
     : variant === 'english-noodle' ? 'Thick-cut noodle with a soft yet satisfyingly firm bite. Bright yellow, broad shape, crafted the traditional way in Malaysia.'
@@ -132,7 +132,11 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
             />
           </div>
           <div className="container-pad text-justify md:px-0">
-            <h1 className="max-w-xl font-heading font-bold text-xl leading-tight text-dark md:text-4xl">{pageTitle}</h1>
+            <h1 className="max-w-xl font-heading font-bold text-xl leading-tight text-dark md:text-4xl">
+              {variant === 'english' ? (
+                <>Extra <span className="font-subheading-two text-primary not-italic">Rich</span> Fragrant Dark Soya Sauce</>
+              ) : pageTitle}
+            </h1>
             <p className="mt-4 font-body text-xs leading-tight text-dark md:text-base">{productDescription}</p>
             <p className="mt-4 font-body text-xs leading-relaxed">
               <span className="font-semibold">{chinese ? '配料：' : 'Ingredients:'}</span><br />
