@@ -172,7 +172,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
             </div>
             <div className="mt-8">
               <h3 className="font-heading text-xl font-bold text-dark md:text-3xl">
-                {chinese ? '地道福建面三件套' : 'The Authentic KL Hokkien Mee Trio'}
+                {chinese ? '地道福建面三件套' : <>The Authentic KL Hokkien Mee <span className="font-subheading-two text-primary not-italic">Trio</span></>}
               </h3>
               <p className="mt-1 font-body text-sm md:text-base">
                 {chinese ? '面・酱・峇拉煎 - 配齐就够味' : 'Noodle, sauce, and belacan.'}
