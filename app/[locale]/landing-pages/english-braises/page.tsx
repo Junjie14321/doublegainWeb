@@ -101,7 +101,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
           fill
           priority
           quality={90}
-          className="object-contain object-center mix-blend-multiply"
+          className="object-cover object-center mix-blend-multiply"
           sizes="100vw"
         />
       </section>
@@ -119,19 +119,19 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
       </div>
 
       {/* Product details */}
-      <section className="container-pad py-6 sm:py-8 md:py-12">
-        <div className="grid items-center gap-6 md:grid-cols-2 md:gap-10">
-          <div className="relative mx-auto aspect-square w-full max-w-sm rounded-xl md:max-w-lg">
+      <section className="py-6 sm:py-8 md:py-12">
+        <div className="grid items-center gap-0 md:container-pad md:grid-cols-2 md:gap-10">
+          <div className="relative aspect-square w-full md:max-w-lg">
             <Image
               src={noodle ? productImages.noodle : productImages.sauce}
               alt="Product image"
               fill
               quality={90}
-              className="object-contain"
-              sizes="(min-width: 768px) 40vw, 90vw"
+              className="object-contain mix-blend-multiply"
+              sizes="(min-width: 768px) 40vw, 100vw"
             />
           </div>
-          <div className="text-justify">
+          <div className="container-pad text-justify md:px-0">
             <h1 className="max-w-xl font-heading font-bold text-xl leading-tight text-dark md:text-4xl">{pageTitle}</h1>
             <p className="mt-4 font-body text-xs leading-tight text-dark md:text-base">{productDescription}</p>
             <p className="mt-4 font-body text-xs leading-relaxed">
