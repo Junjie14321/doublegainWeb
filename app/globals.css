@@ -2,29 +2,29 @@
 
 @font-face {
   font-family: 'HeadingFont';
-  src: url('/fonts/heading-font.ttf') format('truetype');
-  font-weight: 400 700;
+  src: url('/fonts/heading 1_LatoBlack.ttf') format('truetype');
+  font-weight: 400 900;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'SubHeadingFont';
-  src: url('/fonts/sub-heading-font.ttf') format('truetype');
+  src: url('/fonts/sub heading_LatoRegItalic.ttf') format('truetype');
   font-weight: 400 700;
-  font-style: normal;
+  font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'BodyFont';
-  src: url('/fonts/body-font.ttf') format('truetype');
+  src: url('/fonts/body text_LatoRegular.ttf') format('truetype');
   font-weight: 400 700;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'SubHeadingTwoFont';
-  src: url('/fonts/sub-heading-2-font.ttf') format('truetype');
+  src: url('/fonts/special highlight font_SultanNizarPro.ttf') format('truetype');
   font-weight: 400 700;
   font-display: swap;
 }
