@@ -189,7 +189,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
                     />
                   </div>
                   <p className="mt-2 text-center font-body text-sm font-bold md:text-base">
-                    {chinese ? '老抽焖制・厨房特浓版' : 'Braised in our Fragrant Dark Soya Sauce, made Extra Thick for Kitchens'}
+                    {chinese ? '老抽焖制・厨房特浓版' : 'Braised in our Fragrant Dark Soya Sauce, made extra thick for kitchens'}
                   </p>
                 </article>
                 <article>
