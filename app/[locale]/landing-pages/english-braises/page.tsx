@@ -195,8 +195,8 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
                 <article>
                   <div className="relative mx-auto aspect-square w-full max-w-sm">
                     <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/m2f%20web%20%26%20LP%20%2821%29-T2FO2SW07anoGk51ZuBx6g3roecUNA.png"
-                      alt="Belacan"
+                      src="/images/belacan chilli product image.png"
+                      alt="Belacan Chilli"
                       fill
                       className="object-contain"
                       sizes="(min-width: 640px) 40vw, 90vw"
