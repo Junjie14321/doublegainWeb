@@ -278,7 +278,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
           <article className="rounded-lg border border-primary p-3 font-body text-[11px] leading-relaxed text-dark">
             <h3 className="mb-2 font-bold">{chinese ? '专为后厨优化酱品' : 'Chef-grade Sauces, Improved for Kitchens'}</h3>
             <p>{chinese ? '特浓焖炖酱料：醇厚平衡、咸度适中、绝不齁咸。色泽红亮、风味醇厚、锅锅品质一致。另有完整即用酱系列: 咖喱、鱼咖喱、鸡咖喱等多种风味。' : 'Extra-concentrated braising sauces: rich, balanced, never overly salty. Delivers perfect colour, depth, and consistency every time. Complete ready-to-serve sauces also available, curry, fish curry, chicken curry, and more.'}</p>
-            <p className="mt-2 font-bold">{chinese ? '配方更用心，出品更稳定。' : 'Better recipe, better result.'}</p>
+            <p className="mt-2 font-bold italic">{chinese ? '配方更用心，出品更稳定。' : 'Better recipe, better result.'}</p>
           </article>
           <article className="rounded-lg border border-primary p-3 font-body text-[11px] leading-relaxed text-dark">
             <h3 className="mb-2 font-bold">{chinese ? '招牌面条, 三十年匠心之选' : 'Specialty Noodles, Our 30 Years Signature'}</h3>
@@ -287,7 +287,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
           <article className="rounded-lg border border-primary p-3 font-body text-[11px] leading-relaxed text-dark">
             <h3 className="mb-2 font-bold">{chinese ? '省时省力・风味不变' : 'Save Preparation Time, Without Compromising Flavour'}</h3>
             <p>{chinese ? '我们的预处理即用食材，酱料、芋头圈、芋泥甜品、冷冻虾卷等，均提前备好，为厨房省下大量备料工时。' : 'Ready-to-use processed ingredients, complete sauces, yam ring baskets, yam paste dessert, frozen prawn rolls, all prepared ahead to cut kitchen labour hours.'}</p>
-            <p className="mt-2 font-bold">{chinese ? '少备料，多做菜。' : 'Less prep, more cooking.'}</p>
+            <p className="mt-2 font-bold italic">{chinese ? '少备料，多做菜。' : 'Less prep, more cooking.'}</p>
           </article>
         </div>
       </section>
