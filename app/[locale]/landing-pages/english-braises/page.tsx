@@ -268,7 +268,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
       {/* Trusted kitchen partner */}
       <section className="container-pad py-6 sm:py-8 md:py-12">
         <h2 className="max-w-xl font-heading font-bold text-xl leading-tight text-dark md:text-4xl">
-          {chinese ? '值得信赖的厨房伙伴' : 'Your Trusted Kitchen Partner'}
+          {chinese ? '值得信赖的厨房伙伴' : <>Your <span className="font-subheading-two text-primary not-italic">Trusted</span> Kitchen Partner</>}
         </h2>
         <div className="mt-4 max-w-none space-y-3 font-body text-xs leading-relaxed text-dark md:text-sm">
           <p>{chinese ? '自 1996 年起，二爷食品一路陪伴新加坡餐饮业: 小贩、餐馆、外烩、食堂与酒店。' : 'Since 1996, Master 2 Foods has stood alongside professional kitchens across Singapore, hawkers, restaurants, caterers, canteens, and hotels.'}</p>
