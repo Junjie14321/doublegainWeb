@@ -47,7 +47,7 @@ const heroImages: Record<LandingVariant, string> = {
 }
 
 const productImages: Record<string, string> = {
-  sauce: '/images/xlc product image.png',
+  sauce: '/images/xlc product image_v2.png',
   noodle: '/images/tlm product image.png',
 }
 
