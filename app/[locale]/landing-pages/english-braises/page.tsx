@@ -111,7 +111,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
       <div className="flex justify-center bg-background px-4 py-1.5 md:px-8 md:py-3">
         <a
           href="#cta"
-          className="inline-flex items-center justify-center rounded-lg bg-secondary px-3 py-2 text-[10px] font-body font-bold uppercase tracking-wide text-dark transition-colors hover:bg-secondary-dark md:px-6 md:py-3 md:text-sm"
+          className="inline-flex items-center justify-center rounded-lg bg-secondary px-3 py-2 text-xs font-body font-bold uppercase tracking-wide text-dark transition-colors hover:bg-secondary-dark md:px-6 md:py-3 md:text-sm"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={whatsappIconUrl} alt="" aria-hidden="true" className="mr-2 h-4 w-4 object-contain" />
@@ -138,14 +138,14 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
                 <>Extra <span className="font-subheading-two text-primary not-italic">Rich</span> Fragrant Dark Soya Sauce</>
               ) : pageTitle}
             </h1>
-            <p className="mt-4 font-body text-xs leading-tight text-dark md:text-base">{productDescription}</p>
-            <p className="mt-4 font-body text-xs leading-relaxed">
+            <p className="mt-4 font-body text-sm leading-tight text-dark md:text-base">{productDescription}</p>
+            <p className="mt-4 font-body text-sm leading-relaxed">
               <span className="font-semibold">{chinese ? '配料：' : 'Ingredients:'}</span><br />
               {chinese ? '水、大豆、盐、小麦粉、糖。' : 'Water, soybeans, salt, wheat flour, sugar.'}
             </p>
             <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {details.map((detail) => (
-                <div key={detail.highlight} className="rounded-lg border-2 border-primary p-2 text-left text-[11px] leading-tight font-body md:p-3 md:text-sm">
+                <div key={detail.highlight} className="rounded-lg border-2 border-primary p-2 text-left text-xs leading-tight font-body md:p-3 md:text-sm">
                   <strong className="font-bold">{detail.highlight}</strong>{detail.text}
                 </div>
               ))}
@@ -161,7 +161,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
         </h2>
         {noodle ? (
           <div>
-            <p className="max-w-2xl font-body text-xs leading-relaxed md:text-base">{bestUsedCopy}</p>
+            <p className="max-w-2xl font-body text-sm leading-relaxed md:text-base">{bestUsedCopy}</p>
             <div className="relative mt-3 aspect-[2.5/1] w-full max-w-5xl">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/m2f%20web%20%26%20LP%20%2824%29-gLzk3JI22Ccg8xxG3J9ACmFwE0xs44.png"
@@ -274,7 +274,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
         <h2 className="max-w-xl font-heading font-bold text-xl leading-tight text-dark md:text-4xl">
           {chinese ? '值得信赖的厨房伙伴' : <>Your <span className="font-subheading-two text-primary not-italic">Trusted</span> Kitchen Partner</>}
         </h2>
-        <div className="mt-4 max-w-none space-y-3 font-body text-xs leading-relaxed text-dark md:text-sm">
+        <div className="mt-4 max-w-none space-y-3 font-body text-sm leading-relaxed text-dark md:text-base">
           <p>{chinese ? '自 1996 年起，二爷食品一路陪伴新加坡餐饮业: 小贩、餐馆、外烩、食堂与酒店。' : 'Since 1996, Master 2 Foods has stood alongside professional kitchens across Singapore, hawkers, restaurants, caterers, canteens, and hotels.'}</p>
           <p>{chinese ? '我们懂后厨所需：不只是味道好，更要供货稳、品质稳、用得省心。品控与配送交给我们，您只管专心做菜。' : 'Great flavour matters, and so does steady supply, consistent quality, and reliable service. Quality checks and dependable delivery are handled in-house, so kitchens can focus on cooking.'}</p>
         </div>
@@ -283,16 +283,16 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
         </p>
         {chinese && <p className="mt-2 font-body text-sm font-bold leading-relaxed text-dark md:text-base">三十年来，实实在在帮新加坡厨房做得更顺。</p>}
         <div className="mt-6 grid gap-3 sm:grid-cols-3">
-          <article className="rounded-lg border border-primary p-3 font-body text-[11px] leading-relaxed text-dark">
+          <article className="rounded-lg border border-primary p-3 font-body text-xs leading-relaxed text-dark">
             <h3 className="mb-2 font-bold">{chinese ? '专为后厨优化酱品' : 'Chef-grade Sauces, Improved for Kitchens'}</h3>
             <p>{chinese ? '特浓焖炖酱料：醇厚平衡、咸度适中、绝不齁咸。色泽红亮、风味醇厚、锅锅品质一致。另有完整即用酱系列: 咖喱、鱼咖喱、鸡咖喱等多种风味。' : 'Extra-concentrated braising sauces: rich, balanced, never overly salty. Delivers perfect colour, depth, and consistency every time. Complete ready-to-serve sauces also available, curry, fish curry, chicken curry, and more.'}</p>
             <p className="mt-2 font-bold italic">{chinese ? '配方更用心，出品更稳定。' : 'Better recipe, better result.'}</p>
           </article>
-          <article className="rounded-lg border border-primary p-3 font-body text-[11px] leading-relaxed text-dark">
+          <article className="rounded-lg border border-primary p-3 font-body text-xs leading-relaxed text-dark">
             <h3 className="mb-2 font-bold">{chinese ? '招牌面条, 三十年匠心之选' : 'Specialty Noodles, Our 30 Years Signature'}</h3>
             <p>{chinese ? '为每道菜肴赋予独特风味：伊面、KL 大碌面、生面: 有蛋 / 无蛋可选。口感筋道弹牙、质感分明、香气自然。让食客记住味道口感、频频回头。' : 'Yee Mee, KL Tai Lok Mee, Sheng Mian, egg or egg-free. Firm bite, distinct texture, natural fragrance. Noodles that give every dish its own character, so flavours remain memorable and keep customers returning.'}</p>
           </article>
-          <article className="rounded-lg border border-primary p-3 font-body text-[11px] leading-relaxed text-dark">
+          <article className="rounded-lg border border-primary p-3 font-body text-xs leading-relaxed text-dark">
             <h3 className="mb-2 font-bold">{chinese ? '省时省力・风味不变' : 'Save Preparation Time, Without Compromising Flavour'}</h3>
             <p>{chinese ? '我们的预处理即用食材，酱料、芋头圈、芋泥甜品、冷冻虾卷等，均提前备好，为厨房省下大量备料工时。' : 'Ready-to-use processed ingredients, complete sauces, yam ring baskets, yam paste dessert, frozen prawn rolls, all prepared ahead to cut kitchen labour hours.'}</p>
             <p className="mt-2 font-bold italic">{chinese ? '少备料，多做菜。' : 'Less prep, more cooking.'}</p>
