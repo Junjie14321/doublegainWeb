@@ -246,7 +246,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
             {noodle && (
               <fieldset className="flex-1 space-y-2 font-body text-sm">
                 <legend className="font-bold">{chinese ? '产品' : 'Products'}</legend>
-                {['KL Tai Lok Mee', 'Dark Soy Sauce [XLC]', 'Belacan Chilli (Dipping)'].map((product) => (
+                {['KL Tai Lok Mee', 'Fragrant Dark Soya Sauce', 'Belacan Chilli (Dipping)'].map((product) => (
                   <label key={product} className="flex items-center gap-2 font-bold">
                     <input type="checkbox" name="products" value={product} className="h-4 w-4 accent-primary" />
                     {product}
