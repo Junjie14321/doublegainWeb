@@ -182,7 +182,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
                 <article>
                   <div className="relative mx-auto aspect-square w-full max-w-sm">
                     <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/m2f%20web%20%26%20LP%20%2819%29-4dsuId4Mw4jkWNyYmWBKB3FFMfMpa9.png"
+                      src="/images/xlc product image_v2.png"
                       alt="Fragrant dark soya sauce"
                       fill
                       className="object-contain"
