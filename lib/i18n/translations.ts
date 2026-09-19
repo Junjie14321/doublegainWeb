@@ -259,7 +259,7 @@ export const translations = {
       businessType: 'Business Type',
       businessTypes: ['Restaurant', 'Hotel', 'Caterer', 'Distributor', 'Other'],
       message: 'Message',
-      messagePlaceholder: 'Tell us what you are looking for...',
+      messagePlaceholder: 'What products are you enquiring on?',
       submit: 'Send Message',
       whatsappDirect: 'Or contact us directly via WhatsApp',
       whatsappButton: 'Chat on WhatsApp',
