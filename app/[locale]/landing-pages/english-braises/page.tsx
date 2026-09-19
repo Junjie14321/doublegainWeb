@@ -122,7 +122,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
       {/* Product details */}
       <section className="container-pad py-6 sm:py-8 md:py-12">
         <div className="grid items-center gap-6 md:grid-cols-2 md:gap-10">
-          <div className="relative mx-auto aspect-square w-full max-w-sm rounded-xl md:max-w-lg">
+          <div className="relative mx-auto aspect-square w-full max-w-sm rounded-xl md:max-w-xl">
             <Image
               src={noodle ? productImages.noodle : productImages.sauce}
               alt="Product image"
