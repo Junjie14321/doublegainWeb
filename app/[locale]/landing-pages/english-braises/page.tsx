@@ -2,6 +2,7 @@ import Image from 'next/image'
 import type { Metadata } from 'next'
 import { SITE, WHATSAPP_BASE } from '@/lib/constants/site'
 import type { Locale } from '@/lib/i18n/config'
+import { LPNoodleForm } from './lp-noodle-form'
 
 export const metadata: Metadata = {
   title: 'English Braises | Master 2 Foods',
@@ -66,8 +67,8 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
   const noodle = variant === 'english-noodle' || variant === 'chinese-noodle'
 
   const quoteMessage = chinese
-    ? noodle ? '您好，我想了解大碌面的报价和样品。' : '您好，我想了解特浓香老抽的报价和样品。'
-    : noodle ? 'Hi, I would like to get a quote and sample for KL Hokkien Noodle.' : 'Hi, I would like to get a quote and sample for English Braises.'
+    ? noodle ? '您好，我想了解大碌面的报价和样品。' : '你好！我对香老抽有兴趣，可以了解更多吗?'
+    : noodle ? 'Hi, I would like to get a quote and sample for KL Hokkien Noodle.' : "Hi, I'm interested in Xiang Lao Chou for my business. Could you share pricing and sample info?"
   const quoteLink = buildWhatsAppLink(quoteMessage)
 
   const details = variant === 'chinese' ? chineseDetails : variant === 'english-noodle' ? englishNoodleDetails : variant === 'chinese-noodle' ? chineseNoodleDetails : englishDetails
@@ -234,38 +235,28 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
         <div className="mx-auto max-w-4xl">
           <h2 className="max-w-3xl font-heading font-bold text-2xl leading-tight text-primary md:text-5xl">{ctaTitle}</h2>
           <p className="mt-2 max-w-3xl font-body text-base leading-tight text-dark md:text-xl">{ctaDescription}</p>
-          <form action={quoteLink} method="get" target="_blank" className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-end">
-            <label className="flex-1 font-body text-sm font-bold">
-              {chinese ? '您的姓名' : 'Name'}
-              <input
-                name="name"
-                placeholder={chinese ? '您的姓名' : 'Your name'}
-                className="mt-2 w-full rounded-lg border-0 bg-background px-4 py-3 font-body text-dark outline-none ring-2 ring-transparent focus:ring-primary"
-              />
-            </label>
-            {noodle && (
-              <fieldset className="flex-1 space-y-2 font-body text-sm">
-                <legend className="font-bold">{chinese ? '产品' : 'Products'}</legend>
-                {(chinese
-                  ? ['大碌面', '香老抽', '峇拉煎辣椒酱（蘸酱）']
-                  : ['KL Tai Lok Mee', 'Fragrant Dark Soya Sauce', 'Belacan Chilli (Dipping)']
-                ).map((product) => (
-                  <label key={product} className="flex items-center gap-2 font-bold">
-                    <input type="checkbox" name="products" value={product} className="h-4 w-4 accent-primary" />
-                    {product}
-                  </label>
-                ))}
-              </fieldset>
-            )}
-            <button
-              type="submit"
-              className="inline-flex items-center justify-center rounded-lg bg-background px-6 py-4 text-sm font-body font-bold uppercase text-dark transition-colors hover:bg-primary hover:text-white"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={whatsappIconUrl} alt="" aria-hidden="true" className="mr-2 h-4 w-4 object-contain" />
-              {quoteText}
-            </button>
-          </form>
+          {noodle ? (
+            <LPNoodleForm chinese={chinese} quoteText={quoteText} />
+          ) : (
+            <form action={quoteLink} method="get" target="_blank" className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-end">
+              <label className="flex-1 font-body text-sm font-bold">
+                {chinese ? '您的姓名' : 'Name'}
+                <input
+                  name="name"
+                  placeholder={chinese ? '您的姓名' : 'Your name'}
+                  className="mt-2 w-full rounded-lg border-0 bg-background px-4 py-3 font-body text-dark outline-none ring-2 ring-transparent focus:ring-primary"
+                />
+              </label>
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center rounded-lg bg-background px-6 py-4 text-sm font-body font-bold uppercase text-dark transition-colors hover:bg-primary hover:text-white"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={whatsappIconUrl} alt="" aria-hidden="true" className="mr-2 h-4 w-4 object-contain" />
+                {quoteText}
+              </button>
+            </form>
+          )}
         </div>
       </section>
 
