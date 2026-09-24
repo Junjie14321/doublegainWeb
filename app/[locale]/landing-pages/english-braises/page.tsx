@@ -238,24 +238,25 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
           {noodle ? (
             <LPNoodleForm chinese={chinese} quoteText={quoteText} />
           ) : (
-            <form action={quoteLink} method="get" target="_blank" className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-end">
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-end">
               <label className="flex-1 font-body text-sm font-bold">
                 {chinese ? '您的姓名' : 'Name'}
                 <input
-                  name="name"
                   placeholder={chinese ? '您的姓名' : 'Your name'}
                   className="mt-2 w-full rounded-lg border-0 bg-background px-4 py-3 font-body text-dark outline-none ring-2 ring-transparent focus:ring-primary"
                 />
               </label>
-              <button
-                type="submit"
+              <a
+                href={quoteLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-lg bg-background px-6 py-4 text-sm font-body font-bold uppercase text-dark transition-colors hover:bg-primary hover:text-white"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={whatsappIconUrl} alt="" aria-hidden="true" className="mr-2 h-4 w-4 object-contain" />
                 {quoteText}
-              </button>
-            </form>
+              </a>
+            </div>
           )}
         </div>
       </section>
