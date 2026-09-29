@@ -80,15 +80,17 @@ export default async function HomePage({ params }: PageProps) {
       </h1>
 
       {/* Hero */}
-      <section className="relative aspect-[4/3] overflow-hidden">
-        <Image
-          src={heroImage}
-          alt="Master 2 Foods specialty sauces, noodles and ready-made ingredients"
-          fill
-          priority
-          className="object-contain"
-          sizes="100vw"
-        />
+      <section className="flex justify-center">
+        <div className="relative w-4/5 aspect-[4/3]">
+          <Image
+            src={heroImage}
+            alt="Master 2 Foods specialty sauces, noodles and ready-made ingredients"
+            fill
+            priority
+            className="object-contain"
+            sizes="80vw"
+          />
+        </div>
       </section>
 
       {/* Sticky CTA bar */}
