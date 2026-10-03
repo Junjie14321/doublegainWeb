@@ -89,7 +89,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
     : ''
 
   const quoteText = chinese ? '获取样品与报价' : 'Get a quote & sample'
-  const ctaTitle = chinese ? '想亲自试试？' : 'Interested?'
+  const ctaTitle = chinese ? '餐厅供货咨询' : 'F&B Ingredient Supply Enquiry'
   const ctaDescription = chinese ? '欢迎联系我们获取价目表与样品。无最低起订量，每周配送。' : 'Enquire today for price list & samples. No MOQ, weekly delivery.'
 
   return (
@@ -136,7 +136,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
           <div className="text-justify">
             <h1 className="max-w-xl font-heading font-bold text-xl leading-tight text-dark md:text-4xl">
               {variant === 'english' ? (
-                <>Extra <span className="font-subheading-two text-primary not-italic">Rich</span> Fragrant Dark Soya Sauce</>
+                <>Extra <span className="font-handsome text-primary">Rich</span> Fragrant Dark Soya Sauce</>
               ) : pageTitle}
             </h1>
             <p className="mt-4 font-body text-sm leading-tight text-dark md:text-base">{productDescription}</p>
@@ -174,7 +174,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
             </div>
             <div className="mt-8">
               <h3 className="font-heading text-xl font-bold text-dark md:text-3xl">
-                {chinese ? '地道福建面三件套' : <>The Authentic KL Hokkien Mee <span className="font-subheading-two text-primary not-italic">Trio</span></>}
+                {chinese ? '地道福建面三件套' : <>The Authentic KL Hokkien Mee <span className="font-handsome text-primary">Trio</span></>}
               </h3>
               <p className="mt-1 font-body text-sm md:text-base">
                 {chinese ? '面・酱・峇拉煎 - 配齐就够味' : 'Noodle, sauce, and belacan.'}
@@ -264,7 +264,7 @@ export function LandingPageTemplate({ variant = 'english' }: { variant?: Landing
       {/* Trusted kitchen partner */}
       <section className="container-pad py-6 sm:py-8 md:py-12">
         <h2 className="max-w-xl font-heading font-bold text-xl leading-tight text-dark md:text-4xl">
-          {chinese ? '值得信赖的厨房伙伴' : <>Your <span className="font-subheading-two text-primary not-italic">Trusted</span> Kitchen Partner</>}
+          {chinese ? '值得信赖的厨房伙伴' : <>Your <span className="font-handsome text-primary">Trusted</span> Kitchen Partner</>}
         </h2>
         <div className="mt-4 max-w-none space-y-3 font-body text-sm leading-relaxed text-dark md:text-base">
           <p>{chinese ? '自 1996 年起，二爷食品一路陪伴新加坡餐饮业: 小贩、餐馆、外烩、食堂与酒店。' : 'Since 1996, Master 2 Foods has stood alongside professional kitchens across Singapore, hawkers, restaurants, caterers, canteens, and hotels.'}</p>

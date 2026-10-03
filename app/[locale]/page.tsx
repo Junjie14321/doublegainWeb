@@ -42,8 +42,8 @@ export default async function HomePage({ params }: PageProps) {
   const zh = locale === 'zh'
 
   const heroImage = zh
-    ? 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/m2f%20web%20%26%20LP%20%2875%29-jtFwshvhJFMMqEcTiwwKLvT0LHOHpZ.png'
-    : 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/m2f%20web%20%26%20LP%20%2874%29-ub34JIkUWwizpFoG8cWTDEsNkjP7YG.png'
+    ? '/images/chi homepage.jpg'
+    : '/images/eng homepage.jpg'
 
   const chefs = zh
     ? [
@@ -110,7 +110,7 @@ export default async function HomePage({ params }: PageProps) {
         <h2 className="font-heading text-xl font-bold leading-none text-dark md:text-4xl">
           {zh
             ? '同行真实评价'
-            : <>What <span className="font-subheading-two text-primary not-italic">Chefs</span> Are Saying</>
+            : <>What <span className="font-handsome text-primary">Chefs</span> Are Saying</>
           }
         </h2>
         <div className="mt-3">
@@ -123,8 +123,8 @@ export default async function HomePage({ params }: PageProps) {
         <div className="container-pad">
           <h2 className="font-heading text-xl font-bold tracking-[0.01em] md:text-4xl">
             {zh
-              ? <><span className="font-subheading-two text-primary not-italic">焖炖酱料</span>与常用调料</>
-              : <><span className="font-subheading-two text-primary not-italic">Specialty</span> Braising Sauces &amp; Staples</>
+              ? <><span className="font-handsome text-primary">焖炖酱料</span>与常用调料</>
+              : <><span className="font-handsome text-primary">Specialty</span> Braising Sauces &amp; Staples</>
             }
           </h2>
           <a href={`/${locale}/${zh ? 'chinese' : 'english'}-braises`} className="block">
@@ -146,7 +146,7 @@ export default async function HomePage({ params }: PageProps) {
         <h2 className="font-heading text-xl font-bold tracking-[0.01em] md:text-4xl">
           {zh
             ? '招牌面条'
-            : <><span className="font-subheading-two text-primary not-italic">Heritage</span> Signature Noodles</>
+            : <><span className="font-handsome text-primary">Heritage</span> Signature Noodles</>
           }
         </h2>
         <p className="mt-3 font-subheading">
@@ -173,7 +173,7 @@ export default async function HomePage({ params }: PageProps) {
           <h2 className="font-heading text-xl font-bold tracking-[0.01em] md:text-4xl">
             {zh
               ? '预处理食材'
-              : <><span className="font-subheading-two text-primary not-italic">Efficient</span> Prepped Ingredients</>
+              : <><span className="font-handsome text-primary">Efficient</span> Prepped Ingredients</>
             }
           </h2>
           <p className="mt-3 font-subheading">
@@ -237,7 +237,7 @@ export default async function HomePage({ params }: PageProps) {
         <h2 className="font-heading text-xl font-bold tracking-[0.01em] md:text-4xl">
           {zh
             ? '值得信赖的厨房伙伴'
-            : <>Your <span className="font-subheading-two text-primary not-italic">Trusted</span> Kitchen Partner</>
+            : <>Your <span className="font-handsome text-primary">Trusted</span> Kitchen Partner</>
           }
         </h2>
         <div className="mt-5 max-w-3xl space-y-3 font-body leading-relaxed">
